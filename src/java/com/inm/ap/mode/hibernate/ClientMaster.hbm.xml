@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.ClientMaster" optimistic-lock="version" schema="ACCPLAN" table="CLIENT_MASTER">
+    <id name="clientid" type="string">
+      <column length="20" name="CLIENTID"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.RmCodelist" fetch="select" name="rmCodelistByRmCode">
+      <column length="20" name="RM_CODE" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.inm.ap.mode.hibernate.RmCodelist" fetch="select" name="rmCodelistByAlternativeRmCode">
+      <column length="20" name="ALTERNATIVE_RM_CODE" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmaster">
+      <column name="AFFILIATELOOKUPMASTERID" precision="22" scale="0"/>
+    </many-to-one>
+    <property name="clientname" type="string">
+      <column length="200" name="CLIENTNAME"/>
+    </property>
+    <property name="currentDate" type="date">
+      <column length="7" name="CURRENT_DATE"/>
+    </property>
+    <property name="tradeserviceprovider" type="string">
+      <column length="200" name="TRADESERVICEPROVIDER"/>
+    </property>
+    <property name="cashmanagementpartner" type="string">
+      <column length="200" name="CASHMANAGEMENTPARTNER"/>
+    </property>
+    <property name="riskmanagementpartner" type="string">
+      <column length="200" name="RISKMANAGEMENTPARTNER"/>
+    </property>
+    <property name="EBankingpartner" type="string">
+      <column length="200" name="E_BANKINGPARTNER"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="overallclientwalletsizes" table="OVERALLCLIENTWALLETSIZE">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Overallclientwalletsize"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="qualitativeinformations" table="QUALITATIVEINFORMATION">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Qualitativeinformation"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="companyMasters" table="COMPANY_MASTER">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.CompanyMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="clientcoverageprofiles" table="CLIENTCOVERAGEPROFILE">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Clientcoverageprofile"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogresses" table="DEALINPROGRESS">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="clientFinancials" table="CLIENT_FINANCIAL">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientFinancial"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="keysuppliermasters" table="KEYSUPPLIERMASTER">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Keysuppliermaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="accountRevenueInformations" table="ACCOUNT_REVENUE_INFORMATION">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.AccountRevenueInformation"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="competitions" table="COMPETITION">
+      <key>
+        <column length="20" name="CLIENTID"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Competition"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="keydistributormasters" table="KEYDISTRIBUTORMASTER">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Keydistributormaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="clientEmployees" table="CLIENT_EMPLOYEE">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientEmployee"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="creditInformations" table="CREDIT_INFORMATION">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.CreditInformation"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="salesactionplans" table="SALESACTIONPLAN">
+      <key>
+        <column length="20" name="CLIENTID" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Salesactionplan"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Lookupmaster" optimistic-lock="version" schema="ACCPLAN" table="LOOKUPMASTER">
+    <id name="lookupmasterid" type="int">
+      <column name="LOOKUPMASTERID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <property name="code" type="string">
+      <column length="20" name="CODE" not-null="true"/>
+    </property>
+    <property name="value" type="string">
+      <column name="VALUE" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="clientEmployees" table="CLIENT_EMPLOYEE">
+      <key>
+        <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientEmployee"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="clientMasters" table="CLIENT_MASTER">
+      <key>
+        <column name="AFFILIATELOOKUPMASTERID" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForDealpropabilitylookupid" table="DEALINPROGRESS">
+      <key>
+        <column name="DEALPROPABILITYLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForProductlookupid" table="DEALINPROGRESS">
+      <key>
+        <column name="PRODUCTLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="companyMastersForIndustrylookupmasterid" table="COMPANY_MASTER">
+      <key>
+        <column name="INDUSTRYLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.CompanyMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="companyMastersForAffiliatelookupmasterid" table="COMPANY_MASTER">
+      <key>
+        <column name="AFFILIATELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.CompanyMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="companyMastersForSegmentlookupmasterid" table="COMPANY_MASTER">
+      <key>
+        <column name="SEGMENTLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.CompanyMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForDealstagelookupmasterid" table="DEALINPROGRESS">
+      <key>
+        <column name="DEALSTAGELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForCompletionmonthlookupid" table="DEALINPROGRESS">
+      <key>
+        <column name="COMPLETIONMONTHLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="keysuppliermasters" table="KEYSUPPLIERMASTER">
+      <key>
+        <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Keysuppliermaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForDealstatuslookupmasterid" table="DEALINPROGRESS">
+      <key>
+        <column name="DEALSTATUSLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="keydistributormasters" table="KEYDISTRIBUTORMASTER">
+      <key>
+        <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Keydistributormaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="dealinprogressesForDealtypelookupmasterid" table="DEALINPROGRESS">
+      <key>
+        <column name="DEALTYPELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.Dealinprogress"/>
+    </set>
+  </class>
+</hibernate-mapping>

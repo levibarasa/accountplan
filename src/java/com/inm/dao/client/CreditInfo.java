@@ -6,55 +6,105 @@
 package com.inm.dao.client;
 
 import com.inm.ap.conn.AdminDb;
-import com.inm.models.CreditInfoModel;
+import com.inm.ap.hibernate.Util.*; 
+import com.inm.models.*;
 import java.util.ArrayList;
-
+import com.inm.ap.mode.hibernate.*;
+import java.util.Date;
+import java.util.List;
 /**
  *
  * @author Levi
  */
 public class CreditInfo {
+         OperationsDal ops;
+
+    public CreditInfo() {
+        ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
+    }
+     
+    public ArrayList<CreditInfoModel> getCreditInfo(String rmCode) {
+         ArrayList<CreditInfoModel> creditInfoList = new ArrayList<CreditInfoModel>();
+       CreditInfo cr = new CreditInfo();
+         CoreQuery coreQuery = new CoreQuery("from CreditInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode);
+        List companyMaster = ops.fetch(coreQuery);
+        for (Object creObject : companyMaster) {
+            CreditInformation creMaster = (CreditInformation) creObject;
+            CreditInfoModel creditInfoModel = new CreditInfoModel();
+            creditInfoModel.setCreditid(creMaster.getCreditid());
+            creditInfoModel.setApprovedlines(creMaster.getApprovedlines());
+            creditInfoModel.setRatingagency(creMaster.getRatingagency());
+            creditInfoModel.setRiskrating(creMaster.getRatingagency());
+            creditInfoModel.setClientMaster(cr.getClientMaster(rmCode).getClientname()); 
+            creditInfoModel.setOutstandingamount(creMaster.getOutstandingamount());
+            
+              creditInfoList.add(creditInfoModel);
+        }
+
+        return creditInfoList;
+    }
+    public ArrayList<RmCodelistModel> getRmCodeList() {
+         ArrayList<RmCodelistModel> rmCodeList = new ArrayList<RmCodelistModel>();
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist", true); 
+        List rmlst = ops.fetch(coreQuery);
+         if (Validator.validateList(rmlst)) {
+                for (Object rm : rmlst) {
+                    if (rm != null) {
+                     RmCodelist codelist = (RmCodelist) rm;
+                     RmCodelistModel codelistModel =   new RmCodelistModel(codelist.getRmCode(), codelist.getDesignation(), codelist.getBranch(), codelist.getBranch(), codelist.getRegion(), codelist.getCategory(), codelist.getRmName());
+                        rmCodeList.add(codelistModel);
+                        }
+                }
+            }
+         return rmCodeList;
+     }
+     public ArrayList<LookupmasterModel> getLookupList(String code) {
+         ArrayList<LookupmasterModel> lookupList = new ArrayList<LookupmasterModel>();
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where code =:code", true);
+        coreQuery.addParam("code", code); 
+        List lookups = ops.fetch(coreQuery);
+         if (Validator.validateList(lookups)) {
+                for (Object lookup : lookups) {
+                    if (lookup != null) {
+                     Lookupmaster lookupmaster = (Lookupmaster) lookup;
+                     LookupmasterModel lookupmasterModel =   new LookupmasterModel(lookupmaster.getLookupmasterid(), lookupmaster.getCode(), lookupmaster.getValue());
+                        lookupList.add(lookupmasterModel);
+                        }
+                }
+            }
+         return lookupList;
+     } 
+    public ArrayList<ClientModel> getClientMasterList(String rmCode) {
+         ArrayList<ClientModel> clientModelList = new ArrayList<ClientModel>();
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rms = ops.fetch(coreQuery);
+         if (Validator.validateList(rms)) {
+                for (Object rm : rms) {
+                    if (rm != null) {
+                     ClientMaster clientMaster = (ClientMaster) rm;
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                        clientModelList.add(clientModel);
+                        }
+                }
+            }
+         return clientModelList;
+     }
+     public ClientMaster getClientMaster(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
+     public RmCodelist getRmCodeList(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist where rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rmCodes = ops.fetch(coreQuery);
+        return (RmCodelist) rmCodes.get(0);
+    }
     
- public static ArrayList<CreditInfoModel> getCreditInfo(String rmCode) {
-         ArrayList<CreditInfoModel>  creditInfoList = new ArrayList<CreditInfoModel> ();
-         CreditInfo creditInfo = new CreditInfo();
-      String sql = "select ClientID,RM_Code,ApprovedLines,OutstandingAmount,RiskRating,RatingAgency from [dbo].[Credit_Information] where RM_Code = ?";
-        String in = rmCode;
-        ArrayList list = AdminDb.execArrayLists(sql, 1, in, 6);
-        for(int n =0;n<list.size(); n++){
-            ArrayList clientItem = (ArrayList) list.get(n);
-        CreditInfoModel creditInfoModel = new CreditInfoModel(); 
-        creditInfoModel.setClientID(creditInfo.getClientNameByID((String) clientItem.get(0)));
-        creditInfoModel.setRM_Code((String) clientItem.get(1));
-        creditInfoModel.setApprovedLines((String) clientItem.get(2));
-        creditInfoModel.setOutstandingAmount((String) clientItem.get(3));
-        creditInfoModel.setRiskRating((String) clientItem.get(4));
-        creditInfoModel.setRatingAgency((String) clientItem.get(5));
-        creditInfoList.add(creditInfoModel);
-         }
-        return creditInfoList;
-       
-     }
-  public static ArrayList<CreditInfoModel> getCreditInfoByClient(String rmCode,String clientId) {
-         ArrayList<CreditInfoModel>  creditInfoList = new ArrayList<CreditInfoModel> ();
-         CreditInfo creditInfo = new CreditInfo();
-      String sql = "select ClientID,RM_Code,ApprovedLines,OutstandingAmount,RiskRating,RatingAgency from [dbo].[Credit_Information] where RM_Code = ? and ClientID = ?";
-        String in = rmCode+ "," + clientId;
-        ArrayList list = AdminDb.execArrayLists(sql, 2, in, 6);
-        for(int n =0;n<list.size(); n++){
-            ArrayList clientItem = (ArrayList) list.get(n);
-        CreditInfoModel creditInfoModel = new CreditInfoModel(); 
-        creditInfoModel.setClientID(creditInfo.getClientNameByID((String) clientItem.get(0)));
-        creditInfoModel.setRM_Code((String) clientItem.get(1));
-        creditInfoModel.setApprovedLines((String) clientItem.get(2));
-        creditInfoModel.setOutstandingAmount((String) clientItem.get(3));
-        creditInfoModel.setRiskRating((String) clientItem.get(4));
-        creditInfoModel.setRatingAgency((String) clientItem.get(5));
-        creditInfoList.add(creditInfoModel);
-         }
-        return creditInfoList;
-       
-     }
+
       public  String getClientNameByID(String clientId) {
        AdminDb ad = new AdminDb();
         String sql = "select ClientName from [dbo].[Client_Master] where ClientID = ?";

@@ -4,126 +4,116 @@
  * and open the template in the editor.
  */
 package com.inm.models;
-
+ import java.util.Date;
 /**
  *
  * @author Levi
  */
 public class ClientModel {
- String ClientID;
- String ClientName;
- String RM_Code;
- String Alternative_RM_Code;
- String AffiliateId;
- String Current_Date;
- String TradeServiceProvider;
- String CashManagementPartner;
- String E_BankingPartner;
- String RiskManagementPartner;
- String Client_Category;
+    
+     private String clientid;
+     private String rmCode;
+     private String alternativeRmCode;
+     private String affiliate;
+     private String clientname;
+     private Date currentDate;
+     private String tradeserviceprovider;
+     private String cashmanagementpartner;
+     private String EBankingpartner;
+     private String riskmanagementpartner;
 
     public ClientModel() {
     }
 
-    public ClientModel(String ClientID, String RM_Code, String Alternative_RM_Code, String AffiliateId, String Current_Date, String TradeServiceProvider, String CashManagementPartner, String E_BankingPartner, String RiskManagementPartner, String Client_Category) {
-        this.ClientID = ClientID;
-        this.RM_Code = RM_Code;
-        this.Alternative_RM_Code = Alternative_RM_Code;
-        this.AffiliateId = AffiliateId;
-        this.Current_Date = Current_Date;
-        this.TradeServiceProvider = TradeServiceProvider;
-        this.CashManagementPartner = CashManagementPartner;
-        this.E_BankingPartner = E_BankingPartner;
-        this.RiskManagementPartner = RiskManagementPartner;
-        this.Client_Category = Client_Category;
+    public ClientModel(String clientid, String rmCode, String alternativeRmCode, String affiliate, String clientname, Date currentDate, String tradeserviceprovider, String cashmanagementpartner, String EBankingpartner) {
+        this.clientid = clientid;
+        this.rmCode = rmCode;
+        this.alternativeRmCode = alternativeRmCode;
+        this.affiliate = affiliate;
+        this.clientname = clientname;
+        this.currentDate = currentDate;
+        this.tradeserviceprovider = tradeserviceprovider;
+        this.cashmanagementpartner = cashmanagementpartner;
+        this.EBankingpartner = EBankingpartner;
     }
 
-    public String getClientID() {
-        return ClientID;
+    public String getClientid() {
+        return clientid;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setClientid(String clientid) {
+        this.clientid = clientid;
     }
 
-    public String getClientName() {
-        return ClientName;
+    public String getRmCode() {
+        return rmCode;
     }
 
-    public void setClientName(String ClientName) {
-        this.ClientName = ClientName;
+    public void setRmCode(String rmCode) {
+        this.rmCode = rmCode;
     }
 
-    public String getRM_Code() {
-        return RM_Code;
+    public String getAlternativeRmCode() {
+        return alternativeRmCode;
     }
 
-    public void setRM_Code(String RM_Code) {
-        this.RM_Code = RM_Code;
+    public void setAlternativeRmCode(String alternativeRmCode) {
+        this.alternativeRmCode = alternativeRmCode;
     }
 
-    public String getAlternative_RM_Code() {
-        return Alternative_RM_Code;
+    public String getAffiliate() {
+        return affiliate;
     }
 
-    public void setAlternative_RM_Code(String Alternative_RM_Code) {
-        this.Alternative_RM_Code = Alternative_RM_Code;
+    public void setAffiliate(String affiliate) {
+        this.affiliate = affiliate;
     }
 
-    public String getAffiliateId() {
-        return AffiliateId;
+    public String getClientname() {
+        return clientname;
     }
 
-    public void setAffiliateId(String AffiliateId) {
-        this.AffiliateId = AffiliateId;
+    public void setClientname(String clientname) {
+        this.clientname = clientname;
     }
 
-    public String getCurrent_Date() {
-        return Current_Date;
+    public Date getCurrentDate() {
+        return currentDate;
     }
 
-    public void setCurrent_Date(String Current_Date) {
-        this.Current_Date = Current_Date;
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
     }
 
-    public String getTradeServiceProvider() {
-        return TradeServiceProvider;
+    public String getTradeserviceprovider() {
+        return tradeserviceprovider;
     }
 
-    public void setTradeServiceProvider(String TradeServiceProvider) {
-        this.TradeServiceProvider = TradeServiceProvider;
+    public void setTradeserviceprovider(String tradeserviceprovider) {
+        this.tradeserviceprovider = tradeserviceprovider;
     }
 
-    public String getCashManagementPartner() {
-        return CashManagementPartner;
+    public String getCashmanagementpartner() {
+        return cashmanagementpartner;
     }
 
-    public void setCashManagementPartner(String CashManagementPartner) {
-        this.CashManagementPartner = CashManagementPartner;
+    public void setCashmanagementpartner(String cashmanagementpartner) {
+        this.cashmanagementpartner = cashmanagementpartner;
     }
 
-    public String getE_BankingPartner() {
-        return E_BankingPartner;
+    public String getEBankingpartner() {
+        return EBankingpartner;
     }
 
-    public void setE_BankingPartner(String E_BankingPartner) {
-        this.E_BankingPartner = E_BankingPartner;
+    public void setEBankingpartner(String EBankingpartner) {
+        this.EBankingpartner = EBankingpartner;
     }
 
-    public String getRiskManagementPartner() {
-        return RiskManagementPartner;
+    public String getRiskmanagementpartner() {
+        return riskmanagementpartner;
     }
 
-    public void setRiskManagementPartner(String RiskManagementPartner) {
-        this.RiskManagementPartner = RiskManagementPartner;
+    public void setRiskmanagementpartner(String riskmanagementpartner) {
+        this.riskmanagementpartner = riskmanagementpartner;
     }
-
-    public String getClient_Category() {
-        return Client_Category;
-    }
-
-    public void setClient_Category(String Client_Category) {
-        this.Client_Category = Client_Category;
-    }
-   
 }

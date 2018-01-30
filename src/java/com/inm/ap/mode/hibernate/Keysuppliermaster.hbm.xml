@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Keysuppliermaster" optimistic-lock="version" schema="ACCPLAN" table="KEYSUPPLIERMASTER">
+    <id name="ksid" type="int">
+      <column name="KSID" precision="22" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmaster">
+      <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+    </many-to-one>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="ksname" type="string">
+      <column length="200" name="KSNAME"/>
+    </property>
+    <property name="ksContactperson" type="string">
+      <column length="200" name="KS_CONTACTPERSON"/>
+    </property>
+    <property name="ksPhonenumber" type="string">
+      <column length="200" name="KS_PHONENUMBER"/>
+    </property>
+    <property name="ksEmail" type="string">
+      <column length="200" name="KS_EMAIL"/>
+    </property>
+    <property name="ksLocation" type="string">
+      <column length="200" name="KS_LOCATION"/>
+    </property>
+    <property name="volofbusiness" type="string">
+      <column length="200" name="VOLOFBUSINESS"/>
+    </property>
+    <property name="bankedbyim" type="string">
+      <column length="20" name="BANKEDBYIM"/>
+    </property>
+    <property name="comments" type="string">
+      <column length="200" name="COMMENTS"/>
+    </property>
+  </class>
+</hibernate-mapping>

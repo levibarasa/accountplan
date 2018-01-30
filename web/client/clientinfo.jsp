@@ -1,9 +1,37 @@
 <%@page import="com.inm.dao.client.Client"%>
-<%@page import="com.inm.models.ClientModel"%> 
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 <html>
 <head>
+      <script type="text/javascript"> 
+          function updateValues(ths, clientid, currentdate,trades,cashm,ebank,riskm) { 
+                    var clientidb = document.getElementById("clientidb");
+                    var clientnameb = document.getElementById("clientnameb");
+                    var currentdateb = document.getElementById("currentdateb");
+                    var tradespb = document.getElementById("tradespb");
+                    var cashmpb = document.getElementById("cashmpb");
+                    var ebankpb = document.getElementById("ebankpb");
+                    var riskmpb = document.getElementById("riskmpb"); 
+                    clientnameb.value = ths.value.innerHTML; //for innerhtml
+                    clientidb.value = clientid;
+                    currentdateb.value = currentdate;
+                   tradesp.value = tradespb;
+                    cashmpb.value = cashmp;
+                   ebankpb.value = ebankp;
+                    riskmpb.value = riskmp; 
+            }
+            
+//       $(document).ready(function () {
+//    $("#clientnameb").change(function () {
+//        var val = $(this).val();
+//        
+//        if (val == "item1") {
+//            $("#size").html("<option value='test'>item1: test 1</option><option value='test2'>item1: test 2</option>");
+//        }  
+//    });
+//});
+    </script>
     <script type="text/javascript">
  
             var form = $('#addClient');
@@ -89,7 +117,8 @@
                 <tbody>
                      
                     <%
-                        ArrayList<ClientModel> list = Client.getClientInfo(user_code);
+                        Client client = new Client();
+                        ArrayList<ClientModel> list = client.getClientInfo(user_code);
                         for(ClientModel clientModel :list){
                         %>
                   <tr>
@@ -100,15 +129,15 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td> 
-                        <td><%=clientModel.getClientName()%></td>
-			<td><%=clientModel.getRM_Code()%></td>
-                        <td><%=clientModel.getAlternative_RM_Code()%></td>
-                        <td><%=clientModel.getAffiliateId()%></td>
-                        <td> <%=clientModel.getCurrent_Date()%></td>
-                        <td><%=clientModel.getTradeServiceProvider()%> </td>
-                        <td><%=clientModel.getCashManagementPartner()%></td>
-                        <td><%=clientModel.getE_BankingPartner()%></td>
-                        <td><%=clientModel.getRiskManagementPartner()%> </td>
+                        <td><%=clientModel.getClientname()%></td>
+			<td><%=clientModel.getRmCode()%></td>
+                        <td><%=clientModel.getAlternativeRmCode()%></td>
+                        <td><%=clientModel.getAffiliate()%></td>
+                        <td> <%=clientModel.getCurrentDate()%></td>
+                        <td><%=clientModel.getTradeserviceprovider()%> </td>
+                        <td><%=clientModel.getCashmanagementpartner()%></td>
+                        <td><%=clientModel.getEBankingpartner()%></td>
+                        <td><%=clientModel.getRiskmanagementpartner()%> </td>
                         <td>
                             <a href="#editClientModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteClientModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -149,59 +178,48 @@
 						<div class="form-group">
 							<label>Relationship Officer</label>
                                                         <%
-                                 ArrayList allRms = Client.getAllRms();
-                                  int noOfRms = allRms.size();
+                                 ArrayList<RmCodelistModel>  allRms = client.getRmCodeList();
+                                 
                                                         %>
-							<select name="rmCodea" id="rmCodea" class="form-control" required>
+			 <select name="rmCodea" id="rmCodea" class="form-control" required>
                               <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+                                    for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
                                 <%
                                     } 
                                 %>
-                                                        </select>
+                          </select>
 						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-                                                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+                                <div class="form-group">
+                                <label>Alternative Relationship Officer</label>
+                            
+                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
+                                    <%
+                                    for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
                                 <%
-                                    }
+                                    } 
                                 %>
-                                                        </select>
+                             </select>
 						</div>
                                                         
 						<div class="form-group">
                                                      <%
-                                 ArrayList affiliate = Client.getAffiliate();
-                                  int noOfAffiliate = affiliate.size();
+                                 ArrayList<LookupmasterModel>  affiliates = client.getLookupList("AFFILIATE");
+                                 
                                                         %>
 							<label>Country</label>
-                                                        <select name="affiliatea" id="affiliatea" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
+             <select name="affiliatea" id="affiliatea" class="form-control" required>
+                        <%
+                                    for(LookupmasterModel lookupmasterModel : affiliates){ 
                                 %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=lookupmasterModel.getLookupmasterid()%>" > <%=lookupmasterModel.getValue()%></option>  
                                 <%
-                                    }
-                                %>   
-                                                        </select>
+                                    } 
+                                %>
+                     </select>
 						</div>
                                                     <div class="form-group">
 							<label>Date</label>
@@ -236,104 +254,94 @@
 	<div id="editClientModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form   name="edditClient" method="GET" action="do?MOD=BOK&ACT=doUpdateClient" id="edditClient">
-                                     	<div class="modal-header">						
+            <form  name="addClient"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClient"  id="addClient">
+		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 			
+                <div class="modal-header">						
 						<h4 class="modal-title">Edit Client</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
-                           <input type="hidden" name="uname" id="uname" value="<%= user_code%>">
+					<div class="modal-body">					
 						<div class="form-group">
 							<label>Name</label>
-							<input id="clientname" type="text" class="form-control" required>
+							<input name="clientnamea" id="clientnamea" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Relationship Officer</label>
                                                         <%
-                                   allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
+                                    allRms = client.getRmCodeList();
+                                 
                                                         %>
-							<select id="rmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+			 <select name="rmCodea" id="rmCodea" class="form-control" required>
+                              <%
+                                    for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
                                 <%
-                                    }
+                                    } 
                                 %>
-                                                        </select>
+                          </select>
 						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-							<select id="altrmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+                                <div class="form-group">
+                                <label>Alternative Relationship Officer</label>
+                            
+                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
+                                    <%
+                                    for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
                                 <%
-                                    }
+                                    } 
                                 %>
-                                                        </select>
+                             </select>
 						</div>
                                                         
 						<div class="form-group">
                                                      <%
-                                   affiliate = Client.getAffiliate();
-                                    noOfAffiliate = affiliate.size();
+                                  affiliates = client.getLookupList("AFFILIATE");
+                                 
                                                         %>
 							<label>Country</label>
-                                                        <select id="affiliate" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
+             <select name="affiliatea" id="affiliatea" class="form-control" required>
+                        <%
+                                    for(LookupmasterModel lookupmasterModel : affiliates){ 
                                 %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=lookupmasterModel.getLookupmasterid()%>" > <%=lookupmasterModel.getValue()%></option>  
                                 <%
-                                    }
-                                %>   
-                                                        </select>
+                                    } 
+                                %>
+                     </select>
 						</div>
-                                                  <div class="form-group">
+                                                    <div class="form-group">
 							<label>Date</label>
-							<input id="currentdate" type="text" class="form-control" required>
-						</div>	      
+							<input name="currentdatea" id="currentdatea" type="text" class="form-control" required>
+						</div>    
 						<div class="form-group">
 							<label>Trade Service Partner</label>
-							<input id="tradesp" type="text" class="form-control" required>
+                                                        <input name="tradespa" id="tradespa" type="text" class="form-control" required>
 						</div>	
                                                         <div class="form-group">
 							<label>Cash Management Partner</label>
-							<input id="cashmp" type="text" class="form-control" required>
+							<input name="cashmpa" id="cashmpa" type="text" class="form-control" required>
 						</div>
                                                   <div class="form-group">
 							<label>E-Banking Partner</label>
-							<input id="ebankp" type="text" class="form-control" required>
+                                                        <input name="ebankpa" id="ebankpa" type="text" class="form-control" required>
 						</div>
                                                         <div class="form-group">
 							<label>Risk Management Partner</label>
-							<input  id="riskmp" type="text" class="form-control" required>
+                                                        <input name="riskmpa"  id="riskmpa" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="submit" onclick="registerClient();"  class="btn btn-success" value="Add">
 					</div>
-                                                      
 				</form>
 			</div>
 		</div>
 	</div>
+        
+        
 	<!-- Delete Modal HTML -->
 	<div id="deleteClientModal" class="modal fade">
 		<div class="modal-dialog">

@@ -1,0 +1,175 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.inm.dao.valuechain;
+
+import com.inm.ap.conn.AdminDb;
+import com.inm.ap.hibernate.Util.*; 
+import com.inm.models.*;
+import java.util.ArrayList;
+import com.inm.ap.mode.hibernate.*;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *
+ * @author Levi
+ */
+public class KeyDistributor {
+    
+     OperationsDal ops;
+
+    public KeyDistributor() {
+        ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
+    }
+    
+     public ArrayList<KeyDistributorModel> getDistributorInfo(String rmCode) {
+         ArrayList<KeyDistributorModel> keyDistributorList = new ArrayList<KeyDistributorModel>();
+       KeyDistributor kd = new KeyDistributor();
+         CoreQuery coreQuery = new CoreQuery("from Keydistributormaster where clientMaster.rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode);
+        List kdMaster = ops.fetch(coreQuery);
+        for (Object kdObject : kdMaster) {
+            Keydistributormaster keydistributormaster = (Keydistributormaster) kdObject;
+            KeyDistributorModel distributorModel = new KeyDistributorModel(); 
+            distributorModel.setClientMaster(kd.getClientMaster(rmCode).getClientname()); 
+            distributorModel.setBankedbyim(keydistributormaster.getBankedbyim());
+            distributorModel.setClientturnover(keydistributormaster.getClientturnover());
+            distributorModel.setComments(keydistributormaster.getComments());
+            distributorModel.setKdContactperson(keydistributormaster.getKdContactperson());
+            distributorModel.setKdEmail(keydistributormaster.getKdEmail());
+            distributorModel.setKdLocation(keydistributormaster.getKdLocation());
+            distributorModel.setKdPhonenumber(keydistributormaster.getKdPhonenumber());
+            distributorModel.setKdandclients(keydistributormaster.getKdandclients());
+            distributorModel.setKdid(keydistributormaster.getKdid());
+            distributorModel.setLookupmaster(keydistributormaster.getLookupmaster().getValue());
+            distributorModel.setVolofbusnskdandclient(keydistributormaster.getVolofbusnskdandclient());
+              keyDistributorList.add(distributorModel);
+        }
+
+        return keyDistributorList;
+    }
+     public ArrayList<RmCodelistModel> getRmCodeList() {
+         ArrayList<RmCodelistModel> rmCodeList = new ArrayList<RmCodelistModel>();
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist", true); 
+        List rmlst = ops.fetch(coreQuery);
+         if (Validator.validateList(rmlst)) {
+                for (Object rm : rmlst) {
+                    if (rm != null) {
+                     RmCodelist codelist = (RmCodelist) rm;
+                     RmCodelistModel codelistModel =   new RmCodelistModel(codelist.getRmCode(), codelist.getDesignation(), codelist.getBranch(), codelist.getBranch(), codelist.getRegion(), codelist.getCategory(), codelist.getRmName());
+                        rmCodeList.add(codelistModel);
+                        }
+                }
+            }
+         return rmCodeList;
+     }
+     public ArrayList<LookupmasterModel> getLookupList(String code) {
+         ArrayList<LookupmasterModel> lookupList = new ArrayList<LookupmasterModel>();
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where code =:code", true);
+        coreQuery.addParam("code", code); 
+        List lookups = ops.fetch(coreQuery);
+         if (Validator.validateList(lookups)) {
+                for (Object lookup : lookups) {
+                    if (lookup != null) {
+                     Lookupmaster lookupmaster = (Lookupmaster) lookup;
+                     LookupmasterModel lookupmasterModel =   new LookupmasterModel(lookupmaster.getLookupmasterid(), lookupmaster.getCode(), lookupmaster.getValue());
+                        lookupList.add(lookupmasterModel);
+                        }
+                }
+            }
+         return lookupList;
+     } 
+    public ArrayList<ClientModel> getClientMasterList(String rmCode) {
+         ArrayList<ClientModel> clientModelList = new ArrayList<ClientModel>();
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rms = ops.fetch(coreQuery);
+         if (Validator.validateList(rms)) {
+                for (Object rm : rms) {
+                    if (rm != null) {
+                     ClientMaster clientMaster = (ClientMaster) rm;
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                        clientModelList.add(clientModel);
+                        }
+                }
+            }
+         return clientModelList;
+     }
+     public ClientMaster getClientMaster(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
+     public RmCodelist getRmCodeList(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist where rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rmCodes = ops.fetch(coreQuery);
+        return (RmCodelist) rmCodes.get(0);
+    }
+     
+   
+       public   String getRMNameByCode(String rmCode) {
+       AdminDb ad = new AdminDb();
+        String sql = "select  employeeName from Employee_Details where employeeID = ?";
+        String str = ad.getStringValue(sql, 1, 1, rmCode);
+        return str;
+    }
+       public static ArrayList getSegment() {
+        String sql = "select Segment from [dbo].[SegmentMaster]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    } 
+    public static ArrayList getAllRms() {
+        String sql = "select RM_Code,RM_Name from  [dbo].[RM_Codelist]";
+        return AdminDb.execArrayLists(sql, 0, "", 2);
+    }
+    public static ArrayList getAffiliate() {
+        String sql = "select AffiliateName from [dbo].[AffiliateMaster]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
+        public static ArrayList getIndustry() {
+        String sql = "select IndustryDescription from [dbo].[IndustryMaster]";
+        return AdminDb.execArrayLists(sql, 0, "", 1);
+    }
+        public static ArrayList getClientName() {
+        String sql = "select ClientID,ClientName from  [dbo].[Client_Master]";
+        return AdminDb.execArrayLists(sql, 0, "", 2);
+    } 
+     public  String getClientNameByID(String clientId) {
+       AdminDb ad = new AdminDb();
+        String sql = "select ClientName from [dbo].[Client_Master] where ClientID = ?";
+        String str = ad.getStringValue(sql, 1, 1, clientId);
+        return str;
+    }
+      public ArrayList<KeyDistributorModel> getDistributorInfoByClientId(String rmCode, String clientId) {
+         ArrayList<KeyDistributorModel> keyDistributorList = new ArrayList<KeyDistributorModel>();
+       KeyDistributor kd = new KeyDistributor();
+         CoreQuery coreQuery = new CoreQuery("from Keydistributormaster where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientId);
+        List kdMaster = ops.fetch(coreQuery);
+        for (Object kdObject : kdMaster) {
+            Keydistributormaster keydistributormaster = (Keydistributormaster) kdObject;
+            KeyDistributorModel distributorModel = new KeyDistributorModel(); 
+            distributorModel.setClientMaster(kd.getClientMaster(rmCode).getClientname()); 
+            distributorModel.setBankedbyim(keydistributormaster.getBankedbyim());
+            distributorModel.setClientturnover(keydistributormaster.getClientturnover());
+            distributorModel.setComments(keydistributormaster.getComments());
+            distributorModel.setKdContactperson(keydistributormaster.getKdContactperson());
+            distributorModel.setKdEmail(keydistributormaster.getKdEmail());
+            distributorModel.setKdLocation(keydistributormaster.getKdLocation());
+            distributorModel.setKdPhonenumber(keydistributormaster.getKdPhonenumber());
+            distributorModel.setKdandclients(keydistributormaster.getKdandclients());
+            distributorModel.setKdid(keydistributormaster.getKdid());
+            distributorModel.setLookupmaster(keydistributormaster.getLookupmaster().getValue());
+            distributorModel.setVolofbusnskdandclient(keydistributormaster.getVolofbusnskdandclient());
+              keyDistributorList.add(distributorModel);
+        }
+
+        return keyDistributorList;
+    }
+}

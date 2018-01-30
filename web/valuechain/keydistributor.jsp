@@ -1,17 +1,17 @@
-<%@page import="com.inm.dao.client.Client"%>
-<%@page import="com.inm.models.ClientModel"%> 
+<%@page import="com.inm.dao.valuechain.*"%>
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 <html>
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addKeyDistributor');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddKeyDistributor',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -23,45 +23,18 @@
             return false;
             });
 </script>
- <script type="text/javascript"> 
-//            function registerClient() {
-//		var uname = $("#uname").val();
-//		var clientname = $("#clientnamea").val();
-//		var rmCode = $("#uemaila").val();
-//		var altrmCode = $("#altrmCodea").val();
-//                var affiliate = $("#affiliatea").val();
-//                var currentdate = $("#currentdatea").val();
-//                var tradesp = $("#tradespa").val();
-//                var cashmp = $("#cashmpa").val();
-//                var ebankp = $("#ebankpa").val();
-//                var riskmp = $("#riskmpa").val(); 
-//		$.ajax({
-//			type : "POST",
-//			url : ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
-//			data : "clientname=" + clientname + "&rmCode=" + rmCode + "&altrmCode=" + altrmCode
-//                        + "&affiliate=" + affiliate+ "&currentdate=" + currentdate+ "&tradesp=" + tradesp+ "&cashmp=" + cashmp+ "&ebankp=" + ebankp+ "&riskmp=" + riskmp,
-//			success : function(data) {
-//				var ht = data.msg;
-//                                alert(ht);
-//				//$("#resp").html(ht);
-//			},
-//			error : function(data) {
-//				alert("Some error occured.");
-//			}
-//		});
-//	}
-</script>
+ 
    </head>    
 <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Client <b>Information</b></h2>
+						<h2>Key Distributor <b>Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addClientModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Client</span></a>
-						<a href="#deleteClientModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addKeyDistributorModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New KeyDistributor</span></a>
+						<a href="#deleteKeyDistributorModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -70,48 +43,43 @@
                     <tr>
 						<th>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
+			 <a href="#viewAll" ><i class="fa fa-eye" aria-hidden="true"></i></a>
 							</span>
 						</th> 
                         <th>Client Name</th>
-			<th>Rm Name</th>
-                        <th>Alt Rm Name</th>
-                        <th>Country</th>
-                        <th>Date</th>
-                        <th>Trade Services Partner</th>
-                        <th>Cash Management Partner</th>
-                        <th>E-Banking Partner</th>
-                        <th>Risk Management Partner</th>
+			<th>KD&Clients</th>
+                        <th>ContactPerson</th>
+                        <th>Phone#</th>
+                        <th>Email</th> 
+                        <th>VolOfBusiness</th>
+                        <th>BankedByI&M</th>  
                         <th>Actions</th>
                     </tr>
                 </thead> 
                 <tbody>
                      
                     <%
-                        ArrayList<ClientModel> list = Client.getClientInfo(user_code);
-                        for(ClientModel clientModel :list){
+                        KeyDistributor kd = new KeyDistributor();
+                        ArrayList<KeyDistributorModel> list = kd.getDistributorInfo(user_code);
+                        for(KeyDistributorModel keyDistributorModel :list){
                         %>
                   <tr>
                   
 						<td>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
+								<a href="#viewAll" ><i class="fa fa-eye" aria-hidden="true"></i></a>
 							</span>
 						</td> 
-                        <td><%=clientModel.getClientName()%></td>
-			<td><%=clientModel.getRM_Code()%></td>
-                        <td><%=clientModel.getAlternative_RM_Code()%></td>
-                        <td><%=clientModel.getAffiliateId()%></td>
-                        <td> <%=clientModel.getCurrent_Date()%></td>
-                        <td><%=clientModel.getTradeServiceProvider()%> </td>
-                        <td><%=clientModel.getCashManagementPartner()%></td>
-                        <td><%=clientModel.getE_BankingPartner()%></td>
-                        <td><%=clientModel.getRiskManagementPartner()%> </td>
+                        <td><%=keyDistributorModel.getClientMaster()%></td>
+			<td><%=keyDistributorModel.getKdandclients()%></td>
+                        <td><%=keyDistributorModel.getKdContactperson()%></td>
+                        <td><%=keyDistributorModel.getKdPhonenumber()%></td>
+                        <td><%=keyDistributorModel.getKdEmail()%></td> 
+                        <td><%=keyDistributorModel.getVolofbusnskdandclient()%> </td>
+                        <td><%=keyDistributorModel.getBankedbyim()%></td>  
                         <td>
-                            <a href="#editClientModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteClientModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editKeyDistributorModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteKeyDistributorModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                         </tr>
                         <%
@@ -132,215 +100,214 @@
         </div>
     </div>
 	<!-- ADD Modal HTML -->
-	<div id="addClientModal" class="modal fade">
+	<div id="addKeyDistributorModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-            <form  name="addClient"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClient"  id="addClient">
+            <form  name="addKeyDistributor"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddKeyDistributor"  id="addKeyDistributor">
 		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 			
                 <div class="modal-header">						
-						<h4 class="modal-title">Add Client</h4>
+						<h4 class="modal-title">Add Key Distributors</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input name="clientnamea" id="clientnamea" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Relationship Officer</label>
-                                                        <%
-                                 ArrayList allRms = Client.getAllRms();
-                                  int noOfRms = allRms.size();
+						 <div class="form-group">
+                                                    <%
+                                 ArrayList<ClientModel> clientname = kd.getClientMasterList(user_code); 
                                                         %>
-							<select name="rmCodea" id="rmCodea" class="form-control" required>
-                              <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    } 
-                                %>
-                                                        </select>
-						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-                                                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
-                                %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        
-						<div class="form-group">
-                                                     <%
-                                 ArrayList affiliate = Client.getAffiliate();
-                                  int noOfAffiliate = affiliate.size();
-                                                        %>
-							<label>Country</label>
-                                                        <select name="affiliatea" id="affiliatea" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
-                                %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
-                                                        </select>
+                                     </select>
 						</div>
-                                                    <div class="form-group">
-							<label>Date</label>
-							<input name="currentdatea" id="currentdatea" type="text" class="form-control" required>
-						</div>    
-						<div class="form-group">
-							<label>Trade Service Partner</label>
-                                                        <input name="tradespa" id="tradespa" type="text" class="form-control" required>
-						</div>	
+			 <div class="form-group">
+                                    <label>Key Distributor and Clients</label>
+                                    <input name="kdandclienta" id="kdandclienta" type="text" class="form-control" required>
+                            </div>    
                                                         <div class="form-group">
-							<label>Cash Management Partner</label>
-							<input name="cashmpa" id="cashmpa" type="text" class="form-control" required>
+                                    <label>Key Distributor Contact Person</label>
+                                <input  name="contactpersona" id="contactpersona"  type="text" class="form-control" required>
+                              </div>
+                            <div class="form-group">
+                                    <label>Key Distributor Phone Number</label>
+                                    <input  name="phonea" id="phonea"  type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Key Distributor Email</label>
+                                    <input type="text" name="emaila" id="emaila"  class="form-control" required>
+                            </div>
+                          <div class="form-group">
+                                    <label>Key Distributor Location</label>
+                                    <input type="text" name="locationa" id="locationa"  class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                                    <%  
+                                  ArrayList<LookupmasterModel> segment = kd.getLookupList("SEGMENT"); 
+                                                        %>
+							<label>Segment</label>
+				 <select name="segmenta" id="segmenta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : segment){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
-                                                  <div class="form-group">
-							<label>E-Banking Partner</label>
-                                                        <input name="ebankpa" id="ebankpa" type="text" class="form-control" required>
+                               <div class="form-group">
+                                    <label>Volume Of Business</label>
+                                    <input type="text" name="volofbusinessa" id="volofbusinessa"  class="form-control" required>
+                            </div> 
+                                      <div class="form-group"> 
+							<label>Banked By I&M</label>
+				 <select name="bankedbyima" id="bankedbyima" class="form-control" required>
+                                     <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                 </select>
+                                      </div>
+                                     <div class="form-group">
+							<label>Relationship Officer</label>
+                                                        <%
+                                 ArrayList<RmCodelistModel>  allRms = kd.getRmCodeList();
+                                 
+                                                        %>
+			 <select name="rmCodea" id="rmCodea" class="form-control" required>
+                              <%
+                                    for(RmCodelistModel codelistModel : allRms){ 
+                                %> 
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
+                                <%
+                                    } 
+                                %>
+                          </select>
 						</div>
-                                                        <div class="form-group">
-							<label>Risk Management Partner</label>
-                                                        <input name="riskmpa"  id="riskmpa" type="text" class="form-control" required>
-						</div>
-					</div>
+                                   <div class="form-group">
+                                            <label>Comment</label>
+                                        <textarea  name="commenta" id="commenta" class="form-control" required></textarea>
+                                     </div>  
+                    </div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" onclick="registerClient();"  class="btn btn-success" value="Add">
+						<input type="submit" onclick="registerKeyDistributor();"  class="btn btn-success" value="Add">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editClientModal" class="modal fade">
+	<div id="editKeyDistributorModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form   name="edditClient" method="GET" action="do?MOD=BOK&ACT=doUpdateClient" id="edditClient">
-                                     	<div class="modal-header">						
-						<h4 class="modal-title">Edit Client</h4>
+            <form  name="addKeyDistributor"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddKeyDistributor"  id="addKeyDistributor">
+		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 			
+                <div class="modal-header">						
+						<h4 class="modal-title">Add Key Distributors</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
-                           <input type="hidden" name="uname" id="uname" value="<%= user_code%>">
-						<div class="form-group">
-							<label>Name</label>
-							<input id="clientname" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Relationship Officer</label>
-                                                        <%
-                                   allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
+					<div class="modal-body">					
+						 <div class="form-group">
+                                                    <%
+                                clientname = kd.getClientMasterList(user_code); 
                                                         %>
-							<select id="rmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-							<select id="altrmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
-                                %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        
-						<div class="form-group">
-                                                     <%
-                                   affiliate = Client.getAffiliate();
-                                    noOfAffiliate = affiliate.size();
-                                                        %>
-							<label>Country</label>
-                                                        <select id="affiliate" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
-                                %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
-                                                        </select>
+                                     </select>
 						</div>
-                                                  <div class="form-group">
-							<label>Date</label>
-							<input id="currentdate" type="text" class="form-control" required>
-						</div>	      
-						<div class="form-group">
-							<label>Trade Service Partner</label>
-							<input id="tradesp" type="text" class="form-control" required>
-						</div>	
+			 <div class="form-group">
+                                    <label>Key Distributor and Clients</label>
+                                    <input name="kdandclienta" id="kdandclienta" type="text" class="form-control" required>
+                            </div>    
                                                         <div class="form-group">
-							<label>Cash Management Partner</label>
-							<input id="cashmp" type="text" class="form-control" required>
+                                    <label>Key Distributor Contact Person</label>
+                                <input  name="contactpersona" id="contactpersona"  type="text" class="form-control" required>
+                              </div>
+                            <div class="form-group">
+                                    <label>Key Distributor Phone Number</label>
+                                    <input  name="phonea" id="phonea"  type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Key Distributor Email</label>
+                                    <input type="text" name="emaila" id="emaila"  class="form-control" required>
+                            </div>
+                          <div class="form-group">
+                                    <label>Key Distributor Location</label>
+                                    <input type="text" name="locationa" id="locationa"  class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                                    <%  
+                                   segment = kd.getLookupList("SEGMENT"); 
+                                                        %>
+							<label>Segment</label>
+				 <select name="segmenta" id="segmenta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : segment){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
-                                                  <div class="form-group">
-							<label>E-Banking Partner</label>
-							<input id="ebankp" type="text" class="form-control" required>
+                               <div class="form-group">
+                                    <label>Volume Of Business</label>
+                                    <input type="text" name="volofbusinessa" id="volofbusinessa"  class="form-control" required>
+                            </div> 
+                                      <div class="form-group"> 
+							<label>Banked By I&M</label>
+				 <select name="bankedbyima" id="bankedbyima" class="form-control" required>
+                                     <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                 </select>
+                                      </div>
+                                     <div class="form-group">
+							<label>Relationship Officer</label>
+                                                        <%
+                                    allRms = kd.getRmCodeList();
+                                 
+                                                        %>
+			 <select name="rmCodea" id="rmCodea" class="form-control" required>
+                              <%
+                                    for(RmCodelistModel codelistModel : allRms){ 
+                                %> 
+                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
+                                <%
+                                    } 
+                                %>
+                          </select>
 						</div>
-                                                        <div class="form-group">
-							<label>Risk Management Partner</label>
-							<input  id="riskmp" type="text" class="form-control" required>
-						</div>
-					</div>
+                                   <div class="form-group">
+                                            <label>Comment</label>
+                                        <textarea  name="commenta" id="commenta" class="form-control" required></textarea>
+                                     </div>  
+                    </div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="submit" onclick="registerKeyDistributor();"  class="btn btn-success" value="Add">
 					</div>
-                                                      
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteClientModal" class="modal fade">
+	<div id="deleteKeyDistributorModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete Client</h4>
+						<h4 class="modal-title">Delete KeyDistributor</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
@@ -355,7 +322,79 @@
 			</div>
 		</div>
 	</div>
-
+<div id="viewAll" class="modal fade">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2>Key Distributor <b>Information</b></h2>
+					</div>
+					 
+                </div>
+            </div>
+            <table id="clientinformation" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>
+							 
+						</th> 
+                        <th>Client Name</th>
+			<th>KD&Clients</th>
+                        <th>ContactPerson</th>
+                        <th>Phone#</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Segment</th>
+                        <th>VolOfBusiness</th>
+                        <th>BankedByI&M</th> 
+                        <th>Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                     
+                    <%
+                         kd = new KeyDistributor();
+                          list = kd.getDistributorInfo(user_code);
+                        for(KeyDistributorModel keyDistributorModel :list){
+                        %>
+                  <tr>
+                  
+						<td>
+							<span class="custom-checkbox">
+								<a href="#viewAll" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+							</span>
+						</td> 
+                        <td><%=keyDistributorModel.getClientMaster()%></td>
+			<td><%=keyDistributorModel.getKdandclients()%></td>
+                        <td><%=keyDistributorModel.getKdContactperson()%></td>
+                        <td><%=keyDistributorModel.getKdPhonenumber()%></td>
+                        <td><%=keyDistributorModel.getKdEmail()%></td>
+                        <td><%=keyDistributorModel.getKdLocation()%></td>
+                        <td> <%=keyDistributorModel.getLookupmaster()%></td>
+                        <td><%=keyDistributorModel.getVolofbusnskdandclient()%> </td>
+                        <td><%=keyDistributorModel.getBankedbyim()%></td> 
+                        <td><%=keyDistributorModel.getComments()%> </td>
+                        <td>
+                        </td>
+                        </tr>
+                        <%
+                        }
+                        %>
+                    </tbody>
+            </table>
+			<div class="clearfix">
+                <div class="hint-text">Showing <b>1</b> out of <b>1</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#">Previous</a></li>
+                    <li class="page-item active "><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item "><a href="#" class="page-link">3</a></li> 
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
 <%@ include file="../include/footer.jsp" %>

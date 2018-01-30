@@ -1,6 +1,6 @@
 <%@page import="com.inm.dao.client.ClientFinacial"%>
 <%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.ClientFinacialModel"%> 
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%>  
 <%@ include file="../include/header.jsp" %>
 
@@ -62,7 +62,8 @@
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<ClientFinacialModel> list = ClientFinacial.getClientFinancialInfo(user_code);
+                        ClientFinacial cf = new ClientFinacial();
+                        ArrayList<ClientFinacialModel> list = cf.getClientFinancialInfo(user_code);
                         for(ClientFinacialModel clientFinancialModel :list){
                         %>
                     <tr>
@@ -72,13 +73,13 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=clientFinancialModel.getClientID()%></td>
+                        <td><%=clientFinancialModel.getClientMaster()%></td>
                         <td><%=clientFinancialModel.getTurnover()%></td>
-			<td><%=clientFinancialModel.getOperatingProfit()%></td>
-                        <td><%=clientFinancialModel.getTotalDebt()%></td>
-                        <td><%=clientFinancialModel.getTotalDeposits()%></td>
-                        <td><%=clientFinancialModel.getGearingRatio()%></td>
-                        <td><%=clientFinancialModel.getCashFlowCycle()%></td>
+			<td><%=clientFinancialModel.getOperatingprofit()%></td>
+                        <td><%=clientFinancialModel.getTotaldebt()%></td>
+                        <td><%=clientFinancialModel.getTotaldeposits()%></td>
+                        <td><%=clientFinancialModel.getGearingratio()%></td>
+                        <td><%=clientFinancialModel.getCashflowcycle()%></td>
                         <td>
                             <a href="#editCreditFinancialModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteCreditFinancialModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -113,18 +114,14 @@
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = cf.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
@@ -169,26 +166,49 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditFinancial</h4>
+						<h4 class="modal-title">Edit Credit Financials</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                   clientname = cf.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>TurnOver(Ksh'M)</label>
+							<input type="text" name="trunovera" id="trunovera" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Operating Profit(Ksh'M)</label>
+							<input type="text" name="operatingprofta" id="operatingprofta" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Total Debt(Ksh'M)</label>
+							<input type="text" name="totaldebta" id="totaldebta" class="form-control" required>
+						</div>	
+                                                 <div class="form-group">
+							<label>Total Deposits(Ksh'M)</label>
+							<input type="text" name="totaldeposita" id="totaldeposita" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Gearing Ratio</label>
+							<input type="text" name="geeringratioa" id="geeringratioa" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Cash Flow Cycle(Days)</label>
+							<input type="text" name="cashflowcyclea" id="cashflowcyclea" class="form-control" required>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Overallclientwalletsize" optimistic-lock="version" schema="ACCPLAN" table="OVERALLCLIENTWALLETSIZE">
+    <id name="clientwalletsizeid" type="big_decimal">
+      <column name="CLIENTWALLETSIZEID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="totalcorporatedebt" type="big_decimal">
+      <column name="TOTALCORPORATEDEBT" precision="22" scale="0"/>
+    </property>
+    <property name="averageimloanmargin" type="big_decimal">
+      <column name="AVERAGEIMLOANMARGIN" precision="22" scale="0"/>
+    </property>
+    <property name="assetsinterestincome" type="big_decimal">
+      <column name="ASSETSINTERESTINCOME" precision="22" scale="0"/>
+    </property>
+    <property name="estimatedcorporatedeposits" type="big_decimal">
+      <column name="ESTIMATEDCORPORATEDEPOSITS" precision="22" scale="0"/>
+    </property>
+    <property name="averageimdepositmargin" type="big_decimal">
+      <column name="AVERAGEIMDEPOSITMARGIN" precision="22" scale="0"/>
+    </property>
+    <property name="netintrstliabltyincome" type="big_decimal">
+      <column name="NETINTRSTLIABLTYINCOME" precision="22" scale="0"/>
+    </property>
+    <property name="totalnetinterestincome" type="big_decimal">
+      <column name="TOTALNETINTERESTINCOME" precision="22" scale="0"/>
+    </property>
+    <property name="totalnii" type="big_decimal">
+      <column name="TOTALNII" precision="22" scale="0"/>
+    </property>
+    <property name="imfeeincome" type="big_decimal">
+      <column name="IMFEEINCOME" precision="22" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

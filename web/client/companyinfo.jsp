@@ -1,11 +1,29 @@
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CompanyModel"%> 
+<%@page import="com.inm.dao.client.*"%>
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 <html>
     <head>
         
-        
+           <script type="text/javascript">
+ 
+            var form = $('#addCompany');
+            form.submit(function () {
+
+            $.ajax({
+            type: "POST",
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddCompany',
+            data: form.serialize(),
+            success: function (data) {
+            var result=data;
+           // $('#result').attr("value",result);
+           alert(result);
+            }
+            });
+
+            return false;
+            });
+</script> 
         
     </head>
 <div class="container">
@@ -42,7 +60,8 @@
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CompanyModel> list = Company.getCompanyInfo(user_code);
+                        Company company = new Company();
+                        ArrayList<CompanyModel> list = company.getCompanyInfo(user_code);
                         for(CompanyModel companyModel :list){
                         %>
                     <tr>
@@ -52,13 +71,13 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=companyModel.getClientID()%></td>
-                        <td><%=companyModel.getCompany_Address()%></td>
-                        <td><%=companyModel.getGroupName()%></td>
-			<td><%=companyModel.getHQ_Affiliate()%></td>
-                        <td><%=companyModel.getIndustry()%></td>
-                        <td><%=companyModel.getSegment()%></td>
-                        <td><%=companyModel.getNumberOfSubsidiaries()%></td>
+                        <td><%=companyModel.getClientMaster()%></td>
+                        <td><%=companyModel.getCompanyAddress()%></td>
+                        <td><%=companyModel.getGroupname()%></td>
+			<td><%=companyModel.getLookupmasterByAffiliatelookupmasterid()%></td>
+                        <td><%=companyModel.getLookupmasterByIndustrylookupmasterid()%></td>
+                        <td><%=companyModel.getLookupmasterBySegmentlookupmasterid()%></td>
+                        <td><%=companyModel.getNoofsubsidiaries()%></td>
                         <td>
                             <a href="#editCompanyModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteCompanyModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -86,26 +105,23 @@
 	<div id="addCompanyModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addCompany"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddCompany"  id="addCompany">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add Company Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
+                                        <input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 	
 					<div class="modal-body">
                                             	<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = company.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
@@ -121,23 +137,47 @@
 						</div>
 						<div class="form-group">
 							<label>HQ Country</label>
-							<input type="text" name="hqcountrya" id="hqcountrya"  class="form-control" required>
+                                                        <%  
+                                ArrayList<LookupmasterModel> affiliate = company.getLookupList("AFFILIATE"); 
+                                                        %>
+							 
+                                                        <select name="hqcountrya" id="hqcountrya" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : affiliate){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>	
                                      <div class="form-group">
-                                                    <%
-                                 ArrayList industry = Company.getIndustry();
-                                  int noOfindustries = industry.size();
+                                                    <%  
+                                  ArrayList<LookupmasterModel> industry = company.getLookupList("INDUSTRY"); 
                                                         %>
 							<label>Industry</label>
 				 <select name="indrustrya" id="indrustrya" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfindustries; j++) {
-                                        ArrayList indl = (ArrayList) industry.get(j);
-                                        String inds = (String) indl.get(0);   
+                                    for(LookupmasterModel lst : industry){ 
                                 %> 
-                                <option value ="<%=inds%>" > <%=inds%></option>  
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
                                 <%
-                                    }
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                     <div class="form-group">
+                                                    <%  
+                                  ArrayList<LookupmasterModel> segment = company.getLookupList("SEGMENT"); 
+                                                        %>
+							<label>Segment</label>
+				 <select name="segmenta" id="segmenta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : industry){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
                                 %>   
                                      </select>
 						</div>
@@ -164,23 +204,54 @@
 						<h4 class="modal-title">Edit Company</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+					<div class="modal-body">
+                                            	<div class="form-group">
+                                                    <%
+                                   clientname = company.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Company Address</label>
+                                                        <textarea  name="companyaddressa" id="companyaddressa" class="form-control" required></textarea>
+							 </div>
+						<div class="form-group">
+							<label>Group Name</label>
+							<input  name="grpnamea" id="grpnamea"  type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>HQ Country</label>
+							<input type="text" name="hqcountrya" id="hqcountrya"  class="form-control" required>
+						</div>	
+                                     <div class="form-group">
+                                                    <%  
+                                  industry = company.getLookupList("INDUSTRY"); 
+                                                        %>
+							<label>Industry</label>
+				 <select name="indrustrya" id="indrustrya" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : industry){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+                                     <div class="form-group">
+							<label>Number Of Subsidiaries</label>
+							<input  name="noofsubsidiarya" id="noofsubsidiarya"  type="text" class="form-control" required>
+						</div>
+                                     
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">

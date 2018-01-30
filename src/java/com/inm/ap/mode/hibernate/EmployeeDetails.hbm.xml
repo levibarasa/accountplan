@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.EmployeeDetails" optimistic-lock="version" schema="ACCPLAN" table="EMPLOYEE_DETAILS">
+    <id name="employeeid" type="big_decimal">
+      <column name="EMPLOYEEID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <property name="employeename" type="string">
+      <column length="200" name="EMPLOYEENAME"/>
+    </property>
+    <property name="mobilenumber" type="string">
+      <column length="20" name="MOBILENUMBER"/>
+    </property>
+    <property name="emailid" type="string">
+      <column length="20" name="EMAILID"/>
+    </property>
+    <property name="dateofbirth" type="string">
+      <column length="20" name="DATEOFBIRTH"/>
+    </property>
+    <property name="designation" type="string">
+      <column length="20" name="DESIGNATION"/>
+    </property>
+    <property name="accesslevelid" type="big_decimal">
+      <column name="ACCESSLEVELID" precision="22" scale="0"/>
+    </property>
+    <property name="password" type="string">
+      <column length="20" name="PASSWORD"/>
+    </property>
+    <property name="areaid" type="big_decimal">
+      <column name="AREAID" precision="22" scale="0"/>
+    </property>
+    <property name="windowsusername" type="string">
+      <column length="20" name="WINDOWSUSERNAME"/>
+    </property>
+  </class>
+</hibernate-mapping>

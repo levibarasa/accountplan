@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Qualitativeinformation" optimistic-lock="version" schema="ACCPLAN" table="QUALITATIVEINFORMATION">
+    <id name="qinfoid" type="big_decimal">
+      <column name="QINFOID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="clientstrategy" type="string">
+      <column length="200" name="CLIENTSTRATEGY"/>
+    </property>
+    <property name="clientwalletalloctnlogic" type="string">
+      <column length="200" name="CLIENTWALLETALLOCTNLOGIC"/>
+    </property>
+    <property name="opportunities" type="string">
+      <column length="200" name="OPPORTUNITIES"/>
+    </property>
+    <property name="specificchallenges" type="string">
+      <column name="SPECIFICCHALLENGES"/>
+    </property>
+    <property name="relationshipquality" type="string">
+      <column length="200" name="RELATIONSHIPQUALITY"/>
+    </property>
+  </class>
+</hibernate-mapping>

@@ -5,138 +5,130 @@
  */
 package com.inm.models;
 
+import com.inm.ap.mode.hibernate.ClientMaster;
+import java.math.BigDecimal;
+
 /**
  *
  * @author Levi
  */
 public class AccountRevenueModel {
-String Account_RevenueID;
-String ClientID;
-String RM_Code;
-String CurrentYearRevenueTarget;
-String PriorYearActualRevenue;
-String PercentageGrowthRevenue;
-String CurrentYearFeeIncomeTarget;
-String PriorYearActualFeeIncome;
-String PercentageGrowthFeeIncome;
-String CurrentShareOfWallet;
-String TargetShareOfWallet;
-String TotalValueOfIdentifiedOpportunities;
+private int accountRevenueid;
+     private String clientMaster;
+     private BigDecimal currentyearrevenuetarget;
+     private BigDecimal prioryearactualrevenue;
+     private BigDecimal percentagegrowthrevenue;
+     private BigDecimal currentyearfeeincometarget;
+     private BigDecimal prioryearactualfeeincome;
+     private BigDecimal percentagegrowthfeeincome;
+     private BigDecimal currentshareofwallet;
+     private BigDecimal targetshareofwallet;
+     private BigDecimal totalvalueofidopportunities;
 
     public AccountRevenueModel() {
     }
 
-    public AccountRevenueModel(String Account_RevenueID, String ClientID, String RM_Code, String CurrentYearRevenueTarget, String PriorYearActualRevenue, String PercentageGrowthRevenue, String CurrentYearFeeIncomeTarget, String PriorYearActualFeeIncome, String PercentageGrowthFeeIncome, String CurrentShareOfWallet, String TargetShareOfWallet, String TotalValueOfIdentifiedOpportunities) {
-        this.Account_RevenueID = Account_RevenueID;
-        this.ClientID = ClientID;
-        this.RM_Code = RM_Code;
-        this.CurrentYearRevenueTarget = CurrentYearRevenueTarget;
-        this.PriorYearActualRevenue = PriorYearActualRevenue;
-        this.PercentageGrowthRevenue = PercentageGrowthRevenue;
-        this.CurrentYearFeeIncomeTarget = CurrentYearFeeIncomeTarget;
-        this.PriorYearActualFeeIncome = PriorYearActualFeeIncome;
-        this.PercentageGrowthFeeIncome = PercentageGrowthFeeIncome;
-        this.CurrentShareOfWallet = CurrentShareOfWallet;
-        this.TargetShareOfWallet = TargetShareOfWallet;
-        this.TotalValueOfIdentifiedOpportunities = TotalValueOfIdentifiedOpportunities;
+    public AccountRevenueModel(int accountRevenueid, String clientMaster, BigDecimal currentyearrevenuetarget, BigDecimal prioryearactualrevenue, BigDecimal percentagegrowthrevenue, BigDecimal currentyearfeeincometarget, BigDecimal prioryearactualfeeincome, BigDecimal percentagegrowthfeeincome, BigDecimal currentshareofwallet, BigDecimal targetshareofwallet, BigDecimal totalvalueofidopportunities) {
+        this.accountRevenueid = accountRevenueid;
+        this.clientMaster = clientMaster;
+        this.currentyearrevenuetarget = currentyearrevenuetarget;
+        this.prioryearactualrevenue = prioryearactualrevenue;
+        this.percentagegrowthrevenue = percentagegrowthrevenue;
+        this.currentyearfeeincometarget = currentyearfeeincometarget;
+        this.prioryearactualfeeincome = prioryearactualfeeincome;
+        this.percentagegrowthfeeincome = percentagegrowthfeeincome;
+        this.currentshareofwallet = currentshareofwallet;
+        this.targetshareofwallet = targetshareofwallet;
+        this.totalvalueofidopportunities = totalvalueofidopportunities;
     }
 
-    public String getAccount_RevenueID() {
-        return Account_RevenueID;
+    public int getAccountRevenueid() {
+        return accountRevenueid;
     }
 
-    public void setAccount_RevenueID(String Account_RevenueID) {
-        this.Account_RevenueID = Account_RevenueID;
+    public void setAccountRevenueid(int accountRevenueid) {
+        this.accountRevenueid = accountRevenueid;
     }
 
-    public String getClientID() {
-        return ClientID;
+    public String getClientMaster() {
+        return clientMaster;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setClientMaster(String clientMaster) {
+        this.clientMaster = clientMaster;
     }
 
-    public String getRM_Code() {
-        return RM_Code;
+    public BigDecimal getCurrentyearrevenuetarget() {
+        return currentyearrevenuetarget;
     }
 
-    public void setRM_Code(String RM_Code) {
-        this.RM_Code = RM_Code;
+    public void setCurrentyearrevenuetarget(BigDecimal currentyearrevenuetarget) {
+        this.currentyearrevenuetarget = currentyearrevenuetarget;
     }
 
-    public String getCurrentYearRevenueTarget() {
-        return CurrentYearRevenueTarget;
+    public BigDecimal getPrioryearactualrevenue() {
+        return prioryearactualrevenue;
     }
 
-    public void setCurrentYearRevenueTarget(String CurrentYearRevenueTarget) {
-        this.CurrentYearRevenueTarget = CurrentYearRevenueTarget;
+    public void setPrioryearactualrevenue(BigDecimal prioryearactualrevenue) {
+        this.prioryearactualrevenue = prioryearactualrevenue;
     }
 
-    public String getPriorYearActualRevenue() {
-        return PriorYearActualRevenue;
+    public BigDecimal getPercentagegrowthrevenue() {
+        return percentagegrowthrevenue;
     }
 
-    public void setPriorYearActualRevenue(String PriorYearActualRevenue) {
-        this.PriorYearActualRevenue = PriorYearActualRevenue;
+    public void setPercentagegrowthrevenue(BigDecimal percentagegrowthrevenue) {
+        this.percentagegrowthrevenue = percentagegrowthrevenue;
     }
 
-    public String getPercentageGrowthRevenue() {
-        return PercentageGrowthRevenue;
+    public BigDecimal getCurrentyearfeeincometarget() {
+        return currentyearfeeincometarget;
     }
 
-    public void setPercentageGrowthRevenue(String PercentageGrowthRevenue) {
-        this.PercentageGrowthRevenue = PercentageGrowthRevenue;
+    public void setCurrentyearfeeincometarget(BigDecimal currentyearfeeincometarget) {
+        this.currentyearfeeincometarget = currentyearfeeincometarget;
     }
 
-    public String getCurrentYearFeeIncomeTarget() {
-        return CurrentYearFeeIncomeTarget;
+    public BigDecimal getPrioryearactualfeeincome() {
+        return prioryearactualfeeincome;
     }
 
-    public void setCurrentYearFeeIncomeTarget(String CurrentYearFeeIncomeTarget) {
-        this.CurrentYearFeeIncomeTarget = CurrentYearFeeIncomeTarget;
+    public void setPrioryearactualfeeincome(BigDecimal prioryearactualfeeincome) {
+        this.prioryearactualfeeincome = prioryearactualfeeincome;
     }
 
-    public String getPriorYearActualFeeIncome() {
-        return PriorYearActualFeeIncome;
+    public BigDecimal getPercentagegrowthfeeincome() {
+        return percentagegrowthfeeincome;
     }
 
-    public void setPriorYearActualFeeIncome(String PriorYearActualFeeIncome) {
-        this.PriorYearActualFeeIncome = PriorYearActualFeeIncome;
+    public void setPercentagegrowthfeeincome(BigDecimal percentagegrowthfeeincome) {
+        this.percentagegrowthfeeincome = percentagegrowthfeeincome;
     }
 
-    public String getPercentageGrowthFeeIncome() {
-        return PercentageGrowthFeeIncome;
+    public BigDecimal getCurrentshareofwallet() {
+        return currentshareofwallet;
     }
 
-    public void setPercentageGrowthFeeIncome(String PercentageGrowthFeeIncome) {
-        this.PercentageGrowthFeeIncome = PercentageGrowthFeeIncome;
+    public void setCurrentshareofwallet(BigDecimal currentshareofwallet) {
+        this.currentshareofwallet = currentshareofwallet;
     }
 
-    public String getCurrentShareOfWallet() {
-        return CurrentShareOfWallet;
+    public BigDecimal getTargetshareofwallet() {
+        return targetshareofwallet;
     }
 
-    public void setCurrentShareOfWallet(String CurrentShareOfWallet) {
-        this.CurrentShareOfWallet = CurrentShareOfWallet;
+    public void setTargetshareofwallet(BigDecimal targetshareofwallet) {
+        this.targetshareofwallet = targetshareofwallet;
     }
 
-    public String getTargetShareOfWallet() {
-        return TargetShareOfWallet;
+    public BigDecimal getTotalvalueofidopportunities() {
+        return totalvalueofidopportunities;
     }
 
-    public void setTargetShareOfWallet(String TargetShareOfWallet) {
-        this.TargetShareOfWallet = TargetShareOfWallet;
+    public void setTotalvalueofidopportunities(BigDecimal totalvalueofidopportunities) {
+        this.totalvalueofidopportunities = totalvalueofidopportunities;
     }
 
-    public String getTotalValueOfIdentifiedOpportunities() {
-        return TotalValueOfIdentifiedOpportunities;
-    }
-
-    public void setTotalValueOfIdentifiedOpportunities(String TotalValueOfIdentifiedOpportunities) {
-        this.TotalValueOfIdentifiedOpportunities = TotalValueOfIdentifiedOpportunities;
-    }
-
-
-
+     
 }

@@ -4,107 +4,97 @@
  * and open the template in the editor.
  */
 package com.inm.models;
-
+import java.math.*;
 /**
  *
  * @author Levi
  */
 public class ClientFinacialModel {
-  String  Client_FinancialID;
-String  ClientID;
-String  RM_Code;
-String  Turnover;
-String  OperatingProfit;
-String  TotalDebt;
-String  TotalDeposits;
-String  GearingRatio;
-String  CashFlowCycle;
+      private int clientFinancialid;
+     private String clientMaster;
+     private BigDecimal turnover = BigDecimal.ZERO;
+     private BigDecimal operatingprofit = BigDecimal.ZERO;
+     private BigDecimal totaldebt = BigDecimal.ZERO;
+     private BigDecimal totaldeposits = BigDecimal.ZERO;
+     private BigDecimal gearingratio = BigDecimal.ZERO;
+     private BigDecimal cashflowcycle = BigDecimal.ZERO;
 
     public ClientFinacialModel() {
     }
 
-    public ClientFinacialModel(String Client_FinancialID, String ClientID, String RM_Code, String Turnover, String OperatingProfit, String TotalDebt, String TotalDeposits, String GearingRatio, String CashFlowCycle) {
-        this.Client_FinancialID = Client_FinancialID;
-        this.ClientID = ClientID;
-        this.RM_Code = RM_Code;
-        this.Turnover = Turnover;
-        this.OperatingProfit = OperatingProfit;
-        this.TotalDebt = TotalDebt;
-        this.TotalDeposits = TotalDeposits;
-        this.GearingRatio = GearingRatio;
-        this.CashFlowCycle = CashFlowCycle;
+    public ClientFinacialModel(int clientFinancialid, String clientMaster, BigDecimal turnover, BigDecimal operatingprofit, BigDecimal totaldebt, BigDecimal totaldeposits, BigDecimal gearingratio, BigDecimal cashflowcycle) {
+        this.clientFinancialid = clientFinancialid;
+        this.clientMaster = clientMaster;
+        this.turnover = turnover;
+        this.operatingprofit = operatingprofit;
+        this.totaldebt = totaldebt;
+        this.totaldeposits = totaldeposits;
+        this.gearingratio = gearingratio;
+        this.cashflowcycle = cashflowcycle;
     }
 
-    public String getClient_FinancialID() {
-        return Client_FinancialID;
+    public int getClientFinancialid() {
+        return clientFinancialid;
     }
 
-    public void setClient_FinancialID(String Client_FinancialID) {
-        this.Client_FinancialID = Client_FinancialID;
+    public void setClientFinancialid(int clientFinancialid) {
+        this.clientFinancialid = clientFinancialid;
     }
 
-    public String getClientID() {
-        return ClientID;
+    public String getClientMaster() {
+        return clientMaster;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setClientMaster(String clientMaster) {
+        this.clientMaster = clientMaster;
     }
 
-    public String getRM_Code() {
-        return RM_Code;
+    public BigDecimal getTurnover() {
+        return turnover;
     }
 
-    public void setRM_Code(String RM_Code) {
-        this.RM_Code = RM_Code;
+    public void setTurnover(BigDecimal turnover) {
+        this.turnover = turnover;
     }
 
-    public String getTurnover() {
-        return Turnover;
+    public BigDecimal getOperatingprofit() {
+        return operatingprofit;
     }
 
-    public void setTurnover(String Turnover) {
-        this.Turnover = Turnover;
+    public void setOperatingprofit(BigDecimal operatingprofit) {
+        this.operatingprofit = operatingprofit;
     }
 
-    public String getOperatingProfit() {
-        return OperatingProfit;
+    public BigDecimal getTotaldebt() {
+        return totaldebt;
     }
 
-    public void setOperatingProfit(String OperatingProfit) {
-        this.OperatingProfit = OperatingProfit;
+    public void setTotaldebt(BigDecimal totaldebt) {
+        this.totaldebt = totaldebt;
     }
 
-    public String getTotalDebt() {
-        return TotalDebt;
+    public BigDecimal getTotaldeposits() {
+        return totaldeposits;
     }
 
-    public void setTotalDebt(String TotalDebt) {
-        this.TotalDebt = TotalDebt;
+    public void setTotaldeposits(BigDecimal totaldeposits) {
+        this.totaldeposits = totaldeposits;
     }
 
-    public String getTotalDeposits() {
-        return TotalDeposits;
+    public BigDecimal getGearingratio() {
+        return gearingratio;
     }
 
-    public void setTotalDeposits(String TotalDeposits) {
-        this.TotalDeposits = TotalDeposits;
+    public void setGearingratio(BigDecimal gearingratio) {
+        this.gearingratio = gearingratio;
     }
 
-    public String getGearingRatio() {
-        return GearingRatio;
+    public BigDecimal getCashflowcycle() {
+        return cashflowcycle;
     }
 
-    public void setGearingRatio(String GearingRatio) {
-        this.GearingRatio = GearingRatio;
+    public void setCashflowcycle(BigDecimal cashflowcycle) {
+        this.cashflowcycle = cashflowcycle;
     }
-
-    public String getCashFlowCycle() {
-        return CashFlowCycle;
-    }
-
-    public void setCashFlowCycle(String CashFlowCycle) {
-        this.CashFlowCycle = CashFlowCycle;
-    }
-
+     
 }

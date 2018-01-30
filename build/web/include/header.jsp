@@ -37,11 +37,13 @@
                 });
             };
         </script>
-        
-
-
-
-
+      <script>
+        function doLogout() {
+            if (confirm("Are you Sure you want to Logout?")) {
+                logout.submit();
+            }
+  }
+    </script>
 <style type="text/css">
 	body{
 		background: #eeeeee;
@@ -587,7 +589,9 @@ $(document).ready(function(){
             Relationship Officer Code : <%=user_code%>  <br /> 
             Branch : <%=user_branch%>  <br /> 
             Region : <%=user_region%> 
+            <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Logout</button>
              </div>
+             
         </div>
 </nav>
     

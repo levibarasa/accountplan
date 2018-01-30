@@ -37,8 +37,8 @@ public class apServlet extends HttpServlet {
                     case "doAddClient":
                         ClientW.handleAddClient(request, response);
                         break;
-                    case "doUpdateClient":
-                        ClientW.handleUpdateClient(request, response);
+                    case "doAddCompany":
+                        ClientW.handleAddCompany(request, response);
                         break;
                     case "doLog":
                         Accessw.handleLogin(request, response);

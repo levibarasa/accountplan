@@ -5,86 +5,80 @@
  */
 package com.inm.models;
 
+import com.inm.ap.mode.hibernate.ClientMaster;
+import java.math.BigDecimal;
+
 /**
  *
  * @author Levi
  */
 public class CreditInfoModel {
-   String CreditID;
-String ClientID;
-String RM_Code;
-String ApprovedLines;
-String OutstandingAmount;
-String RiskRating;
-String RatingAgency;
+    private int creditid;
+     private String clientMaster;
+     private String approvedlines;
+     private BigDecimal outstandingamount;
+     private String riskrating;
+     private String ratingagency;
 
     public CreditInfoModel() {
     }
 
-    public CreditInfoModel(String CreditID, String ClientID, String RM_Code, String ApprovedLines, String OutstandingAmount, String RiskRating, String RatingAgency) {
-        this.CreditID = CreditID;
-        this.ClientID = ClientID;
-        this.RM_Code = RM_Code;
-        this.ApprovedLines = ApprovedLines;
-        this.OutstandingAmount = OutstandingAmount;
-        this.RiskRating = RiskRating;
-        this.RatingAgency = RatingAgency;
+    public CreditInfoModel(int creditid, String clientMaster, String approvedlines, BigDecimal outstandingamount, String riskrating, String ratingagency) {
+        this.creditid = creditid;
+        this.clientMaster = clientMaster;
+        this.approvedlines = approvedlines;
+        this.outstandingamount = outstandingamount;
+        this.riskrating = riskrating;
+        this.ratingagency = ratingagency;
     }
 
-    public String getCreditID() {
-        return CreditID;
+    public int getCreditid() {
+        return creditid;
     }
 
-    public void setCreditID(String CreditID) {
-        this.CreditID = CreditID;
+    public void setCreditid(int creditid) {
+        this.creditid = creditid;
     }
 
-    public String getClientID() {
-        return ClientID;
+    public String getClientMaster() {
+        return clientMaster;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setClientMaster(String clientMaster) {
+        this.clientMaster = clientMaster;
     }
 
-    public String getRM_Code() {
-        return RM_Code;
+    public String getApprovedlines() {
+        return approvedlines;
     }
 
-    public void setRM_Code(String RM_Code) {
-        this.RM_Code = RM_Code;
+    public void setApprovedlines(String approvedlines) {
+        this.approvedlines = approvedlines;
     }
 
-    public String getApprovedLines() {
-        return ApprovedLines;
+    public BigDecimal getOutstandingamount() {
+        return outstandingamount;
     }
 
-    public void setApprovedLines(String ApprovedLines) {
-        this.ApprovedLines = ApprovedLines;
+    public void setOutstandingamount(BigDecimal outstandingamount) {
+        this.outstandingamount = outstandingamount;
     }
 
-    public String getOutstandingAmount() {
-        return OutstandingAmount;
+    public String getRiskrating() {
+        return riskrating;
     }
 
-    public void setOutstandingAmount(String OutstandingAmount) {
-        this.OutstandingAmount = OutstandingAmount;
+    public void setRiskrating(String riskrating) {
+        this.riskrating = riskrating;
     }
 
-    public String getRiskRating() {
-        return RiskRating;
+    public String getRatingagency() {
+        return ratingagency;
     }
 
-    public void setRiskRating(String RiskRating) {
-        this.RiskRating = RiskRating;
+    public void setRatingagency(String ratingagency) {
+        this.ratingagency = ratingagency;
     }
 
-    public String getRatingAgency() {
-        return RatingAgency;
-    }
-
-    public void setRatingAgency(String RatingAgency) {
-        this.RatingAgency = RatingAgency;
-    }
-
+     
 }

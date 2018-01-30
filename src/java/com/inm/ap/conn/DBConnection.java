@@ -26,10 +26,15 @@ public class DBConnection {
     public Connection getDbConnection() {
         try {
             Class.forName(pr.getDBProperty().getProperty("database.driver"));
+            String driver = pr.getDBProperty().getProperty("database.driver");
             String url = pr.getDBProperty().getProperty("database.url");
+            String host = pr.getDBProperty().getProperty("database.host");
+            String port = pr.getDBProperty().getProperty("database.port");
+            String sid = pr.getDBProperty().getProperty("database.sid");
             String userName = pr.getDBProperty().getProperty("database.user");
             String pass = pr.getDBProperty().getProperty("database.pass");
-            conn = DriverManager.getConnection(url, userName, pass);
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.205.71:1521:INTRFC", userName, pass);
+           
         } catch (ClassNotFoundException | SQLException asd) {
             System.err.println(asd.getMessage());
         }
@@ -38,21 +43,16 @@ public class DBConnection {
 
     public static void closeConn(Connection con) {
         if (con != null) {
-
         }
     }
-//      public static void main(String[] args) {
-//           DBConnection   bConnection = new DBConnection();
-//           if (bConnection.getDbConnection()!=null)
-//           {
-//            System.out.println("Connected");    
-//           }
-//           else
-//           {
-//
-//           System.out.println("Fuck you"); 
-//           }
-//           
-//    }
-}
 
+//    public static void main(String[] args) {
+//        DBConnection bConnection = new DBConnection();
+//        if (bConnection.getDbConnection() != null) {
+//            System.out.println("Connected");
+//        } else {
+//
+//            System.out.println("Not Connected");
+//        }
+//     }
+}

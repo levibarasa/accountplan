@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+
+<hibernate-reverse-engineering>
+  <schema-selection match-schema="ACCPLAN"/>
+  <table-filter match-name="CREDIT_INFORMATION"/>
+  <table-filter match-name="KEYSUPPLIERMASTER"/>
+  <table-filter match-name="COMPANY_MASTER"/>
+  <table-filter match-name="ACCOUNT_REVENUE_INFORMATION"/>
+  <table-filter match-name="EMPLOYEE_DETAILS"/>
+  <table-filter match-name="CLIENT_EMPLOYEE"/>
+  <table-filter match-name="QUALITATIVEINFORMATION"/>
+  <table-filter match-name="LOOKUPMASTER"/>
+  <table-filter match-name="CLIENTCOVERAGEPROFILE"/>
+  <table-filter match-name="DEALINPROGRESS"/>
+  <table-filter match-name="CLIENT_FINANCIAL"/>
+  <table-filter match-name="OVERALLCLIENTWALLETSIZE"/>
+  <table-filter match-name="CLIENT_MASTER"/>
+  <table-filter match-name="KEYDISTRIBUTORMASTER"/>
+  <table-filter match-name="TBL_USERCURRENTLOGGEDIN"/>
+  <table-filter match-name="EMPLOYEE_LEAVE"/>
+  <table-filter match-name="SALESACTIONPLAN"/>
+  <table-filter match-name="RM_CODELIST"/>
+  <table-filter match-name="COMPETITION"/>
+  <table-filter match-name="EXCALIBUR_USAGE"/>
+</hibernate-reverse-engineering>

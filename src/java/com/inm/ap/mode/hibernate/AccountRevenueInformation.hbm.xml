@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.AccountRevenueInformation" optimistic-lock="version" schema="ACCPLAN" table="ACCOUNT_REVENUE_INFORMATION">
+    <id name="accountRevenueid" type="int">
+      <column name="ACCOUNT_REVENUEID" precision="22" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="currentyearrevenuetarget" type="big_decimal">
+      <column name="CURRENTYEARREVENUETARGET" precision="22" scale="0"/>
+    </property>
+    <property name="prioryearactualrevenue" type="big_decimal">
+      <column name="PRIORYEARACTUALREVENUE" precision="22" scale="0"/>
+    </property>
+    <property name="percentagegrowthrevenue" type="big_decimal">
+      <column name="PERCENTAGEGROWTHREVENUE" precision="22" scale="0"/>
+    </property>
+    <property name="currentyearfeeincometarget" type="big_decimal">
+      <column name="CURRENTYEARFEEINCOMETARGET" precision="22" scale="0"/>
+    </property>
+    <property name="prioryearactualfeeincome" type="big_decimal">
+      <column name="PRIORYEARACTUALFEEINCOME" precision="22" scale="0"/>
+    </property>
+    <property name="percentagegrowthfeeincome" type="big_decimal">
+      <column name="PERCENTAGEGROWTHFEEINCOME" precision="22" scale="0"/>
+    </property>
+    <property name="currentshareofwallet" type="big_decimal">
+      <column name="CURRENTSHAREOFWALLET" precision="22" scale="0"/>
+    </property>
+    <property name="targetshareofwallet" type="big_decimal">
+      <column name="TARGETSHAREOFWALLET" precision="22" scale="0"/>
+    </property>
+    <property name="totalvalueofidopportunities" type="big_decimal">
+      <column name="TOTALVALUEOFIDOPPORTUNITIES" precision="22" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

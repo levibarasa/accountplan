@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Keydistributormaster" optimistic-lock="version" schema="ACCPLAN" table="KEYDISTRIBUTORMASTER">
+    <id name="kdid" type="int">
+      <column name="KDID" precision="22" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmaster">
+      <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+    </many-to-one>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="kdandclients" type="string">
+      <column length="200" name="KDANDCLIENTS"/>
+    </property>
+    <property name="kdContactperson" type="string">
+      <column length="200" name="KD_CONTACTPERSON"/>
+    </property>
+    <property name="kdPhonenumber" type="string">
+      <column length="200" name="KD_PHONENUMBER"/>
+    </property>
+    <property name="kdEmail" type="string">
+      <column length="200" name="KD_EMAIL"/>
+    </property>
+    <property name="kdLocation" type="string">
+      <column length="200" name="KD_LOCATION"/>
+    </property>
+    <property name="bankedbyim" type="string">
+      <column length="20" name="BANKEDBYIM"/>
+    </property>
+    <property name="comments" type="string">
+      <column length="200" name="COMMENTS"/>
+    </property>
+    <property name="clientturnover" type="big_decimal">
+      <column name="CLIENTTURNOVER" precision="22" scale="0"/>
+    </property>
+    <property name="volofbusnskdandclient" type="big_decimal">
+      <column name="VOLOFBUSNSKDANDCLIENT" precision="22" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.ClientFinancial" optimistic-lock="version" schema="ACCPLAN" table="CLIENT_FINANCIAL">
+    <id name="clientFinancialid" type="int">
+      <column name="CLIENT_FINANCIALID" precision="22" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="turnover" type="big_decimal">
+      <column name="TURNOVER" precision="22" scale="0"/>
+    </property>
+    <property name="operatingprofit" type="big_decimal">
+      <column name="OPERATINGPROFIT" precision="22" scale="0"/>
+    </property>
+    <property name="totaldebt" type="big_decimal">
+      <column name="TOTALDEBT" precision="22" scale="0"/>
+    </property>
+    <property name="totaldeposits" type="big_decimal">
+      <column name="TOTALDEPOSITS" precision="22" scale="0"/>
+    </property>
+    <property name="gearingratio" type="big_decimal">
+      <column name="GEARINGRATIO" precision="22" scale="0"/>
+    </property>
+    <property name="cashflowcycle" type="big_decimal">
+      <column name="CASHFLOWCYCLE" precision="22" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

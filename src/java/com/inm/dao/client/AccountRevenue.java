@@ -6,78 +6,133 @@
 package com.inm.dao.client;
 
 import com.inm.ap.conn.AdminDb;
-import com.inm.models.AccountRevenueModel;
+import com.inm.ap.hibernate.Util.*; 
+import com.inm.models.*;
 import java.util.ArrayList;
+import com.inm.ap.mode.hibernate.*;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Levi
  */
 public class AccountRevenue {
-        public static ArrayList<AccountRevenueModel> getAccountRevenuenfo(String rmCode) {
-         ArrayList<AccountRevenueModel>  accountRevenueList = new ArrayList<AccountRevenueModel> ();
-         AccountRevenue accountRevenue = new AccountRevenue();
-      String sql = " select Account_RevenueID,ClientID,RM_Code,CurrentYearRevenueTarget,PriorYearActualRevenue,"
-              + "PercentageGrowthRevenue,CurrentYearFeeIncomeTarget,PriorYearActualFeeIncome,PercentageGrowthFeeIncome,"
-              + "CurrentShareOfWallet,TargetShareOfWallet,TotalValueOfIdentifiedOpportunities from [dbo].[Account_Revenue_Information] where RM_Code = ?";
-        String in = rmCode;
-        ArrayList list = AdminDb.execArrayLists(sql, 1, in, 12);
-          for(int n =0;n<list.size(); n++){
-            ArrayList clientItem = (ArrayList) list.get(n);
-        AccountRevenueModel accountRevenueModel = new AccountRevenueModel();
-       accountRevenueModel.setAccount_RevenueID((String) clientItem.get(0));
-       accountRevenueModel.setClientID(accountRevenue.getClientNameByID((String) clientItem.get(1)));
-       accountRevenueModel.setRM_Code(accountRevenue.getRMNameByCode((String) clientItem.get(2)));
-       accountRevenueModel.setCurrentYearRevenueTarget((String) clientItem.get(3));
-       accountRevenueModel.setPriorYearActualRevenue((String) clientItem.get(4));
-       accountRevenueModel.setPercentageGrowthRevenue((String) clientItem.get(5));
-       accountRevenueModel.setCurrentYearFeeIncomeTarget((String) clientItem.get(6));
-       accountRevenueModel.setPriorYearActualFeeIncome((String) clientItem.get(7));
-       accountRevenueModel.setPercentageGrowthFeeIncome((String) clientItem.get(8));
-       accountRevenueModel.setCurrentShareOfWallet((String) clientItem.get(9));
-       accountRevenueModel.setTargetShareOfWallet((String) clientItem.get(10));
-       accountRevenueModel.setTotalValueOfIdentifiedOpportunities((String) clientItem.get(11));
-        accountRevenueList.add(accountRevenueModel);
-         }
-        return accountRevenueList;
-      }
-          public   String getRMNameByCode(String rmCode) {
-       AdminDb ad = new AdminDb();
-        String sql = "select  employeeName from Employee_Details where employeeID = ?";
-        String str = ad.getStringValue(sql, 1, 1, rmCode);
-        return str;
+     OperationsDal ops;
+
+    public AccountRevenue() {
+        ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-       
-     public  String getClientNameByID(String clientId) {
-       AdminDb ad = new AdminDb();
-        String sql = "select ClientName from [dbo].[Client_Master] where ClientID = ?";
-        String str = ad.getStringValue(sql, 1, 1, clientId);
-        return str;
+     
+      public ArrayList<AccountRevenueModel> getAccountRevenuenfo(String rmCode) {
+        AccountRevenue ar = new AccountRevenue();
+        ArrayList<AccountRevenueModel> accountRevenueModelList = new ArrayList<AccountRevenueModel>();
+        CoreQuery coreQuery = new CoreQuery("from AccountRevenueInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode);
+        List accRev = ops.fetch(coreQuery);
+        for (Object accRevObject : accRev) {
+            AccountRevenueInformation accountRevenueInformation = (AccountRevenueInformation) accRevObject;
+            AccountRevenueModel accountRevenueModel = new AccountRevenueModel(); 
+            accountRevenueModel.setClientMaster(ar.getClientMaster(rmCode).getClientname()); 
+            accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
+            accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
+            accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());
+            accountRevenueModel.setCurrentyearrevenuetarget(accountRevenueInformation.getCurrentyearrevenuetarget());
+            accountRevenueModel.setPercentagegrowthfeeincome(accountRevenueInformation.getPercentagegrowthfeeincome());
+            accountRevenueModel.setPercentagegrowthrevenue(accountRevenueInformation.getPercentagegrowthrevenue());
+            accountRevenueModel.setPrioryearactualfeeincome(accountRevenueInformation.getPrioryearactualfeeincome());
+            accountRevenueModel.setPrioryearactualrevenue(accountRevenueInformation.getPrioryearactualrevenue());
+            accountRevenueModel.setTargetshareofwallet(accountRevenueInformation.getTargetshareofwallet());
+            accountRevenueModel.setTotalvalueofidopportunities(accountRevenueInformation.getTotalvalueofidopportunities());
+              accountRevenueModelList.add(accountRevenueModel);
+        }
+
+        return accountRevenueModelList;
     }
-          public static ArrayList<AccountRevenueModel> getAccountRevenuenfo(String rmCode,String clientId) {
-         ArrayList<AccountRevenueModel>  accountRevenueList = new ArrayList<AccountRevenueModel> ();
-         AccountRevenue accountRevenue = new AccountRevenue();
-      String sql = " select Account_RevenueID,ClientID,RM_Code,CurrentYearRevenueTarget,PriorYearActualRevenue,"
-              + "PercentageGrowthRevenue,CurrentYearFeeIncomeTarget,PriorYearActualFeeIncome,PercentageGrowthFeeIncome,"
-              + "CurrentShareOfWallet,TargetShareOfWallet,TotalValueOfIdentifiedOpportunities from [dbo].[Account_Revenue_Information] where RM_Code = ? and ClientID = ?";
-        String in = rmCode+ "," + clientId;
-        ArrayList list = AdminDb.execArrayLists(sql, 2, in, 12);
-        for(int n =0;n<list.size(); n++){
-            ArrayList clientItem = (ArrayList) list.get(n);
-        AccountRevenueModel accountRevenueModel = new AccountRevenueModel();
-       accountRevenueModel.setAccount_RevenueID((String) clientItem.get(0));
-       accountRevenueModel.setClientID(accountRevenue.getClientNameByID((String) clientItem.get(1)));
-       accountRevenueModel.setRM_Code(accountRevenue.getRMNameByCode((String) clientItem.get(2)));
-       accountRevenueModel.setCurrentYearRevenueTarget((String) clientItem.get(3));
-       accountRevenueModel.setPriorYearActualRevenue((String) clientItem.get(4));
-       accountRevenueModel.setPercentageGrowthRevenue((String) clientItem.get(5));
-       accountRevenueModel.setCurrentYearFeeIncomeTarget((String) clientItem.get(6));
-       accountRevenueModel.setPriorYearActualFeeIncome((String) clientItem.get(7));
-       accountRevenueModel.setPercentageGrowthFeeIncome((String) clientItem.get(8));
-       accountRevenueModel.setCurrentShareOfWallet((String) clientItem.get(9));
-       accountRevenueModel.setTargetShareOfWallet((String) clientItem.get(10));
-       accountRevenueModel.setTotalValueOfIdentifiedOpportunities((String) clientItem.get(11));
-         }
-        return accountRevenueList;
-      }
+     public ArrayList<LookupmasterModel> getLookupList(String code) {
+         ArrayList<LookupmasterModel> lookupList = new ArrayList<LookupmasterModel>();
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where code =:code", true);
+        coreQuery.addParam("code", code); 
+        List lookups = ops.fetch(coreQuery);
+         if (Validator.validateList(lookups)) {
+                for (Object lookup : lookups) {
+                    if (lookup != null) {
+                     Lookupmaster lookupmaster = (Lookupmaster) lookup;
+                     LookupmasterModel lookupmasterModel =   new LookupmasterModel(lookupmaster.getLookupmasterid(), lookupmaster.getCode(), lookupmaster.getValue());
+                        lookupList.add(lookupmasterModel);
+                        }
+                }
+            }
+         return lookupList;
+     } 
+     public ArrayList<RmCodelistModel> getRmCodeList() {
+         ArrayList<RmCodelistModel> rmCodeList = new ArrayList<RmCodelistModel>();
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist", true); 
+        List rmlst = ops.fetch(coreQuery);
+         if (Validator.validateList(rmlst)) {
+                for (Object rm : rmlst) {
+                    if (rm != null) {
+                     RmCodelist codelist = (RmCodelist) rm;
+                     RmCodelistModel codelistModel =   new RmCodelistModel(codelist.getRmCode(), codelist.getDesignation(), codelist.getBranch(), codelist.getBranch(), codelist.getRegion(), codelist.getCategory(), codelist.getRmName());
+                        rmCodeList.add(codelistModel);
+                        }
+                }
+            }
+         return rmCodeList;
+     }
+    public ArrayList<ClientModel> getClientMasterList(String rmCode) {
+         ArrayList<ClientModel> clientModelList = new ArrayList<ClientModel>();
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rms = ops.fetch(coreQuery);
+         if (Validator.validateList(rms)) {
+                for (Object rm : rms) {
+                    if (rm != null) {
+                     ClientMaster clientMaster = (ClientMaster) rm;
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                        clientModelList.add(clientModel);
+                        }
+                }
+            }
+         return clientModelList;
+     }
+     public ClientMaster getClientMaster(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
+     public RmCodelist getRmCodeList(String rmCode) {
+        CoreQuery coreQuery = new CoreQuery("from RmCodelist where rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List rmCodes = ops.fetch(coreQuery);
+        return (RmCodelist) rmCodes.get(0);
+    }
+public ArrayList<AccountRevenueModel> getAccountRevenuenfoByClientId(String rmCode, String clientId) {
+        AccountRevenue ar = new AccountRevenue();
+        ArrayList<AccountRevenueModel> accountRevenueModelList = new ArrayList<AccountRevenueModel>();
+        CoreQuery coreQuery = new CoreQuery("from AccountRevenueInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientId =:clientId", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientId", clientId);
+        List accRev = ops.fetch(coreQuery);
+        for (Object accRevObject : accRev) {
+            AccountRevenueInformation accountRevenueInformation = (AccountRevenueInformation) accRevObject;
+            AccountRevenueModel accountRevenueModel = new AccountRevenueModel(); 
+            accountRevenueModel.setClientMaster(ar.getClientMaster(rmCode).getClientname()); 
+            accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
+            accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
+            accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());
+            accountRevenueModel.setCurrentyearrevenuetarget(accountRevenueInformation.getCurrentyearrevenuetarget());
+            accountRevenueModel.setPercentagegrowthfeeincome(accountRevenueInformation.getPercentagegrowthfeeincome());
+            accountRevenueModel.setPercentagegrowthrevenue(accountRevenueInformation.getPercentagegrowthrevenue());
+            accountRevenueModel.setPrioryearactualfeeincome(accountRevenueInformation.getPrioryearactualfeeincome());
+            accountRevenueModel.setPrioryearactualrevenue(accountRevenueInformation.getPrioryearactualrevenue());
+            accountRevenueModel.setTargetshareofwallet(accountRevenueInformation.getTargetshareofwallet());
+            accountRevenueModel.setTotalvalueofidopportunities(accountRevenueInformation.getTotalvalueofidopportunities());
+              accountRevenueModelList.add(accountRevenueModel);
+        }
+
+        return accountRevenueModelList;
+    }
 }

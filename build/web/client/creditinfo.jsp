@@ -1,6 +1,6 @@
 <%@page import="com.inm.dao.client.AccountRevenue"%>
 <%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CreditInfoModel"%> 
+<%@page import="com.inm.models.*"%> 
 <%@page import="com.inm.dao.client.CreditInfo"%>
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
@@ -38,7 +38,7 @@
 						<h2>Manage <b>Credit Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCreditInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CreditInformation</span></a>
+						<a href="#addCreditInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Credit Information</span></a>
 						<a href="#deleteCreditInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
@@ -62,7 +62,8 @@
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CreditInfoModel> list = CreditInfo.getCreditInfo(user_code);
+                        CreditInfo creditInfo = new CreditInfo();
+                        ArrayList<CreditInfoModel> list = creditInfo.getCreditInfo(user_code);
                         for(CreditInfoModel creditInfoModel :list){
                         %>
                     <tr>
@@ -72,11 +73,11 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=creditInfoModel.getClientID()%></td>
-                        <td><%=creditInfoModel.getApprovedLines()%></td>
-			<td><%=creditInfoModel.getOutstandingAmount()%></td>
-                        <td><%=creditInfoModel.getRiskRating()%></td>
-                        <td><%=creditInfoModel.getRatingAgency()%></td>
+                        <td><%=creditInfoModel.getClientMaster()%></td>
+                        <td><%=creditInfoModel.getApprovedlines()%></td>
+			<td><%=creditInfoModel.getOutstandingamount()%></td>
+                        <td><%=creditInfoModel.getRiskrating()%></td>
+                        <td><%=creditInfoModel.getRatingagency()%></td>
                         <td>
                             <a href="#editCreditInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteCreditInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -112,18 +113,14 @@
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = creditInfo.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
@@ -163,24 +160,51 @@
 						<h4 class="modal-title">Edit CreditInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
+					<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Add New Credit Information</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                 clientname = creditInfo.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Approved Lines</label>
+							<input type="text" name="approvedlinesa" id="approvedlinesa" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Outstanding Amount</label>
+							<input type="text" name="outstandingamta" id="outstandingamta" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Risk Rating</label>
+							<input type="text"  name="riskratinga" id="riskratinga"  class="form-control" required>
+						</div>	
+                                                <div class="form-group">
+							<label>Rating Agency</label>
+							<input type="text"  name="ratingagencya" id="ratingagencya"  class="form-control" required>
+						</div>
 					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-info" value="Save">

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.ClientEmployee" optimistic-lock="version" schema="ACCPLAN" table="CLIENT_EMPLOYEE">
+    <id name="clientemployeeid" type="int">
+      <column name="CLIENTEMPLOYEEID" precision="22" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmaster">
+      <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
+    </many-to-one>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="clientEmployeeContactperson" type="string">
+      <column length="200" name="CLIENT_EMPLOYEE_CONTACTPERSON"/>
+    </property>
+    <property name="clientEmployeePhonenumber" type="string">
+      <column length="200" name="CLIENT_EMPLOYEE_PHONENUMBER"/>
+    </property>
+    <property name="clientEmployeeEmail" type="string">
+      <column length="200" name="CLIENT_EMPLOYEE_EMAIL"/>
+    </property>
+    <property name="clientEmployeeLocation" type="string">
+      <column length="200" name="CLIENT_EMPLOYEE_LOCATION"/>
+    </property>
+    <property name="noofemployees" type="string">
+      <column length="200" name="NOOFEMPLOYEES"/>
+    </property>
+    <property name="noofbankedemployeesallbanks" type="string">
+      <column length="200" name="NOOFBANKEDEMPLOYEESALLBANKS"/>
+    </property>
+    <property name="noofbankedemployeeswithim" type="string">
+      <column length="200" name="NOOFBANKEDEMPLOYEESWITHIM"/>
+    </property>
+    <property name="targetnoofemployeesbyim" type="string">
+      <column length="200" name="TARGETNOOFEMPLOYEESBYIM"/>
+    </property>
+  </class>
+</hibernate-mapping>

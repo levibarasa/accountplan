@@ -10,103 +10,93 @@ package com.inm.models;
  * @author Levi
  */
 public class CompanyModel {
-   String CompanyID;
-String ClientID;
-String RM_Code;
-String Company_Address;
-String GroupName;
-String HQ_Affiliate;
-String Industry;
-String Segment;
-String NumberOfSubsidiaries;
+   private int companyid;
+     private String lookupmasterByIndustrylookupmasterid;
+     private String lookupmasterByAffiliatelookupmasterid;
+     private String lookupmasterBySegmentlookupmasterid;
+     private String clientMaster;
+     private String companyAddress;
+     private String groupname;
+     private int noofsubsidiaries;
 
     public CompanyModel() {
     }
 
-    public CompanyModel(String CompanyID, String ClientID, String RM_Code, String Company_Address, String GroupName, String HQ_Affiliate, String Industry, String Segment, String NumberOfSubsidiaries) {
-        this.CompanyID = CompanyID;
-        this.ClientID = ClientID;
-        this.RM_Code = RM_Code;
-        this.Company_Address = Company_Address;
-        this.GroupName = GroupName;
-        this.HQ_Affiliate = HQ_Affiliate;
-        this.Industry = Industry;
-        this.Segment = Segment;
-        this.NumberOfSubsidiaries = NumberOfSubsidiaries;
+    public CompanyModel(int companyid, String lookupmasterByIndustrylookupmasterid, String lookupmasterByAffiliatelookupmasterid, String lookupmasterBySegmentlookupmasterid, String clientMaster, String companyAddress, String groupname, int noofsubsidiaries) {
+        this.companyid = companyid;
+        this.lookupmasterByIndustrylookupmasterid = lookupmasterByIndustrylookupmasterid;
+        this.lookupmasterByAffiliatelookupmasterid = lookupmasterByAffiliatelookupmasterid;
+        this.lookupmasterBySegmentlookupmasterid = lookupmasterBySegmentlookupmasterid;
+        this.clientMaster = clientMaster;
+        this.companyAddress = companyAddress;
+        this.groupname = groupname;
+        this.noofsubsidiaries = noofsubsidiaries;
     }
 
-    public String getCompanyID() {
-        return CompanyID;
+    public int getCompanyid() {
+        return companyid;
     }
 
-    public void setCompanyID(String CompanyID) {
-        this.CompanyID = CompanyID;
+    public void setCompanyid(int companyid) {
+        this.companyid = companyid;
     }
 
-    public String getClientID() {
-        return ClientID;
+    public String getLookupmasterByIndustrylookupmasterid() {
+        return lookupmasterByIndustrylookupmasterid;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setLookupmasterByIndustrylookupmasterid(String lookupmasterByIndustrylookupmasterid) {
+        this.lookupmasterByIndustrylookupmasterid = lookupmasterByIndustrylookupmasterid;
     }
 
-    public String getRM_Code() {
-        return RM_Code;
+    public String getLookupmasterByAffiliatelookupmasterid() {
+        return lookupmasterByAffiliatelookupmasterid;
     }
 
-    public void setRM_Code(String RM_Code) {
-        this.RM_Code = RM_Code;
+    public void setLookupmasterByAffiliatelookupmasterid(String lookupmasterByAffiliatelookupmasterid) {
+        this.lookupmasterByAffiliatelookupmasterid = lookupmasterByAffiliatelookupmasterid;
     }
 
-    public String getCompany_Address() {
-        return Company_Address;
+    public String getLookupmasterBySegmentlookupmasterid() {
+        return lookupmasterBySegmentlookupmasterid;
     }
 
-    public void setCompany_Address(String Company_Address) {
-        this.Company_Address = Company_Address;
+    public void setLookupmasterBySegmentlookupmasterid(String lookupmasterBySegmentlookupmasterid) {
+        this.lookupmasterBySegmentlookupmasterid = lookupmasterBySegmentlookupmasterid;
     }
 
-    public String getGroupName() {
-        return GroupName;
+    public String getClientMaster() {
+        return clientMaster;
     }
 
-    public void setGroupName(String GroupName) {
-        this.GroupName = GroupName;
+    public void setClientMaster(String clientMaster) {
+        this.clientMaster = clientMaster;
     }
 
-    public String getHQ_Affiliate() {
-        return HQ_Affiliate;
+    public String getCompanyAddress() {
+        return companyAddress;
     }
 
-    public void setHQ_Affiliate(String HQ_Affiliate) {
-        this.HQ_Affiliate = HQ_Affiliate;
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
-    public String getIndustry() {
-        return Industry;
+    public String getGroupname() {
+        return groupname;
     }
 
-    public void setIndustry(String Industry) {
-        this.Industry = Industry;
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 
-    public String getSegment() {
-        return Segment;
+    public int getNoofsubsidiaries() {
+        return noofsubsidiaries;
     }
 
-    public void setSegment(String Segment) {
-        this.Segment = Segment;
+    public void setNoofsubsidiaries(int noofsubsidiaries) {
+        this.noofsubsidiaries = noofsubsidiaries;
     }
 
-    public String getNumberOfSubsidiaries() {
-        return NumberOfSubsidiaries;
-    }
-
-    public void setNumberOfSubsidiaries(String NumberOfSubsidiaries) {
-        this.NumberOfSubsidiaries = NumberOfSubsidiaries;
-    }
-
-
+      
 
 }

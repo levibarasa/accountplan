@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.EmployeeLeave" optimistic-lock="version" schema="ACCPLAN" table="EMPLOYEE_LEAVE">
+    <id name="leaveid" type="big_decimal">
+      <column name="LEAVEID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.RmCodelist" fetch="select" name="rmCodelist">
+      <column length="20" name="RMCODE"/>
+    </many-to-one>
+    <property name="rmname" type="string">
+      <column length="20" name="RMNAME"/>
+    </property>
+    <property name="leavetype" type="string">
+      <column length="20" name="LEAVETYPE"/>
+    </property>
+    <property name="startdate" type="date">
+      <column length="7" name="STARTDATE"/>
+    </property>
+    <property name="enddate" type="date">
+      <column length="7" name="ENDDATE"/>
+    </property>
+    <property name="comments" type="string">
+      <column length="20" name="COMMENTS"/>
+    </property>
+  </class>
+</hibernate-mapping>

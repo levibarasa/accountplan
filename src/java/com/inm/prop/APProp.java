@@ -29,4 +29,38 @@ public class APProp {
         }
         return prop;
     }
+        public String getDatabaseUrl() {
+      //  String url = prop.getProperty("database.url");
+        return "jdbc:oracle:thin";
+    }
+
+    public String getDataBaseDriver() {
+      //  String driver = prop.getProperty("database.driver");
+        return "oracle.jdbc.driver.OracleDriver";
+    }
+
+    public String getDatabaseHost() {
+        //String host = prop.getProperty("database.host");
+        return "192.168.205.71";
+    }
+
+    public String getDatabasePort() {
+       // String port = prop.getProperty("database.port");
+        return "1521";
+    }
+
+    public String getDatabaseSid() {
+      //  String sid = prop.getProperty("database.sid");
+        return "NTRFC";
+    }
+
+    public String getDatabaseUser() {
+      //  String user = prop.getProperty("database.user");
+        return "accplan";
+    }
+
+    public String getDatabasePassWord() {
+        //String pass = prop.getProperty("database.pass");
+        return "accplan";
+    }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.Clientcoverageprofile" optimistic-lock="version" schema="ACCPLAN" table="CLIENTCOVERAGEPROFILE">
+    <id name="clientcoverageprofileid" type="big_decimal">
+      <column name="CLIENTCOVERAGEPROFILEID" precision="22" scale="0"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
+      <column length="20" name="CLIENTID" not-null="true"/>
+    </many-to-one>
+    <property name="clientofficername" type="string">
+      <column length="200" name="CLIENTOFFICERNAME"/>
+    </property>
+    <property name="clientofficerposition" type="string">
+      <column length="200" name="CLIENTOFFICERPOSITION"/>
+    </property>
+    <property name="clientofficercontact" type="string">
+      <column length="200" name="CLIENTOFFICERCONTACT"/>
+    </property>
+    <property name="clientofcerrnshipqlty" type="string">
+      <column length="200" name="CLIENTOFCERRNSHIPQLTY"/>
+    </property>
+    <property name="clientofficerlastcontact" type="string">
+      <column length="200" name="CLIENTOFFICERLASTCONTACT"/>
+    </property>
+    <property name="clientofficerdiscussionsummary" type="string">
+      <column name="CLIENTOFFICERDISCUSSIONSUMMARY"/>
+    </property>
+    <property name="clientofficernextplanedcontact" type="string">
+      <column length="200" name="CLIENTOFFICERNEXTPLANEDCONTACT"/>
+    </property>
+    <property name="clientofficernxtcntctpurpose" type="string">
+      <column length="200" name="CLIENTOFFICERNXTCNTCTPURPOSE"/>
+    </property>
+  </class>
+</hibernate-mapping>

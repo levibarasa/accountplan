@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.inm.ap.mode.hibernate.RmCodelist" optimistic-lock="version" schema="ACCPLAN" table="RM_CODELIST">
+    <id name="rmCode" type="string">
+      <column length="20" name="RM_CODE"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="designation" type="string">
+      <column length="50" name="DESIGNATION"/>
+    </property>
+    <property name="branch" type="string">
+      <column length="20" name="BRANCH"/>
+    </property>
+    <property name="branchcode" type="string">
+      <column length="20" name="BRANCHCODE"/>
+    </property>
+    <property name="region" type="string">
+      <column length="50" name="REGION"/>
+    </property>
+    <property name="category" type="string">
+      <column length="50" name="CATEGORY"/>
+    </property>
+    <property name="rmName" type="string">
+      <column length="200" name="RM_NAME"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="clientMastersForRmCode" table="CLIENT_MASTER">
+      <key>
+        <column length="20" name="RM_CODE" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="clientMastersForAlternativeRmCode" table="CLIENT_MASTER">
+      <key>
+        <column length="20" name="ALTERNATIVE_RM_CODE" not-null="true"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeLeaves" table="EMPLOYEE_LEAVE">
+      <key>
+        <column length="20" name="RMCODE"/>
+      </key>
+      <one-to-many class="com.inm.ap.mode.hibernate.EmployeeLeave"/>
+    </set>
+  </class>
+</hibernate-mapping>

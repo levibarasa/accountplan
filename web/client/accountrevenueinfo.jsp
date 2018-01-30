@@ -1,5 +1,5 @@
 <%@page import="com.inm.dao.client.AccountRevenue"%>
-<%@page import="com.inm.models.AccountRevenueModel"%> 
+<%@page import="com.inm.models.*"%> 
 <%@page import="com.inm.dao.client.Company"%>
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
@@ -44,17 +44,12 @@
                     <tr>
 						<th>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
+								 
 							</span>
 						</th>
-                        <th>Client Name</th>
-                        <th>Cur Yr Rev.Target(Ksh'M)</th>
-			<th>Pr Yr Act.Revenue(Ksh'M)</th>
+                        <th>Client Name</th> 
                         <th>% Growth Revenue</th>
-                        <th>Cur Yr FeeInc.Target(Ksh'M)</th>
-                        <th> Pr Yr Act.Fee Income(Ksh'M)</th>
-                        <th>% Growth FeeIncome</th>
+                        <th>Cur Yr FeeInc.Target(Ksh'M)</th> 
                         <th>Cur WalletShare</th>
                         <th>Target WalletShare</th>
                         <th>Tot.Val. Of Id.Opportunitie(Ksh'M)</th>
@@ -63,26 +58,22 @@
                 </thead>
                 <tbody>
                       <%
-                        ArrayList<AccountRevenueModel> list = AccountRevenue.getAccountRevenuenfo(user_code);
+                          AccountRevenue ar = new AccountRevenue();
+                        ArrayList<AccountRevenueModel> list = ar.getAccountRevenuenfo(user_code);
                         for(AccountRevenueModel accountrevenuemodel :list){
                         %>
                     <tr>
 						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
+                                            <span class="custom-checkbox">
+                                              <a href="#viewAll" data-toggle="modal" data-target="#viewAll"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </span>
 						</td>
-                        <td><%=accountrevenuemodel.getClientID()%></td>
-                        <td><%=accountrevenuemodel.getCurrentYearRevenueTarget()%></td>
-			<td><%=accountrevenuemodel.getPriorYearActualRevenue()%></td>
-                        <td><%=accountrevenuemodel.getPercentageGrowthRevenue()%></td>
-                        <td><%=accountrevenuemodel.getCurrentYearFeeIncomeTarget()%></td>
-                        <td><%=accountrevenuemodel.getPriorYearActualFeeIncome()%></td>
-                        <td><%=accountrevenuemodel.getPercentageGrowthFeeIncome()%></td>
-                        <td><%=accountrevenuemodel.getCurrentShareOfWallet()%></td>
-                        <td><%=accountrevenuemodel.getTargetShareOfWallet()%></td>
-                        <td><%=accountrevenuemodel.getTotalValueOfIdentifiedOpportunities()%></td>
+                        <td><%=accountrevenuemodel.getClientMaster()%></td> 
+                        <td><%=accountrevenuemodel.getPercentagegrowthrevenue()%></td> 
+                        <td><%=accountrevenuemodel.getPercentagegrowthfeeincome()%></td>
+                        <td><%=accountrevenuemodel.getCurrentshareofwallet()%></td>
+                        <td><%=accountrevenuemodel.getTargetshareofwallet()%></td>
+                        <td><%=accountrevenuemodel.getTotalvalueofidopportunities()%></td>
                         <td>
                             <a href="#editAccountRevenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteAccountRevenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -117,18 +108,14 @@
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = ar.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
@@ -177,26 +164,53 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit AccountRevenue</h4>
+						<h4 class="modal-title">Edit Account Revenue Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                   clientname = ar.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Current Year Revenue Target(Ksh'M)</label>
+							<input type="text" name="curyrrevtarga" id="curyrrevtarga" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Prior Year Actual Revenue(Ksh'M)</label>
+							<input type="text" name="priyractreva" id="priyractreva" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Current Year Fee Income Target(Ksh'M)</label>
+							<input type="text" name="curyrfeetarga" id="curyrfeetarga" class="form-control" required>
+						</div>	
+                                                <div class="form-group">
+							<label>Prior Year Actual Fee Income(Ksh'M)</label>
+							<input type="text" name="priyractfeea" id="priyractfeea" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Current Share Of Wallet(%)</label>
+							<input type="text" name="curwalletshra" id="curwalletshra" class="form-control" required>
+						</div>
+                                            <div class="form-group">
+							<label>Target Share Of Wallet(%)</label>
+							<input type="text" name="totwalshra" id="totwalshra" class="form-control" required>
+						</div>
+                                             <div class="form-group">
+							<label>Total Value Of Identified Opportunities(Ksh'M)</label>
+							<input type="text" name="totidoppa" id="totidoppa" class="form-control" required>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -227,6 +241,61 @@
 			</div>
 		</div>
 	</div>
-
+<div id="viewAll" class="modal fade">
+        <div class="table-wrapper">
+            
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>
+							 
+						</th>
+                        <th>Client Name</th>
+                       <th>Cur Yr Rev.Target(Ksh'M)</th>
+			<th>Pr Yr Act.Revenue(Ksh'M)</th> -->
+                        <th>% Growth Revenue</th>
+                        <th>Cur Yr FeeInc.Target(Ksh'M)</th>
+                      <th> Pr Yr Act.Fee Income(Ksh'M)</th>
+                        <th>% Growth FeeIncome</th> 
+                        <th>Cur WalletShare</th>
+                        <th>Target WalletShare</th>
+                        <th>Tot.Val. Of Id.Opportunitie(Ksh'M)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                      <%
+                         ar = new AccountRevenue();
+                         list = ar.getAccountRevenuenfo(user_code);
+                        for(AccountRevenueModel accountrevenuemodel :list){
+                        %>
+                    <tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
+                        <td><%=accountrevenuemodel.getClientMaster()%></td>
+                 <td><%=accountrevenuemodel.getCurrentyearrevenuetarget()%></td>
+			<td><%=accountrevenuemodel.getPrioryearactualrevenue()%></td>  
+                        <td><%=accountrevenuemodel.getPercentagegrowthrevenue()%></td>
+                   <td><%=accountrevenuemodel.getCurrentyearfeeincometarget()%></td>
+                        <td><%=accountrevenuemodel.getPrioryearactualfeeincome()%></td>  
+                        <td><%=accountrevenuemodel.getPercentagegrowthfeeincome()%></td>
+                        <td><%=accountrevenuemodel.getCurrentshareofwallet()%></td>
+                        <td><%=accountrevenuemodel.getTargetshareofwallet()%></td>
+                        <td><%=accountrevenuemodel.getTotalvalueofidopportunities()%></td>
+                        <td>
+                        </td>
+                    </tr> 
+		<%
+                        }
+                        %>			
+                </tbody>
+            </table>
+			 
+        </div>
+    </div>
 
 <%@ include file="../include/footer.jsp" %>

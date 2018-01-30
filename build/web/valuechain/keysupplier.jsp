@@ -1,7 +1,5 @@
-<%@page import="com.inm.dao.client.AccountRevenue"%>
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CreditInfoModel"%> 
-<%@page import="com.inm.dao.client.CreditInfo"%>
+<%@page import="com.inm.dao.valuechain.*"%> 
+<%@page import="com.inm.models.*"%>  
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 
@@ -35,11 +33,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Credit Information</b></h2>
+						<h2>Manage <b>Key Supplier Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCreditInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CreditInformation</span></a>
-						<a href="#deleteCreditInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addKeySupplierInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New KeySupplierInformation</span></a>
+						<a href="#deleteKeySupplierInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -53,17 +51,23 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Approved Lines</th>
-			<th>Outstanding Amount</th>
-                        <th>Risk Rating</th>
-                        <th>Rating Agency</th>
+			<th>Key Supplier</th>
+                        <th>ContactPerson</th>
+                        <th>Phone#</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Segment</th>
+                        <th>VolOfBusiness</th>
+                        <th>BankedByI&M</th> 
+                        <th>Comment</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CreditInfoModel> list = CreditInfo.getCreditInfo(user_code);
-                        for(CreditInfoModel creditInfoModel :list){
+                        KeySupplier ks = new KeySupplier();
+                        ArrayList<KeySupplierModel> list = ks.getKeySupplierInfo(user_code);
+                        for(KeySupplierModel keySupplierModel :list){
                         %>
                     <tr>
 						<td>
@@ -72,14 +76,19 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=creditInfoModel.getClientID()%></td>
-                        <td><%=creditInfoModel.getApprovedLines()%></td>
-			<td><%=creditInfoModel.getOutstandingAmount()%></td>
-                        <td><%=creditInfoModel.getRiskRating()%></td>
-                        <td><%=creditInfoModel.getRatingAgency()%></td>
+                        <td><%=keySupplierModel.getClientMaster()%></td>
+			<td><%=keySupplierModel.getKsname()%></td>
+                        <td><%=keySupplierModel.getKsContactperson()%></td>
+                        <td><%=keySupplierModel.getKsPhonenumber()%></td>
+                        <td><%=keySupplierModel.getKsEmail()%></td>
+                        <td><%=keySupplierModel.getKsLocation()%></td>
+                        <td> <%=keySupplierModel.getLookupmaster()%></td>
+                        <td><%=keySupplierModel.getVolofbusiness()%> </td>
+                        <td><%=keySupplierModel.getBankedbyim()%></td> 
+                        <td><%=keySupplierModel.getComments()%> </td>
                         <td>
-                            <a href="#editCreditInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editKeySupplierInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteKeySupplierInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                     
@@ -101,29 +110,25 @@
         </div>
     </div>
 	<!-- Add Modal HTML -->
-	<div id="addCreditInformationModal" class="modal fade">
+	<div id="addKeySupplierInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Add New Credit Information</h4>
+						<h4 class="modal-title">Add New Key Supplier Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = ks.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
@@ -155,12 +160,12 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editCreditInformationModal" class="modal fade">
+	<div id="editKeySupplierInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditInformation</h4>
+						<h4 class="modal-title">Edit KeySupplierInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
@@ -190,12 +195,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCreditInformationModal" class="modal fade">
+	<div id="deleteKeySupplierInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete CreditInformation</h4>
+						<h4 class="modal-title">Delete KeySupplierInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

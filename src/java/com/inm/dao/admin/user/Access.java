@@ -90,10 +90,10 @@ public class Access {
 
     public static void MarkloginUser(String employeeID, Date loggedInTime) {
         loggedInTime = new Date();
-        String loggedinTm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss", Locale.US).format(loggedInTime);
-        String sql = "insert into Excalibur_Usage (employeeID,loginTime) values(?,?)";
-        String in = employeeID + "," + loggedinTm;
-        AdminDb.dbWork(sql, 2, in);
+        //String loggedinTm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss", Locale.US).format(loggedInTime);
+        String sql = "insert into Excalibur_Usage (employeeID,loginTime) values(?,sysdate)";
+        String in = employeeID;
+        AdminDb.dbWork(sql, 1, in);
     }
 
     public static void loginUser(String employeeID, String UserName, String userType) {
