@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -22,11 +22,11 @@ public class ClientMaster  implements java.io.Serializable {
      private String cashmanagementpartner;
      private String EBankingpartner;
      private String riskmanagementpartner;
-     
-     
      private Set overallclientwalletsizes = new HashSet(0);
      private Set qualitativeinformations = new HashSet(0);
+     private Set signOffs = new HashSet(0);
      private Set companyMasters = new HashSet(0);
+     private Set currentandfutureopportunitieses = new HashSet(0);
      private Set clientcoverageprofiles = new HashSet(0);
      private Set dealinprogresses = new HashSet(0);
      private Set clientFinancials = new HashSet(0);
@@ -47,7 +47,7 @@ public class ClientMaster  implements java.io.Serializable {
         this.rmCodelistByRmCode = rmCodelistByRmCode;
         this.rmCodelistByAlternativeRmCode = rmCodelistByAlternativeRmCode;
     }
-    public ClientMaster(String clientid, RmCodelist rmCodelistByRmCode, RmCodelist rmCodelistByAlternativeRmCode, Lookupmaster lookupmaster, String clientname, Date currentDate, String tradeserviceprovider, String cashmanagementpartner, String EBankingpartner, Set overallclientwalletsizes, Set qualitativeinformations, Set companyMasters, Set clientcoverageprofiles, Set dealinprogresses, Set clientFinancials, Set keysuppliermasters, Set accountRevenueInformations, Set competitions, Set keydistributormasters, Set clientEmployees, Set creditInformations, Set salesactionplans) {
+    public ClientMaster(String clientid, RmCodelist rmCodelistByRmCode, RmCodelist rmCodelistByAlternativeRmCode, Lookupmaster lookupmaster, String clientname, Date currentDate, String tradeserviceprovider, String cashmanagementpartner, String EBankingpartner, String riskmanagementpartner, Set overallclientwalletsizes, Set qualitativeinformations, Set signOffs, Set companyMasters, Set currentandfutureopportunitieses, Set clientcoverageprofiles, Set dealinprogresses, Set clientFinancials, Set keysuppliermasters, Set accountRevenueInformations, Set competitions, Set keydistributormasters, Set clientEmployees, Set creditInformations, Set salesactionplans) {
        this.clientid = clientid;
        this.rmCodelistByRmCode = rmCodelistByRmCode;
        this.rmCodelistByAlternativeRmCode = rmCodelistByAlternativeRmCode;
@@ -57,9 +57,12 @@ public class ClientMaster  implements java.io.Serializable {
        this.tradeserviceprovider = tradeserviceprovider;
        this.cashmanagementpartner = cashmanagementpartner;
        this.EBankingpartner = EBankingpartner;
+       this.riskmanagementpartner = riskmanagementpartner;
        this.overallclientwalletsizes = overallclientwalletsizes;
        this.qualitativeinformations = qualitativeinformations;
+       this.signOffs = signOffs;
        this.companyMasters = companyMasters;
+       this.currentandfutureopportunitieses = currentandfutureopportunitieses;
        this.clientcoverageprofiles = clientcoverageprofiles;
        this.dealinprogresses = dealinprogresses;
        this.clientFinancials = clientFinancials;
@@ -135,6 +138,13 @@ public class ClientMaster  implements java.io.Serializable {
     public void setEBankingpartner(String EBankingpartner) {
         this.EBankingpartner = EBankingpartner;
     }
+    public String getRiskmanagementpartner() {
+        return this.riskmanagementpartner;
+    }
+    
+    public void setRiskmanagementpartner(String riskmanagementpartner) {
+        this.riskmanagementpartner = riskmanagementpartner;
+    }
     public Set getOverallclientwalletsizes() {
         return this.overallclientwalletsizes;
     }
@@ -149,12 +159,26 @@ public class ClientMaster  implements java.io.Serializable {
     public void setQualitativeinformations(Set qualitativeinformations) {
         this.qualitativeinformations = qualitativeinformations;
     }
+    public Set getSignOffs() {
+        return this.signOffs;
+    }
+    
+    public void setSignOffs(Set signOffs) {
+        this.signOffs = signOffs;
+    }
     public Set getCompanyMasters() {
         return this.companyMasters;
     }
     
     public void setCompanyMasters(Set companyMasters) {
         this.companyMasters = companyMasters;
+    }
+    public Set getCurrentandfutureopportunitieses() {
+        return this.currentandfutureopportunitieses;
+    }
+    
+    public void setCurrentandfutureopportunitieses(Set currentandfutureopportunitieses) {
+        this.currentandfutureopportunitieses = currentandfutureopportunitieses;
     }
     public Set getClientcoverageprofiles() {
         return this.clientcoverageprofiles;
@@ -225,14 +249,6 @@ public class ClientMaster  implements java.io.Serializable {
     
     public void setSalesactionplans(Set salesactionplans) {
         this.salesactionplans = salesactionplans;
-    }
-
-    public String getRiskmanagementpartner() {
-        return riskmanagementpartner;
-    }
-
-    public void setRiskmanagementpartner(String riskmanagementpartner) {
-        this.riskmanagementpartner = riskmanagementpartner;
     }
 
 

@@ -1,7 +1,5 @@
-<%@page import="com.inm.dao.client.AccountRevenue"%>
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CreditInfoModel"%> 
-<%@page import="com.inm.dao.client.CreditInfo"%>
+<%@page import="com.inm.dao.walletresize.*"%>
+<%@page import="com.inm.models.*"%>  
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 
@@ -9,12 +7,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addCFOpportunity');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddCFOpportunity',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -35,11 +33,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Credit Information</b></h2>
+						<h2>Manage <b>Current And Future Opportunities Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCreditInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CreditInformation</span></a>
-						<a href="#deleteCreditInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addCurrentAndFutureOpportunitiesInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CurrentAndFutureOpportunitiesInformation</span></a>
+						<a href="#deleteCurrentAndFutureOpportunitiesInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -53,17 +51,36 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Approved Lines</th>
-			<th>Outstanding Amount</th>
-                        <th>Risk Rating</th>
-                        <th>Rating Agency</th>
+                        <th>Assets Estimated Total</th>
+			<th>Net Interest Asset Income</th>
+                        <th>Net Interest Asset Margin</th>
+                        <th>Liability Estimated Total</th>
+                        <th>Liability Average Interest Margin</th>
+                        <th>Liability Interest Income</th>
+                        <th>Estimated Total Assets</th>
+                        <th>I&M Asset Average Fee Rate</th>
+                        <th>Assets Fee Income</th>
+                        <th>Liability Estimated total</th>
+                        <th>I&M Liability Average Fee Rate</th>
+                        <th>Liability Fee Income</th>
+                        <th>Income Total Fee</th>
+                        <th>I&M Wallet Size</th>
+                        <th>I&M Projected Wallet Share</th>
+                        <th>I&M Expected Revenue</th>
+                        <th>All Banks Wallet Size Revenue</th>
+                        <th>% wallet Share </th>
+                        <th>Deal Volume Fees</th>
+                        <th>Deal Volume Assets</th>
+                        <th>Deal volume Liabilities</th>
+                        <th>Deal volume Revenue</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CreditInfoModel> list = CreditInfo.getCreditInfo(user_code);
-                        for(CreditInfoModel creditInfoModel :list){
+                       CurrentAndFutureOpportunities cfo = new CurrentAndFutureOpportunities(); 
+                        ArrayList<CurrentAndFutureOpportunityModel> list = cfo.getCurrentAndFutureOpportunitiesInfo(user_code);
+                        for(CurrentAndFutureOpportunityModel cfomodel :list){
                         %>
                     <tr>
 						<td>
@@ -72,14 +89,32 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=creditInfoModel.getClientID()%></td>
-                        <td><%=creditInfoModel.getApprovedLines()%></td>
-			<td><%=creditInfoModel.getOutstandingAmount()%></td>
-                        <td><%=creditInfoModel.getRiskRating()%></td>
-                        <td><%=creditInfoModel.getRatingAgency()%></td>
+                        <td><%=cfomodel.getClientMaster()%></td>
+                        <td><%=cfomodel.getEstimatedtotalasset()%></td>
+			<td><%=cfomodel.getImaverageinterestmargin()%></td>
+                        <td><%=cfomodel.getAssetsnetinterestincome()%></td>
+                        <td><%=cfomodel.getEstimatedtotalliability()%></td>
+                        <td><%=cfomodel.getImavrgliabilityintrestmargin()%></td>
+                        <td><%=cfomodel.getLiabilitynetinterestincome()%></td>
+                        <td><%=cfomodel.getTotalnetinterestincome()%></td>
+                        <td><%=cfomodel.getAssetestimatedtotal()%></td>
+                        <td><%=cfomodel.getImassetaveragefeerate()%></td>
+                        <td><%=cfomodel.getAssetsfeeincome()%></td>
+                        <td><%=cfomodel.getLiabilityestimatedtotal()%></td>
+                        <td><%=cfomodel.getImliabilityaveragefeerate()%></td>
+                        <td><%=cfomodel.getLiabilityfeeincome()%></td>
+                        <td><%=cfomodel.getIncometotalfee()%></td>
+                        <td><%=cfomodel.getImwalletsize()%></td>
+                        <td><%=cfomodel.getImprojectedwalletshare()%></td>
+                        <td><%=cfomodel.getImexpectedrevenue()%></td>
+                        <td><%=cfomodel.getAllbankswalletsizrevmanual()%></td>
+                        <td><%=cfomodel.getPercentwalletsharemanual()%></td>
+                        <td><%=cfomodel.getDealvolumefees()%></td>
+                        <td><%=cfomodel.getDealvolassets()%></td>
+                        <td><%=cfomodel.getDealvolrevenue()%></td>
                         <td>
-                            <a href="#editCreditInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editCurrentAndFutureOpportunitiesInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteCurrentAndFutureOpportunitiesInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                     
@@ -101,49 +136,81 @@
         </div>
     </div>
 	<!-- Add Modal HTML -->
-	<div id="addCreditInformationModal" class="modal fade">
+	<div id="addCurrentAndFutureOpportunitiesInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addCFOpportunity"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddCFOpportunity"  id="addCFOpportunity">
 					<div class="modal-header">						
-						<h4 class="modal-title">Add New Credit Information</h4>
+						<h4 class="modal-title">Add New Current And Future Opportunities Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = cfo.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
                                      </select>
 						</div>
+                                     <div class="form-group">
+                                                    <%  
+                                  ArrayList<LookupmasterModel> lookupmaster = cfo.getLookupList("PRODUCT"); 
+                                                        %>
+							<label>Product</label>
+				 <select name="producta" id="producta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                     
 						<div class="form-group">
-							<label>Approved Lines</label>
-							<input type="text" name="approvedlinesa" id="approvedlinesa" class="form-control" required>
+							<label>Assets Estimated Total(Ksh'M)</label>
+							<input type="text" name="assetesttotala" id="assetesttotala" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Outstanding Amount</label>
-							<input type="text" name="outstandingamta" id="outstandingamta" class="form-control" required>
+							<label>Average I&M Interest Margin Asset(%)</label>
+							<input type="text" name="imintrstmargina" id="imintrstmargina" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Risk Rating</label>
-							<input type="text"  name="riskratinga" id="riskratinga"  class="form-control" required>
+							<label>Estimated Total Liability($mm)</label>
+							<input type="text"  name="esttotliabilitya" id="esttotliabilitya"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
-							<label>Rating Agency</label>
-							<input type="text"  name="ratingagencya" id="ratingagencya"  class="form-control" required>
+							<label>Average I&M Interest Margin On Liability</label>
+							<input type="text"  name="iminterstmarginliabilitya" id="iminterstmarginliabilitya"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Estimated Total Asset($mm)</label>
+							<input type="text"  name="esttotasseta" id="esttotasseta"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Average I&M Fee Rate On Assets(%)</label>
+							<input type="text"  name="imfeerateassetsa" id="imfeerateassetsa"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Estimated Total Liability($mm)</label>
+							<input type="text"  name="esttotliabilitya" id="esttotliabilitya"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Average I&M Fee Rate On Liability(%)</label>
+							<input type="text"  name="imfeerateliabilitya" id="imfeerateliabilitya"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Projected Share Of Wallet(%)</label>
+							<input type="text"  name="projectedwalletsharea" id="projectedwalletsharea"  class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -155,31 +222,82 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editCreditInformationModal" class="modal fade">
+	<div id="editCurrentAndFutureOpportunitiesInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditInformation</h4>
+						<h4 class="modal-title">Edit Current And Future Opportunities Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                   clientname = cfo.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
+						</div>
+                                     <div class="form-group">
+                                                    <%  
+                                  lookupmaster = cfo.getLookupList("PRODUCT"); 
+                                                        %>
+							<label>Product</label>
+				 <select name="producta" id="producta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                     
+						<div class="form-group">
+							<label>Assets Estimated Total(Ksh'M)</label>
+							<input type="text" name="assetesttotala" id="assetesttotala" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Average I&M Interest Margin Asset(%)</label>
+							<input type="text" name="imintrstmargina" id="imintrstmargina" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Estimated Total Liability($mm)</label>
+							<input type="text"  name="esttotliabilitya" id="esttotliabilitya"  class="form-control" required>
+						</div>	
+                                                <div class="form-group">
+							<label>Average I&M Interest Margin On Liability</label>
+							<input type="text"  name="iminterstmarginliabilitya" id="iminterstmarginliabilitya"  class="form-control" required>
 						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+                                     <div class="form-group">
+							<label>Estimated Total Asset($mm)</label>
+							<input type="text"  name="esttotasseta" id="esttotasseta"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Average I&M Fee Rate On Assets(%)</label>
+							<input type="text"  name="imfeerateassetsa" id="imfeerateassetsa"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Estimated Total Liability($mm)</label>
+							<input type="text"  name="esttotliabilitya" id="esttotliabilitya"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Average I&M Fee Rate On Liability(%)</label>
+							<input type="text"  name="imfeerateliabilitya" id="imfeerateliabilitya"  class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Projected Share Of Wallet(%)</label>
+							<input type="text"  name="projectedwalletsharea" id="projectedwalletsharea"  class="form-control" required>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -190,12 +308,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCreditInformationModal" class="modal fade">
+	<div id="deleteCurrentAndFutureOpportunitiesInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete CreditInformation</h4>
+						<h4 class="modal-title">Delete CurrentAndFutureOpportunitiesInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

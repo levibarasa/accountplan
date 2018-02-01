@@ -9,12 +9,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addCreditInfo');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddCreditInfo',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -105,7 +105,7 @@
 	<div id="addCreditInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addCreditInfo"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddCreditInfo"  id="addCreditInfo">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add New Credit Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,7 +147,7 @@
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
 					</div>
-				</form>
+				</form> 
 			</div>
 		</div>
 	</div>

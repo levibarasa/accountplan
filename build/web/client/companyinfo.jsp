@@ -123,7 +123,7 @@
                                 %> 
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
-                                    }
+                                    } 
                                 %>   
                                      </select>
 						</div>
@@ -173,7 +173,7 @@
 							<label>Segment</label>
 				 <select name="segmenta" id="segmenta" class="form-control" required>
                                       <%
-                                    for(LookupmasterModel lst : industry){ 
+                                    for(LookupmasterModel lst : segment){ 
                                 %> 
                                 <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
                                 <%

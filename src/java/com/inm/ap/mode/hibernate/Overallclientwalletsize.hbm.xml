@@ -1,41 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.Overallclientwalletsize" optimistic-lock="version" schema="ACCPLAN" table="OVERALLCLIENTWALLETSIZE">
-    <id name="clientwalletsizeid" type="big_decimal">
-      <column name="CLIENTWALLETSIZEID" precision="22" scale="0"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="totalcorporatedebt" type="big_decimal">
-      <column name="TOTALCORPORATEDEBT" precision="22" scale="0"/>
-    </property>
-    <property name="averageimloanmargin" type="big_decimal">
-      <column name="AVERAGEIMLOANMARGIN" precision="22" scale="0"/>
-    </property>
-    <property name="assetsinterestincome" type="big_decimal">
-      <column name="ASSETSINTERESTINCOME" precision="22" scale="0"/>
-    </property>
-    <property name="estimatedcorporatedeposits" type="big_decimal">
-      <column name="ESTIMATEDCORPORATEDEPOSITS" precision="22" scale="0"/>
-    </property>
-    <property name="averageimdepositmargin" type="big_decimal">
-      <column name="AVERAGEIMDEPOSITMARGIN" precision="22" scale="0"/>
-    </property>
-    <property name="netintrstliabltyincome" type="big_decimal">
-      <column name="NETINTRSTLIABLTYINCOME" precision="22" scale="0"/>
-    </property>
-    <property name="totalnetinterestincome" type="big_decimal">
-      <column name="TOTALNETINTERESTINCOME" precision="22" scale="0"/>
-    </property>
-    <property name="totalnii" type="big_decimal">
-      <column name="TOTALNII" precision="22" scale="0"/>
-    </property>
-    <property name="imfeeincome" type="big_decimal">
-      <column name="IMFEEINCOME" precision="22" scale="0"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.Overallclientwalletsize" table="OVERALLCLIENTWALLETSIZE" schema="ACCPLAN" optimistic-lock="version">
+        <id name="clientwalletsizeid" type="int">
+            <column name="CLIENTWALLETSIZEID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="totalcorporatedebt" type="big_decimal">
+            <column name="TOTALCORPORATEDEBT" precision="22" scale="0" />
+        </property>
+        <property name="averageimloanmargin" type="big_decimal">
+            <column name="AVERAGEIMLOANMARGIN" precision="22" scale="0" />
+        </property>
+        <property name="assetsinterestincome" type="big_decimal">
+            <column name="ASSETSINTERESTINCOME" precision="22" scale="0" />
+        </property>
+        <property name="estimatedcorporatedeposits" type="big_decimal">
+            <column name="ESTIMATEDCORPORATEDEPOSITS" precision="22" scale="0" />
+        </property>
+        <property name="averageimdepositmargin" type="big_decimal">
+            <column name="AVERAGEIMDEPOSITMARGIN" precision="22" scale="0" />
+        </property>
+        <property name="netintrstliabltyincome" type="big_decimal">
+            <column name="NETINTRSTLIABLTYINCOME" precision="22" scale="0" />
+        </property>
+        <property name="totalnetinterestincome" type="big_decimal">
+            <column name="TOTALNETINTERESTINCOME" precision="22" scale="0" />
+        </property>
+        <property name="totalnii" type="big_decimal">
+            <column name="TOTALNII" precision="22" scale="0" />
+        </property>
+        <property name="imfeeincome" type="big_decimal">
+            <column name="IMFEEINCOME" precision="22" scale="0" />
+        </property>
+        <property name="totalfeeincome" type="big_decimal">
+            <column name="TOTALFEEINCOME" precision="22" scale="0" />
+        </property>
+        <property name="clientbankingwallet" type="big_decimal">
+            <column name="CLIENTBANKINGWALLET" precision="22" scale="0" />
+        </property>
+        <property name="imrevenue" type="big_decimal">
+            <column name="IMREVENUE" precision="22" scale="0" />
+        </property>
+        <property name="estimatedwalletshare" type="big_decimal">
+            <column name="ESTIMATEDWALLETSHARE" precision="22" scale="0" />
+        </property>
+    </class>
 </hibernate-mapping>

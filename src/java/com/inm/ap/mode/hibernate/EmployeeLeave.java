@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.Date;
 public class EmployeeLeave  implements java.io.Serializable {
 
 
-     private BigDecimal leaveid;
+     private int leaveid;
      private RmCodelist rmCodelist;
      private String rmname;
      private String leavetype;
@@ -23,10 +23,10 @@ public class EmployeeLeave  implements java.io.Serializable {
     }
 
 	
-    public EmployeeLeave(BigDecimal leaveid) {
+    public EmployeeLeave(int leaveid) {
         this.leaveid = leaveid;
     }
-    public EmployeeLeave(BigDecimal leaveid, RmCodelist rmCodelist, String rmname, String leavetype, Date startdate, Date enddate, String comments) {
+    public EmployeeLeave(int leaveid, RmCodelist rmCodelist, String rmname, String leavetype, Date startdate, Date enddate, String comments) {
        this.leaveid = leaveid;
        this.rmCodelist = rmCodelist;
        this.rmname = rmname;
@@ -36,11 +36,11 @@ public class EmployeeLeave  implements java.io.Serializable {
        this.comments = comments;
     }
    
-    public BigDecimal getLeaveid() {
+    public int getLeaveid() {
         return this.leaveid;
     }
     
-    public void setLeaveid(BigDecimal leaveid) {
+    public void setLeaveid(int leaveid) {
         this.leaveid = leaveid;
     }
     public RmCodelist getRmCodelist() {

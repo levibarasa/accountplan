@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class EmployeeDetails  implements java.io.Serializable {
 
 
-     private BigDecimal employeeid;
+     private int employeeid;
      private String employeename;
      private String mobilenumber;
      private String emailid;
@@ -25,10 +25,10 @@ public class EmployeeDetails  implements java.io.Serializable {
     }
 
 	
-    public EmployeeDetails(BigDecimal employeeid) {
+    public EmployeeDetails(int employeeid) {
         this.employeeid = employeeid;
     }
-    public EmployeeDetails(BigDecimal employeeid, String employeename, String mobilenumber, String emailid, String dateofbirth, String designation, BigDecimal accesslevelid, String password, BigDecimal areaid, String windowsusername) {
+    public EmployeeDetails(int employeeid, String employeename, String mobilenumber, String emailid, String dateofbirth, String designation, BigDecimal accesslevelid, String password, BigDecimal areaid, String windowsusername) {
        this.employeeid = employeeid;
        this.employeename = employeename;
        this.mobilenumber = mobilenumber;
@@ -41,11 +41,11 @@ public class EmployeeDetails  implements java.io.Serializable {
        this.windowsusername = windowsusername;
     }
    
-    public BigDecimal getEmployeeid() {
+    public int getEmployeeid() {
         return this.employeeid;
     }
     
-    public void setEmployeeid(BigDecimal employeeid) {
+    public void setEmployeeid(int employeeid) {
         this.employeeid = employeeid;
     }
     public String getEmployeename() {

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.Currentandfutureopportunities" table="CURRENTANDFUTUREOPPORTUNITIES" schema="ACCPLAN" optimistic-lock="version">
+        <id name="cafoppid" type="int">
+            <column name="CAFOPPID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="lookupmaster" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="PRODUCTLOOKKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="estimatedtotalasset" type="big_decimal">
+            <column name="ESTIMATEDTOTALASSET" precision="22" scale="0" />
+        </property>
+        <property name="imaverageinterestmargin" type="big_decimal">
+            <column name="IMAVERAGEINTERESTMARGIN" precision="22" scale="0" />
+        </property>
+        <property name="assetsnetinterestincome" type="big_decimal">
+            <column name="ASSETSNETINTERESTINCOME" precision="22" scale="0" />
+        </property>
+        <property name="estimatedtotalliability" type="big_decimal">
+            <column name="ESTIMATEDTOTALLIABILITY" precision="22" scale="0" />
+        </property>
+        <property name="imavrgliabilityintrestmargin" type="big_decimal">
+            <column name="IMAVRGLIABILITYINTRESTMARGIN" precision="22" scale="0" />
+        </property>
+        <property name="liabilitynetinterestincome" type="big_decimal">
+            <column name="LIABILITYNETINTERESTINCOME" precision="22" scale="0" />
+        </property>
+        <property name="totalnetinterestincome" type="big_decimal">
+            <column name="TOTALNETINTERESTINCOME" precision="22" scale="0" />
+        </property>
+        <property name="assetestimatedtotal" type="big_decimal">
+            <column name="ASSETESTIMATEDTOTAL" precision="22" scale="0" />
+        </property>
+        <property name="imassetaveragefeerate" type="big_decimal">
+            <column name="IMASSETAVERAGEFEERATE" precision="22" scale="0" />
+        </property>
+        <property name="assetsfeeincome" type="big_decimal">
+            <column name="ASSETSFEEINCOME" precision="22" scale="0" />
+        </property>
+        <property name="liabilityestimatedtotal" type="big_decimal">
+            <column name="LIABILITYESTIMATEDTOTAL" precision="22" scale="0" />
+        </property>
+        <property name="imliabilityaveragefeerate" type="big_decimal">
+            <column name="IMLIABILITYAVERAGEFEERATE" precision="22" scale="0" />
+        </property>
+        <property name="liabilityfeeincome" type="big_decimal">
+            <column name="LIABILITYFEEINCOME" precision="22" scale="0" />
+        </property>
+        <property name="incometotalfee" type="big_decimal">
+            <column name="INCOMETOTALFEE" precision="22" scale="0" />
+        </property>
+        <property name="imwalletsize" type="big_decimal">
+            <column name="IMWALLETSIZE" precision="22" scale="0" />
+        </property>
+        <property name="improjectedwalletshare" type="big_decimal">
+            <column name="IMPROJECTEDWALLETSHARE" precision="22" scale="0" />
+        </property>
+        <property name="imexpectedrevenue" type="big_decimal">
+            <column name="IMEXPECTEDREVENUE" precision="22" scale="0" />
+        </property>
+        <property name="allbankswalletsizrevmanual" type="big_decimal">
+            <column name="ALLBANKSWALLETSIZREVMANUAL" precision="22" scale="0" />
+        </property>
+        <property name="percentwalletsharemanual" type="big_decimal">
+            <column name="PERCENTWALLETSHAREMANUAL" precision="22" scale="0" />
+        </property>
+        <property name="dealvolumefees" type="big_decimal">
+            <column name="DEALVOLUMEFEES" precision="22" scale="0" />
+        </property>
+        <property name="dealvolassets" type="big_decimal">
+            <column name="DEALVOLASSETS" precision="22" scale="0" />
+        </property>
+        <property name="dealvolliabilities" type="big_decimal">
+            <column name="DEALVOLLIABILITIES" precision="22" scale="0" />
+        </property>
+        <property name="dealvolrevenue" type="big_decimal">
+            <column name="DEALVOLREVENUE" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

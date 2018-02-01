@@ -1,41 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.ClientEmployee" optimistic-lock="version" schema="ACCPLAN" table="CLIENT_EMPLOYEE">
-    <id name="clientemployeeid" type="int">
-      <column name="CLIENTEMPLOYEEID" precision="22" scale="0"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmaster">
-      <column name="SEGMENTLOOKUPID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="clientEmployeeContactperson" type="string">
-      <column length="200" name="CLIENT_EMPLOYEE_CONTACTPERSON"/>
-    </property>
-    <property name="clientEmployeePhonenumber" type="string">
-      <column length="200" name="CLIENT_EMPLOYEE_PHONENUMBER"/>
-    </property>
-    <property name="clientEmployeeEmail" type="string">
-      <column length="200" name="CLIENT_EMPLOYEE_EMAIL"/>
-    </property>
-    <property name="clientEmployeeLocation" type="string">
-      <column length="200" name="CLIENT_EMPLOYEE_LOCATION"/>
-    </property>
-    <property name="noofemployees" type="string">
-      <column length="200" name="NOOFEMPLOYEES"/>
-    </property>
-    <property name="noofbankedemployeesallbanks" type="string">
-      <column length="200" name="NOOFBANKEDEMPLOYEESALLBANKS"/>
-    </property>
-    <property name="noofbankedemployeeswithim" type="string">
-      <column length="200" name="NOOFBANKEDEMPLOYEESWITHIM"/>
-    </property>
-    <property name="targetnoofemployeesbyim" type="string">
-      <column length="200" name="TARGETNOOFEMPLOYEESBYIM"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.ClientEmployee" table="CLIENT_EMPLOYEE" schema="ACCPLAN" optimistic-lock="version">
+        <id name="clientemployeeid" type="int">
+            <column name="CLIENTEMPLOYEEID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="lookupmaster" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="SEGMENTLOOKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="clientEmployeeContactperson" type="string">
+            <column name="CLIENT_EMPLOYEE_CONTACTPERSON" length="200" />
+        </property>
+        <property name="clientEmployeePhonenumber" type="string">
+            <column name="CLIENT_EMPLOYEE_PHONENUMBER" length="200" />
+        </property>
+        <property name="clientEmployeeEmail" type="string">
+            <column name="CLIENT_EMPLOYEE_EMAIL" length="200" />
+        </property>
+        <property name="clientEmployeeLocation" type="string">
+            <column name="CLIENT_EMPLOYEE_LOCATION" length="200" />
+        </property>
+        <property name="noofemployees" type="string">
+            <column name="NOOFEMPLOYEES" length="200" />
+        </property>
+        <property name="noofbankedemployeesallbanks" type="string">
+            <column name="NOOFBANKEDEMPLOYEESALLBANKS" length="200" />
+        </property>
+        <property name="noofbankedemployeeswithim" type="string">
+            <column name="NOOFBANKEDEMPLOYEESWITHIM" length="200" />
+        </property>
+        <property name="targetnoofemployeesbyim" type="string">
+            <column name="TARGETNOOFEMPLOYEESBYIM" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>

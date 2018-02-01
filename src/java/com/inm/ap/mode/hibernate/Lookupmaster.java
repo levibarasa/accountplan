@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -22,6 +22,7 @@ public class Lookupmaster  implements java.io.Serializable {
      private Set companyMastersForIndustrylookupmasterid = new HashSet(0);
      private Set companyMastersForAffiliatelookupmasterid = new HashSet(0);
      private Set companyMastersForSegmentlookupmasterid = new HashSet(0);
+     private Set currentandfutureopportunitieses = new HashSet(0);
      private Set dealinprogressesForDealstagelookupmasterid = new HashSet(0);
      private Set dealinprogressesForCompletionmonthlookupid = new HashSet(0);
      private Set keysuppliermasters = new HashSet(0);
@@ -38,7 +39,7 @@ public class Lookupmaster  implements java.io.Serializable {
         this.code = code;
         this.value = value;
     }
-    public Lookupmaster(int lookupmasterid, String code, String value, Set clientEmployees, Set clientMasters, Set dealinprogressesForDealpropabilitylookupid, Set dealinprogressesForProductlookupid, Set companyMastersForIndustrylookupmasterid, Set companyMastersForAffiliatelookupmasterid, Set companyMastersForSegmentlookupmasterid, Set dealinprogressesForDealstagelookupmasterid, Set dealinprogressesForCompletionmonthlookupid, Set keysuppliermasters, Set dealinprogressesForDealstatuslookupmasterid, Set keydistributormasters, Set dealinprogressesForDealtypelookupmasterid) {
+    public Lookupmaster(int lookupmasterid, String code, String value, Set clientEmployees, Set clientMasters, Set dealinprogressesForDealpropabilitylookupid, Set dealinprogressesForProductlookupid, Set companyMastersForIndustrylookupmasterid, Set companyMastersForAffiliatelookupmasterid, Set companyMastersForSegmentlookupmasterid, Set currentandfutureopportunitieses, Set dealinprogressesForDealstagelookupmasterid, Set dealinprogressesForCompletionmonthlookupid, Set keysuppliermasters, Set dealinprogressesForDealstatuslookupmasterid, Set keydistributormasters, Set dealinprogressesForDealtypelookupmasterid) {
        this.lookupmasterid = lookupmasterid;
        this.code = code;
        this.value = value;
@@ -49,6 +50,7 @@ public class Lookupmaster  implements java.io.Serializable {
        this.companyMastersForIndustrylookupmasterid = companyMastersForIndustrylookupmasterid;
        this.companyMastersForAffiliatelookupmasterid = companyMastersForAffiliatelookupmasterid;
        this.companyMastersForSegmentlookupmasterid = companyMastersForSegmentlookupmasterid;
+       this.currentandfutureopportunitieses = currentandfutureopportunitieses;
        this.dealinprogressesForDealstagelookupmasterid = dealinprogressesForDealstagelookupmasterid;
        this.dealinprogressesForCompletionmonthlookupid = dealinprogressesForCompletionmonthlookupid;
        this.keysuppliermasters = keysuppliermasters;
@@ -126,6 +128,13 @@ public class Lookupmaster  implements java.io.Serializable {
     
     public void setCompanyMastersForSegmentlookupmasterid(Set companyMastersForSegmentlookupmasterid) {
         this.companyMastersForSegmentlookupmasterid = companyMastersForSegmentlookupmasterid;
+    }
+    public Set getCurrentandfutureopportunitieses() {
+        return this.currentandfutureopportunitieses;
+    }
+    
+    public void setCurrentandfutureopportunitieses(Set currentandfutureopportunitieses) {
+        this.currentandfutureopportunitieses = currentandfutureopportunitieses;
     }
     public Set getDealinprogressesForDealstagelookupmasterid() {
         return this.dealinprogressesForDealstagelookupmasterid;

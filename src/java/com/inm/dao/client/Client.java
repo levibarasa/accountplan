@@ -41,7 +41,22 @@ public class Client {
          clMaster.setRiskmanagementpartner(clientModel.getRiskmanagementpartner());
          clMaster.setClientid(clientModel.getClientid());
          ops.save(clMaster);
-    }
+    } 
+    public  void updateClient(ClientModel clientModel ) {
+         ClientMaster clMaster = new ClientMaster(); 
+         Client cl = new Client();
+         clMaster.setClientname(clientModel.getClientname());
+         clMaster.setRmCodelistByRmCode(cl.getRmCodeList(clientModel.getRmCode()));
+         clMaster.setRmCodelistByAlternativeRmCode(cl.getRmCodeList(clientModel.getRmCode()));
+         clMaster.setLookupmaster(cl.getLookUpMaster("AFFILIATE", Integer.parseInt(clientModel.getAffiliate())));
+         clMaster.setCurrentDate(clientModel.getCurrentDate());
+         clMaster.setTradeserviceprovider(clientModel.getTradeserviceprovider());
+         clMaster.setCashmanagementpartner(clientModel.getCashmanagementpartner());
+         clMaster.setEBankingpartner(clientModel.getEBankingpartner());
+         clMaster.setRiskmanagementpartner(clientModel.getRiskmanagementpartner());
+         clMaster.setClientid(clientModel.getClientid());
+         ops.saveOrUpdate(clMaster);
+    } 
   private ClientMaster getClientMasterByID(int clientId) {
         List client = ops.fetch(new CoreQuery("from ClientMaster where clientid = :id", "id", clientId));
         if (Validator.validateListFirstObject(client)) {

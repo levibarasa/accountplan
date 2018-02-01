@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Competition  implements java.io.Serializable {
 
 
-     private BigDecimal competitionid;
+     private int competitionid;
      private ClientMaster clientMaster;
      private String bank;
      private String estimatedwalletshare;
@@ -21,10 +21,10 @@ public class Competition  implements java.io.Serializable {
     }
 
 	
-    public Competition(BigDecimal competitionid) {
+    public Competition(int competitionid) {
         this.competitionid = competitionid;
     }
-    public Competition(BigDecimal competitionid, ClientMaster clientMaster, String bank, String estimatedwalletshare, String strengths, String weaknesses) {
+    public Competition(int competitionid, ClientMaster clientMaster, String bank, String estimatedwalletshare, String strengths, String weaknesses) {
        this.competitionid = competitionid;
        this.clientMaster = clientMaster;
        this.bank = bank;
@@ -33,11 +33,11 @@ public class Competition  implements java.io.Serializable {
        this.weaknesses = weaknesses;
     }
    
-    public BigDecimal getCompetitionid() {
+    public int getCompetitionid() {
         return this.competitionid;
     }
     
-    public void setCompetitionid(BigDecimal competitionid) {
+    public void setCompetitionid(int competitionid) {
         this.competitionid = competitionid;
     }
     public ClientMaster getClientMaster() {

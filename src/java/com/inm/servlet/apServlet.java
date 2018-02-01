@@ -31,6 +31,9 @@ public class apServlet extends HttpServlet {
             case "BOK":
                 switch (act) {
                     // client info
+                    case "doLog":
+                        Accessw.handleLogin(request, response);
+                        break;
                     case "doGetClient":
                         ClientW.handleGetAllClients(request, response);
                         break;
@@ -40,15 +43,49 @@ public class apServlet extends HttpServlet {
                     case "doAddCompany":
                         ClientW.handleAddCompany(request, response);
                         break;
-                    case "doLog":
-                        Accessw.handleLogin(request, response);
+                    case "doAddCreditInfo":
+                        ClientW.handleAddCreditInfo(request, response);
                         break;
-                    case "dochC":
-                        Userw.changePwd(request, response);
+                    case "doAddCreditFinancial":
+                        ClientW.handleAddCreditFinancial(request, response);
                         break;
-                    case "chC":
-                        Userw.navChangePss(request, response);
+                    case "doAddAccountRevenue":
+                        ClientW.handleAddAccountRevenue(request, response);
                         break;
+                    case "doAddClientCoverage":
+                        ClientW.handleAddClientCoverage(request, response);
+                        break;
+                    case "doAddCompetition":
+                        ClientW.handleAddCompetition(request, response);
+                        break;
+                    case "doAddDealInProgress":
+                        ClientW.handleAddDealInProgress(request, response);
+                        break;
+                    case "doAddQualitativeInfo":
+                        ClientW.handleAddQualitativeInfo(request, response);
+                        break;
+                    case "doAddSaleActionPlan":
+                        ClientW.handleAddSaleActionPlan(request, response);
+                        break;
+                    case "doAddClientEmployee":
+                        ClientW.handleAddClientEmployee(request, response);
+                        break;
+                    case "doAddKeyDistributor":
+                        ClientW.handleAddKeyDistributor(request, response);
+                        break;
+                    case "doAddKeySupplier":
+                        ClientW.handleAddKeySupplier(request, response);
+                        break;
+                    case "doAddSignOff":
+                        ClientW.handleAddSignOff(request, response);
+                        break;
+                    case "doAddCFOpportunity":
+                        ClientW.handleAddCFOpportunity(request, response);
+                        break;
+                   case "doAddOClientWalletSize":
+                        ClientW.handleAddOClientWalletSize(request, response);
+                        break;
+                        
                     
 //                    case "gorpt":
 //                        Reports.goReport(request, response);

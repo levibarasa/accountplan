@@ -1,23 +1,39 @@
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CompanyModel"%> 
+<%@page import="com.inm.dao.qualitativeinformation.*"%>
+<%@page import="com.inm.models.*"%>  
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 <html>
     <head>
-        
-        
-        
-    </head>
+    <script type="text/javascript">
+ 
+            var form = $('#addDealInProgress');
+            form.submit(function () {
+
+            $.ajax({
+            type: "POST",
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddDealInProgress',
+            data: form.serialize(),
+            success: function (data) {
+            var result=data;
+           // $('#result').attr("value",result);
+           alert(result);
+            }
+            });
+
+            return false;
+            });
+</script>
+</head>
 <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Company Information</b></h2>
+						<h2>Manage <b>DealInProgress Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCompanyModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Company</span></a>
-						<a href="#deleteCompanyModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addDealInProgressModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New DealInProgress</span></a>
+						<a href="#deleteDealInProgressModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -31,19 +47,26 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Company Address</th>
-			<th>Group Name</th>
-                        <th>HQ Country</th>
-                        <th>Industry</th>
-                        <th>Segment</th>
-                        <th># Of Subsidiaries</th>
+                        <th>Product</th>
+                        <th>Deal Probability</th>
+			<th>Deal Stage</th>
+                        <th>Completion Month</th>
+                        <th>Deal Status</th>
+                        <th>Deal Type</th>
+                        <th>Currently Used</th>
+                        <th>I&M Deal Amount</th>
+                        <th>All Banks Wallet Size</th>
+                        <th>I&M Projected Wallet Share</th>
+                        <th>I&M Expected Revenue</th>
+                        <th>Comments</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CompanyModel> list = Company.getCompanyInfo(user_code);
-                        for(CompanyModel companyModel :list){
+                        DealInProgressMaster dip = new DealInProgressMaster();
+                        ArrayList<DealProgressModel> list = dip.getDealInProgressInfo(user_code);
+                        for(DealProgressModel dealProgressModel :list){
                         %>
                     <tr>
 						<td>
@@ -52,16 +75,22 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=companyModel.getClientID()%></td>
-                        <td><%=companyModel.getCompany_Address()%></td>
-                        <td><%=companyModel.getGroupName()%></td>
-			<td><%=companyModel.getHQ_Affiliate()%></td>
-                        <td><%=companyModel.getIndustry()%></td>
-                        <td><%=companyModel.getSegment()%></td>
-                        <td><%=companyModel.getNumberOfSubsidiaries()%></td>
+                        <td><%=dealProgressModel.getClientMaster()%></td>
+                        <td><%=dealProgressModel.getProductlookupid()%></td>
+                        <td><%=dealProgressModel.getDealpropabilitylookupid()%></td>
+			<td><%=dealProgressModel.getDealstagelookupmasterid()%></td>
+                        <td><%=dealProgressModel.getCompletionmonthlookupid()%></td>
+                        <td><%=dealProgressModel.getDealstatuslookupmasterid()%></td>
+                        <td><%=dealProgressModel.getDealtypelookupmasterid()%></td>
+                        <td><%=dealProgressModel.getCurrentlyused()%></td>
+                        <td><%=dealProgressModel.getImdealamount()%></td>
+                        <td><%=dealProgressModel.getAllbankswalletsize()%></td>
+                        <td><%=dealProgressModel.getImprojectedwalletshare()%></td>
+                        <td><%=dealProgressModel.getImexpectedrevenue()%></td>
+                        <td><%=dealProgressModel.getComments()%></td>
                         <td>
-                            <a href="#editCompanyModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCompanyModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editDealInProgressModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteDealInProgressModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                     
@@ -83,71 +112,149 @@
         </div>
     </div>
 	<!-- ADD Modal HTML -->
-	<div id="addCompanyModal" class="modal fade">
+	<div id="addDealInProgressModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form   name="addDealInProgress"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddDealInProgress"  id="addDealInProgress" >
 					<div class="modal-header">						
-						<h4 class="modal-title">Add Company Information</h4>
+						<h4 class="modal-title">Add Deal In Progress Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
                                             	<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = dip.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
                                      </select>
 						</div>
-						<div class="form-group">
-							<label>Company Address</label>
-                                                        <textarea  name="companyaddressa" id="companyaddressa" class="form-control" required></textarea>
-							 </div>
-						<div class="form-group">
-							<label>Group Name</label>
-							<input  name="grpnamea" id="grpnamea"  type="text" class="form-control" required>
+						 <div class="form-group">
+                                                    <%  
+                                  ArrayList<LookupmasterModel> lookupmaster = dip.getLookupList("PRODUCT"); 
+                                                        %>
+							<label>Product</label>
+				 <select name="producta" id="producta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>HQ Country</label>
-							<input type="text" name="hqcountrya" id="hqcountrya"  class="form-control" required>
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALPROBABILITY"); 
+                                                        %>
+							<label>Deal Probability</label>
+				 <select name="dealprobabilitya" id="dealprobabilitya" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+						<div class="form-group">
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALSTAGE"); 
+                                                        %>
+							<label>Deal Stage</label>
+				 <select name="dealstagea" id="dealstagea" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>	
                                      <div class="form-group">
-                                                    <%
-                                 ArrayList industry = Company.getIndustry();
-                                  int noOfindustries = industry.size();
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("MONTH"); 
                                                         %>
-							<label>Industry</label>
-				 <select name="indrustrya" id="indrustrya" class="form-control" required>
+							<label>Completion Month</label>
+				 <select name="completionmontha" id="completionmontha" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfindustries; j++) {
-                                        ArrayList indl = (ArrayList) industry.get(j);
-                                        String inds = (String) indl.get(0);   
+                                    for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
-                                <option value ="<%=inds%>" > <%=inds%></option>  
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
                                 <%
-                                    }
+                                    } 
                                 %>   
                                      </select>
 						</div>
                                      <div class="form-group">
-							<label>Number Of Subsidiaries</label>
-							<input  name="noofsubsidiarya" id="noofsubsidiarya"  type="text" class="form-control" required>
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALSTATUS"); 
+                                                        %>
+							<label>Deal Status</label>
+				 <select name="dealstatusa" id="dealstatusa" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
-                                     
-					</div>
-                                      <div class="modal-footer">
+                                     <div class="form-group">
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALTYPE"); 
+                                                        %>
+							<label>Deal Type</label>
+				 <select name="dealtypea" id="dealtypea" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                      <div class="form-group"> 
+							<label>Currently Used</label>
+				 <select name="currentlyuseda" id="currentlyuseda" class="form-control" required>
+                                     <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                 </select>
+                                      </div>
+                                  <div class="form-group">
+                                            <label>I&M Deal Amount</label>
+                                        <textarea  name="imdealamounta" id="imdealamounta" class="form-control" required></textarea>
+                                     </div>     
+                                     <div class="form-group">
+                                            <label>All Banks Wallet Size</label>
+                                        <textarea  name="allbankswalletsizea" id="allbankswalletsizea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>I&M Projected Wallet Share</label>
+                                        <textarea  name="improjectedwalletsharea" id="improjectedwalletsharea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>I&M Expected Revenue</label>
+                                        <textarea  name="imexpectedrevenuea" id="imexpectedrevenuea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>Comments</label>
+                                        <textarea  name="commenta" id="commenta" class="form-control" required></textarea>
+                                     </div>
+					</div> 
+                                      <div class="modal-footer"> 
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
 					</div>
@@ -156,31 +263,147 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editCompanyModal" class="modal fade">
+	<div id="editDealInProgressModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit Company</h4>
+						<h4 class="modal-title">Edit Deal In Progress</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+					<div class="modal-body">
+                                            	<div class="form-group">
+                                                    <%
+                                   clientname = dip.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
+						</div>
+						 <div class="form-group">
+                                                    <%  
+                                    lookupmaster = dip.getLookupList("PRODUCT"); 
+                                                        %>
+							<label>Product</label>
+				 <select name="producta" id="producta" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALPROBABILITY"); 
+                                                        %>
+							<label>Deal Probability</label>
+				 <select name="dealprobabilitya" id="dealprobabilitya" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALSTAGE"); 
+                                                        %>
+							<label>Deal Stage</label>
+				 <select name="dealstagea" id="dealstagea" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>	
+                                     <div class="form-group">
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("MONTH"); 
+                                                        %>
+							<label>Completion Month</label>
+				 <select name="completionmontha" id="completionmontha" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+                                     <div class="form-group">
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALSTATUS"); 
+                                                        %>
+							<label>Deal Status</label>
+				 <select name="dealstatusa" id="dealstatusa" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                     <div class="form-group">
+                                                    <%  
+                                   lookupmaster = dip.getLookupList("DEALTYPE"); 
+                                                        %>
+							<label>Deal Type</label>
+				 <select name="dealtypea" id="dealtypea" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : lookupmaster){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                      <div class="form-group"> 
+							<label>Currently Used</label>
+				 <select name="currentlyuseda" id="currentlyuseda" class="form-control" required>
+                                     <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                 </select>
+                                      </div>
+                                  <div class="form-group">
+                                            <label>I&M Deal Amount</label>
+                                        <textarea  name="imdealamounta" id="imdealamounta" class="form-control" required></textarea>
+                                     </div>     
+                                     <div class="form-group">
+                                            <label>All Banks Wallet Size</label>
+                                        <textarea  name="allbankswalletsizea" id="allbankswalletsizea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>I&M Projected Wallet Share</label>
+                                        <textarea  name="improjectedwalletsharea" id="improjectedwalletsharea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>I&M Expected Revenue</label>
+                                        <textarea  name="imexpectedrevenuea" id="imexpectedrevenuea" class="form-control" required></textarea>
+                                     </div>
+                                     <div class="form-group">
+                                            <label>Comments</label>
+                                        <textarea  name="commenta" id="commenta" class="form-control" required></textarea>
+                                     </div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -191,12 +414,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCompanyModal" class="modal fade">
+	<div id="deleteDealInProgressModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete Company</h4>
+						<h4 class="modal-title">Delete DealInProgress</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

@@ -1,32 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.CompanyMaster" optimistic-lock="version" schema="ACCPLAN" table="COMPANY_MASTER">
-    <id name="companyid" type="int">
-      <column name="COMPANYID" precision="22" scale="0"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByIndustrylookupmasterid">
-      <column name="INDUSTRYLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByAffiliatelookupmasterid">
-      <column name="AFFILIATELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterBySegmentlookupmasterid">
-      <column name="SEGMENTLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="companyAddress" type="string">
-      <column length="200" name="COMPANY_ADDRESS"/>
-    </property>
-    <property name="groupname" type="string">
-      <column length="200" name="GROUPNAME"/>
-    </property>
-    <property name="noofsubsidiaries" type="int">
-      <column name="NOOFSUBSIDIARIES" precision="22" scale="0"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.CompanyMaster" table="COMPANY_MASTER" schema="ACCPLAN" optimistic-lock="version">
+        <id name="companyid" type="int">
+            <column name="COMPANYID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="lookupmasterByIndustrylookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="INDUSTRYLOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByAffiliatelookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="AFFILIATELOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterBySegmentlookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="SEGMENTLOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="companyAddress" type="string">
+            <column name="COMPANY_ADDRESS" length="200" />
+        </property>
+        <property name="groupname" type="string">
+            <column name="GROUPNAME" length="200" />
+        </property>
+        <property name="noofsubsidiaries" type="int">
+            <column name="NOOFSUBSIDIARIES" precision="22" scale="0" />
+        </property>
+    </class>
 </hibernate-mapping>

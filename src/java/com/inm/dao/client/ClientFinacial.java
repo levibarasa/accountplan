@@ -24,7 +24,38 @@ public class ClientFinacial {
     public ClientFinacial() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-    
+    public  void createClientFinacial(ClientFinacialModel clientFinacialModel ) {
+         ClientFinancial clientFinancial = new ClientFinancial(); 
+         ClientFinacial cf = new ClientFinacial();  
+         clientFinancial.setClientMaster(cf.getClientMasterByID(clientFinacialModel.getClientMaster()));
+         clientFinancial.setCashflowcycle(clientFinacialModel.getCashflowcycle());
+         clientFinancial.setClientFinancialid(clientFinacialModel.getClientFinancialid());
+         clientFinancial.setGearingratio(clientFinacialModel.getGearingratio());
+         clientFinancial.setOperatingprofit(clientFinacialModel.getOperatingprofit());
+         clientFinancial.setTotaldebt(clientFinacialModel.getTotaldebt());
+         clientFinancial.setTotaldeposits(clientFinacialModel.getTotaldeposits());
+         clientFinancial.setTurnover(clientFinacialModel.getTurnover());
+           ops.save(clientFinancial);
+    }
+    public  void updateClientFinacial(ClientFinacialModel clientFinacialModel ) {
+         ClientFinancial clientFinancial = new ClientFinancial(); 
+         ClientFinacial cf = new ClientFinacial();  
+         clientFinancial.setClientMaster(cf.getClientMasterByID(clientFinacialModel.getClientMaster()));
+         clientFinancial.setCashflowcycle(clientFinacialModel.getCashflowcycle());
+         clientFinancial.setClientFinancialid(clientFinacialModel.getClientFinancialid());
+         clientFinancial.setGearingratio(clientFinacialModel.getGearingratio());
+         clientFinancial.setOperatingprofit(clientFinacialModel.getOperatingprofit());
+         clientFinancial.setTotaldebt(clientFinacialModel.getTotaldebt());
+         clientFinancial.setTotaldeposits(clientFinacialModel.getTotaldeposits());
+         clientFinancial.setTurnover(clientFinacialModel.getTurnover());
+           ops.saveOrUpdate(clientFinancial);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
       public ArrayList<ClientFinacialModel> getClientFinancialInfo(String rmCode) {
         ClientFinacial cf = new ClientFinacial();
         ArrayList<ClientFinacialModel> creditFinancialList = new ArrayList<ClientFinacialModel>();

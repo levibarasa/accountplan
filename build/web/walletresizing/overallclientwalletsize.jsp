@@ -1,17 +1,17 @@
-<%@page import="com.inm.dao.client.Client"%>
-<%@page import="com.inm.models.ClientModel"%> 
+<%@page import="com.inm.dao.walletresize.*"%>
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 <html>
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addOClientWalletSize');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddOClientWalletSize',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -24,7 +24,7 @@
             });
 </script>
  <script type="text/javascript"> 
-//            function registerClient() {
+//            function registerOverallClientWalletSize() {
 //		var uname = $("#uname").val();
 //		var clientname = $("#clientnamea").val();
 //		var rmCode = $("#uemaila").val();
@@ -37,7 +37,7 @@
 //                var riskmp = $("#riskmpa").val(); 
 //		$.ajax({
 //			type : "POST",
-//			url : ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+//			url : ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddOverallClientWalletSize',
 //			data : "clientname=" + clientname + "&rmCode=" + rmCode + "&altrmCode=" + altrmCode
 //                        + "&affiliate=" + affiliate+ "&currentdate=" + currentdate+ "&tradesp=" + tradesp+ "&cashmp=" + cashmp+ "&ebankp=" + ebankp+ "&riskmp=" + riskmp,
 //			success : function(data) {
@@ -57,11 +57,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Client <b>Information</b></h2>
+						<h2>Overall Client Wallet Size <b>Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addClientModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Client</span></a>
-						<a href="#deleteClientModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addOverallClientWalletSizeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New OverallClientWalletSize</span></a>
+						<a href="#deleteOverallClientWalletSizeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -75,22 +75,28 @@
 							</span>
 						</th> 
                         <th>Client Name</th>
-			<th>Rm Name</th>
-                        <th>Alt Rm Name</th>
-                        <th>Country</th>
-                        <th>Date</th>
-                        <th>Trade Services Partner</th>
-                        <th>Cash Management Partner</th>
-                        <th>E-Banking Partner</th>
-                        <th>Risk Management Partner</th>
+			<th>Total Corporate Dbt</th>
+                        <th>Average I&M Loan Margin</th>
+                        <th>Assets Interest Income</th>
+                        <th>Estimated Corporate Deposits</th>
+                        <th>Average I&M Deposit Margin</th>
+                        <th>Net Interest Liability Income</th>
+                        <th>Total Net Interest Income</th>
+                        <th>Total NII</th>
+                        <th>I&M Fee Income</th>
+                        <th>Total Fee Income</th>
+                        <th>Overall Client Wallet Size Banking Wallet</th>
+                        <th>I&M Revenue</th>
+                        <th>Estimated Wallet Share</th>                        
                         <th>Actions</th>
                     </tr>
                 </thead> 
                 <tbody>
                      
                     <%
-                        ArrayList<ClientModel> list = Client.getClientInfo(user_code);
-                        for(ClientModel clientModel :list){
+                        OverallClientWalletSizeMaster ocwm = new OverallClientWalletSizeMaster();
+                        ArrayList<OverallClientWalletSizeModel> list = ocwm.getOverallclientwalletsizeInfo(user_code);
+                        for(OverallClientWalletSizeModel ocwmModel :list){
                         %>
                   <tr>
                   
@@ -100,18 +106,23 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td> 
-                        <td><%=clientModel.getClientName()%></td>
-			<td><%=clientModel.getRM_Code()%></td>
-                        <td><%=clientModel.getAlternative_RM_Code()%></td>
-                        <td><%=clientModel.getAffiliateId()%></td>
-                        <td> <%=clientModel.getCurrent_Date()%></td>
-                        <td><%=clientModel.getTradeServiceProvider()%> </td>
-                        <td><%=clientModel.getCashManagementPartner()%></td>
-                        <td><%=clientModel.getE_BankingPartner()%></td>
-                        <td><%=clientModel.getRiskManagementPartner()%> </td>
+                        <td><%=ocwmModel.getClientMaster()%></td>
+			<td><%=ocwmModel.getTotalcorporatedebt()%></td>
+                        <td><%=ocwmModel.getAverageimloanmargin()%></td>
+                        <td><%=ocwmModel.getAssetsinterestincome()%></td>
+                        <td> <%=ocwmModel.getEstimatedcorporatedeposits()%></td>
+                        <td><%=ocwmModel.getAverageimdepositmargin()%> </td>
+                        <td><%=ocwmModel.getNetintrstliabltyincome()%></td>
+                        <td><%=ocwmModel.getTotalnetinterestincome()%></td>
+                        <td><%=ocwmModel.getTotalnii()%> </td>
+                        <td><%=ocwmModel.getImfeeincome()%> </td>
+                        <td><%=ocwmModel.getTotalfeeincome()%> </td>
+                        <td><%=ocwmModel.getClientbankingwallet()%> </td>
+                        <td><%=ocwmModel.getImrevenue()%> </td>
+                        <td><%=ocwmModel.getEstimatedwalletshare()%> </td>
                         <td>
-                            <a href="#editClientModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteClientModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editOverallClientWalletSizeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteOverallClientWalletSizeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                         </tr>
                         <%
@@ -132,198 +143,93 @@
         </div>
     </div>
 	<!-- ADD Modal HTML -->
-	<div id="addClientModal" class="modal fade">
+	<div id="addOverallClientWalletSizeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-            <form  name="addClient"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClient"  id="addClient">
+            <form  name="addOClientWalletSize"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddOClientWalletSize"  id="addOClientWalletSize">
 		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 			
                 <div class="modal-header">						
-						<h4 class="modal-title">Add Client</h4>
+						<h4 class="modal-title">Add Overall Client Wallet Size</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
+						 
 						<div class="form-group">
-							<label>Name</label>
-							<input name="clientnamea" id="clientnamea" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Relationship Officer</label>
-                                                        <%
-                                 ArrayList allRms = Client.getAllRms();
-                                  int noOfRms = allRms.size();
+                                                    <%
+                                 ArrayList<ClientModel> clientname = ocwm.getClientMasterList(user_code); 
                                                         %>
-							<select name="rmCodea" id="rmCodea" class="form-control" required>
-                              <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    } 
-                                %>
-                                                        </select>
-						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-                                                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
-                                %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        
-						<div class="form-group">
-                                                     <%
-                                 ArrayList affiliate = Client.getAffiliate();
-                                  int noOfAffiliate = affiliate.size();
-                                                        %>
-							<label>Country</label>
-                                                        <select name="affiliatea" id="affiliatea" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
-                                %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
-                                                        </select>
-						</div>
-                                                    <div class="form-group">
-							<label>Date</label>
-							<input name="currentdatea" id="currentdatea" type="text" class="form-control" required>
-						</div>    
-						<div class="form-group">
-							<label>Trade Service Partner</label>
-                                                        <input name="tradespa" id="tradespa" type="text" class="form-control" required>
-						</div>	
-                                                        <div class="form-group">
-							<label>Cash Management Partner</label>
-							<input name="cashmpa" id="cashmpa" type="text" class="form-control" required>
-						</div>
-                                                  <div class="form-group">
-							<label>E-Banking Partner</label>
-                                                        <input name="ebankpa" id="ebankpa" type="text" class="form-control" required>
-						</div>
-                                                        <div class="form-group">
-							<label>Risk Management Partner</label>
-                                                        <input name="riskmpa"  id="riskmpa" type="text" class="form-control" required>
-						</div>
+                                     </select>
+				 </div>
+                                          
+                                <div class="form-group">
+                                           <label>Average I&M Loans Margin(%)</label>
+                                           <input name="imavgloanmargina" id="imavgloanmargin" type="text" class="form-control" required>
+                                   </div>    
+                                   <div class="form-group">
+                                           <label>Average I&M Margin On Deposits(%)</label>
+                                           <input name="avgimmargindepositsa" id="avgimmargindepositsa" type="text" class="form-control" required>
+                                   </div>	
+                                           <div class="form-group">
+                                           <label>I&M Fee Income(Interest Income for Client  %)</label>
+                                           <input name="imincomeinteresta" id="imincomeinteresta" type="text" class="form-control" required>
+                                   </div> 
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" onclick="registerClient();"  class="btn btn-success" value="Add">
+						<input type="submit" onclick="registerOverallClientWalletSize();"  class="btn btn-success" value="Add">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editClientModal" class="modal fade">
+	<div id="editOverallClientWalletSizeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form   name="edditClient" method="GET" action="do?MOD=BOK&ACT=doUpdateClient" id="edditClient">
+				<form   name="edditOverallClientWalletSize" method="GET" action="do?MOD=BOK&ACT=doUpdateOverallClientWalletSize" id="edditOverallClientWalletSize">
                                      	<div class="modal-header">						
-						<h4 class="modal-title">Edit Client</h4>
+						<h4 class="modal-title">Edit Overall Client Wallet Size</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
-                           <input type="hidden" name="uname" id="uname" value="<%= user_code%>">
+					<div class="modal-body">					
+						
 						<div class="form-group">
-							<label>Name</label>
-							<input id="clientname" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Relationship Officer</label>
-                                                        <%
-                                   allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
+                                                    <%
+                                  clientname = ocwm.getClientMasterList(user_code); 
                                                         %>
-							<select id="rmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        <div class="form-group">
-							<label>Alternative Relationship Officer</label>
-                                                        <%
-                                  allRms = Client.getAllRms();
-                                    noOfRms = allRms.size();
-                                                        %>
-							<select id="altrmCode" class="form-control" required>
-                                                            <%
-                                    for (int k = 0; k < noOfRms; k++) {
-                                        ArrayList two = (ArrayList) allRms.get(k);
-                                        String rmc = (String) two.get(0);
-                                        String rmn = (String) two.get(1);
-                                %> 
-                                <option value ="<%=rmc%>" > <%=rmn%></option>  
-                                <%
-                                    }
-                                %>
-                                                        </select>
-						</div>
-                                                        
-						<div class="form-group">
-                                                     <%
-                                   affiliate = Client.getAffiliate();
-                                    noOfAffiliate = affiliate.size();
-                                                        %>
-							<label>Country</label>
-                                                        <select id="affiliate" class="form-control" required>
-                                                            <%
-                                    for (int j = 0; j < noOfAffiliate; j++) {
-                                        ArrayList aff = (ArrayList) affiliate.get(j);
-                                        String af = (String) aff.get(0); 
-                                %> 
-                                <option value ="<%=af%>" > <%=af%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
-                                                        </select>
-						</div>
-                                                  <div class="form-group">
-							<label>Date</label>
-							<input id="currentdate" type="text" class="form-control" required>
-						</div>	      
-						<div class="form-group">
-							<label>Trade Service Partner</label>
-							<input id="tradesp" type="text" class="form-control" required>
-						</div>	
-                                                        <div class="form-group">
-							<label>Cash Management Partner</label>
-							<input id="cashmp" type="text" class="form-control" required>
-						</div>
-                                                  <div class="form-group">
-							<label>E-Banking Partner</label>
-							<input id="ebankp" type="text" class="form-control" required>
-						</div>
-                                                        <div class="form-group">
-							<label>Risk Management Partner</label>
-							<input  id="riskmp" type="text" class="form-control" required>
-						</div>
+                                     </select>
+				 </div>
+                                          
+                                <div class="form-group">
+                                           <label>Average I&M Loans Margin(%)</label>
+                                           <input name="imavgloanmargina" id="imavgloanmargin" type="text" class="form-control" required>
+                                   </div>    
+                                   <div class="form-group">
+                                           <label>Average I&M Margin On Deposits(%)</label>
+                                           <input name="avgimmargindepositsa" id="avgimmargindepositsa" type="text" class="form-control" required>
+                                   </div>	
+                                           <div class="form-group">
+                                           <label>I&M Fee Income(Interest Income for Client  %)</label>
+                                           <input name="imincomeinteresta" id="imincomeinteresta" type="text" class="form-control" required>
+                                   </div> 
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -335,12 +241,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteClientModal" class="modal fade">
+	<div id="deleteOverallClientWalletSizeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete Client</h4>
+						<h4 class="modal-title">Delete Overall Client Wallet Size</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

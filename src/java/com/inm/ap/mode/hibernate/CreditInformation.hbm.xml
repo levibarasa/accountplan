@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.CreditInformation" optimistic-lock="version" schema="ACCPLAN" table="CREDIT_INFORMATION">
-    <id name="creditid" type="int">
-      <column name="CREDITID" precision="22" scale="0"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="approvedlines" type="string">
-      <column length="200" name="APPROVEDLINES"/>
-    </property>
-    <property name="outstandingamount" type="big_decimal">
-      <column name="OUTSTANDINGAMOUNT" precision="22" scale="0"/>
-    </property>
-    <property name="riskrating" type="string">
-      <column length="200" name="RISKRATING"/>
-    </property>
-    <property name="ratingagency" type="string">
-      <column length="200" name="RATINGAGENCY"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.CreditInformation" table="CREDIT_INFORMATION" schema="ACCPLAN" optimistic-lock="version">
+        <id name="creditid" type="int">
+            <column name="CREDITID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="approvedlines" type="string">
+            <column name="APPROVEDLINES" length="200" />
+        </property>
+        <property name="outstandingamount" type="big_decimal">
+            <column name="OUTSTANDINGAMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="riskrating" type="string">
+            <column name="RISKRATING" length="200" />
+        </property>
+        <property name="ratingagency" type="string">
+            <column name="RATINGAGENCY" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>

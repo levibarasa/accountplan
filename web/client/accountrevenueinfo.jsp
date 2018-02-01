@@ -8,12 +8,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addAccountRevenue');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddAccountRevenue',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -100,7 +100,7 @@
 	<div id="addAccountRevenueModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addAccountRevenue"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddAccountRevenue"  id="addAccountRevenue">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add Account Revenue Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -145,10 +145,11 @@
 							<label>Target Share Of Wallet(%)</label>
 							<input type="text" name="totwalshra" id="totwalshra" class="form-control" required>
 						</div>
-                                             <div class="form-group">
+                                                 <div class="form-group">
 							<label>Total Value Of Identified Opportunities(Ksh'M)</label>
 							<input type="text" name="totidoppa" id="totidoppa" class="form-control" required>
 						</div>
+                                              
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">

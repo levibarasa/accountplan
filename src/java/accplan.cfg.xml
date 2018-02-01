@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
     <property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.205.71:1521/INTRFC</property>
     <property name="hibernate.connection.username">accplan</property>
     <property name="hibernate.connection.password">accplan</property>
-    <mapping resource="com/inm/ap/mode/hibernate/ClientEmployee.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/RmCodelist.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Competition.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Keydistributormaster.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Dealinprogress.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Lookupmaster.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/TblUsercurrentloggedin.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/EmployeeLeave.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/ExcaliburUsage.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Qualitativeinformation.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Salesactionplan.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/CreditInformation.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Keysuppliermaster.hbm.xml"/>
     <mapping resource="com/inm/ap/mode/hibernate/Overallclientwalletsize.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/EmployeeDetails.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Lookupmaster.hbm.xml"/>
     <mapping resource="com/inm/ap/mode/hibernate/ClientMaster.hbm.xml"/>
-    <mapping resource="com/inm/ap/mode/hibernate/Clientcoverageprofile.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Dealinprogress.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Keydistributormaster.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/TblUsercurrentloggedin.hbm.xml"/>
     <mapping resource="com/inm/ap/mode/hibernate/AccountRevenueInformation.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Salesactionplan.hbm.xml"/>
     <mapping resource="com/inm/ap/mode/hibernate/CompanyMaster.hbm.xml"/>
     <mapping resource="com/inm/ap/mode/hibernate/ClientFinancial.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/CreditInformation.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/SignOff.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/RmCodelist.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Qualitativeinformation.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Currentandfutureopportunities.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Clientcoverageprofile.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Keysuppliermaster.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/ExcaliburUsage.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/Competition.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/ClientEmployee.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/EmployeeDetails.hbm.xml"/>
+    <mapping resource="com/inm/ap/mode/hibernate/EmployeeLeave.hbm.xml"/>
   </session-factory>
- 
 </hibernate-configuration>

@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Salesactionplan  implements java.io.Serializable {
 
 
-     private BigDecimal salesactionplanid;
+     private int salesactionplanid;
      private ClientMaster clientMaster;
      private String specification;
      private String clocontactpersion;
@@ -21,11 +21,11 @@ public class Salesactionplan  implements java.io.Serializable {
     }
 
 	
-    public Salesactionplan(BigDecimal salesactionplanid, ClientMaster clientMaster) {
+    public Salesactionplan(int salesactionplanid, ClientMaster clientMaster) {
         this.salesactionplanid = salesactionplanid;
         this.clientMaster = clientMaster;
     }
-    public Salesactionplan(BigDecimal salesactionplanid, ClientMaster clientMaster, String specification, String clocontactpersion, String clopersonresponsibleforaction, String clodatelinedate) {
+    public Salesactionplan(int salesactionplanid, ClientMaster clientMaster, String specification, String clocontactpersion, String clopersonresponsibleforaction, String clodatelinedate) {
        this.salesactionplanid = salesactionplanid;
        this.clientMaster = clientMaster;
        this.specification = specification;
@@ -34,11 +34,11 @@ public class Salesactionplan  implements java.io.Serializable {
        this.clodatelinedate = clodatelinedate;
     }
    
-    public BigDecimal getSalesactionplanid() {
+    public int getSalesactionplanid() {
         return this.salesactionplanid;
     }
     
-    public void setSalesactionplanid(BigDecimal salesactionplanid) {
+    public void setSalesactionplanid(int salesactionplanid) {
         this.salesactionplanid = salesactionplanid;
     }
     public ClientMaster getClientMaster() {

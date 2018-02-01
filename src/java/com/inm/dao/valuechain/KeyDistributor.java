@@ -25,7 +25,52 @@ public class KeyDistributor {
     public KeyDistributor() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-    
+    public  void createKeyDistributor(KeyDistributorModel keyDistributorModel ) {
+         Keydistributormaster keydistributormaster = new Keydistributormaster(); 
+         KeyDistributor kd = new KeyDistributor();  
+         keydistributormaster.setClientMaster(kd.getClientMasterByID(keyDistributorModel.getClientMaster()));
+         keydistributormaster.setLookupmaster(kd.getLookUpMasterByID(keyDistributorModel.getLookupmaster()));
+         keydistributormaster.setBankedbyim(keyDistributorModel.getBankedbyim());
+         keydistributormaster.setClientturnover(keyDistributorModel.getClientturnover());
+         keydistributormaster.setComments(keyDistributorModel.getComments());
+         keydistributormaster.setKdContactperson(keyDistributorModel.getKdContactperson());
+         keydistributormaster.setKdEmail(keyDistributorModel.getKdEmail());
+         keydistributormaster.setKdLocation(keyDistributorModel.getKdLocation());
+         keydistributormaster.setKdPhonenumber(keyDistributorModel.getKdPhonenumber());
+         keydistributormaster.setKdandclients(keyDistributorModel.getKdandclients());
+         keydistributormaster.setKdid(keyDistributorModel.getKdid());
+         keydistributormaster.setVolofbusnskdandclient(BigDecimal.ONE);
+           ops.save(keydistributormaster);
+    }
+    public  void updateKeyDistributor(KeyDistributorModel keyDistributorModel ) {
+         Keydistributormaster keydistributormaster = new Keydistributormaster(); 
+         KeyDistributor kd = new KeyDistributor();  
+         keydistributormaster.setClientMaster(kd.getClientMasterByID(keyDistributorModel.getClientMaster()));
+         keydistributormaster.setLookupmaster(kd.getLookUpMasterByID(keyDistributorModel.getLookupmaster()));
+         keydistributormaster.setBankedbyim(keyDistributorModel.getBankedbyim());
+         keydistributormaster.setClientturnover(keyDistributorModel.getClientturnover());
+         keydistributormaster.setComments(keyDistributorModel.getComments());
+         keydistributormaster.setKdContactperson(keyDistributorModel.getKdContactperson());
+         keydistributormaster.setKdEmail(keyDistributorModel.getKdEmail());
+         keydistributormaster.setKdLocation(keyDistributorModel.getKdLocation());
+         keydistributormaster.setKdPhonenumber(keyDistributorModel.getKdPhonenumber());
+         keydistributormaster.setKdandclients(keyDistributorModel.getKdandclients());
+         keydistributormaster.setKdid(keyDistributorModel.getKdid());
+         keydistributormaster.setVolofbusnskdandclient(BigDecimal.ONE);
+           ops.saveOrUpdate(keydistributormaster);
+    }
+     public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
+        coreQuery.addParam("lookupmasterid", lookupmasterid); 
+        List lkup = ops.fetch(coreQuery);
+        return (Lookupmaster) lkup.get(0);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
      public ArrayList<KeyDistributorModel> getDistributorInfo(String rmCode) {
          ArrayList<KeyDistributorModel> keyDistributorList = new ArrayList<KeyDistributorModel>();
        KeyDistributor kd = new KeyDistributor();

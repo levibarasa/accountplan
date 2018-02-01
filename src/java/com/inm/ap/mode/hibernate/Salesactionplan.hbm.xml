@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.Salesactionplan" optimistic-lock="version" schema="ACCPLAN" table="SALESACTIONPLAN">
-    <id name="salesactionplanid" type="big_decimal">
-      <column name="SALESACTIONPLANID" precision="22" scale="0"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="specification" type="string">
-      <column length="200" name="SPECIFICATION"/>
-    </property>
-    <property name="clocontactpersion" type="string">
-      <column length="200" name="CLOCONTACTPERSION"/>
-    </property>
-    <property name="clopersonresponsibleforaction" type="string">
-      <column length="200" name="CLOPERSONRESPONSIBLEFORACTION"/>
-    </property>
-    <property name="clodatelinedate" type="string">
-      <column length="200" name="CLODATELINEDATE"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.Salesactionplan" table="SALESACTIONPLAN" schema="ACCPLAN" optimistic-lock="version">
+        <id name="salesactionplanid" type="int">
+            <column name="SALESACTIONPLANID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="specification" type="string">
+            <column name="SPECIFICATION" length="200" />
+        </property>
+        <property name="clocontactpersion" type="string">
+            <column name="CLOCONTACTPERSION" length="200" />
+        </property>
+        <property name="clopersonresponsibleforaction" type="string">
+            <column name="CLOPERSONRESPONSIBLEFORACTION" length="200" />
+        </property>
+        <property name="clodatelinedate" type="string">
+            <column name="CLODATELINEDATE" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>

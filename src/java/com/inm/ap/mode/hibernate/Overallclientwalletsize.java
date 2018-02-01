@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Overallclientwalletsize  implements java.io.Serializable {
 
 
-     private BigDecimal clientwalletsizeid;
+     private int clientwalletsizeid;
      private ClientMaster clientMaster;
      private BigDecimal totalcorporatedebt;
      private BigDecimal averageimloanmargin;
@@ -21,16 +21,20 @@ public class Overallclientwalletsize  implements java.io.Serializable {
      private BigDecimal totalnetinterestincome;
      private BigDecimal totalnii;
      private BigDecimal imfeeincome;
+     private BigDecimal totalfeeincome;
+     private BigDecimal clientbankingwallet;
+     private BigDecimal imrevenue;
+     private BigDecimal estimatedwalletshare;
 
     public Overallclientwalletsize() {
     }
 
 	
-    public Overallclientwalletsize(BigDecimal clientwalletsizeid, ClientMaster clientMaster) {
+    public Overallclientwalletsize(int clientwalletsizeid, ClientMaster clientMaster) {
         this.clientwalletsizeid = clientwalletsizeid;
         this.clientMaster = clientMaster;
     }
-    public Overallclientwalletsize(BigDecimal clientwalletsizeid, ClientMaster clientMaster, BigDecimal totalcorporatedebt, BigDecimal averageimloanmargin, BigDecimal assetsinterestincome, BigDecimal estimatedcorporatedeposits, BigDecimal averageimdepositmargin, BigDecimal netintrstliabltyincome, BigDecimal totalnetinterestincome, BigDecimal totalnii, BigDecimal imfeeincome) {
+    public Overallclientwalletsize(int clientwalletsizeid, ClientMaster clientMaster, BigDecimal totalcorporatedebt, BigDecimal averageimloanmargin, BigDecimal assetsinterestincome, BigDecimal estimatedcorporatedeposits, BigDecimal averageimdepositmargin, BigDecimal netintrstliabltyincome, BigDecimal totalnetinterestincome, BigDecimal totalnii, BigDecimal imfeeincome, BigDecimal totalfeeincome, BigDecimal clientbankingwallet, BigDecimal imrevenue, BigDecimal estimatedwalletshare) {
        this.clientwalletsizeid = clientwalletsizeid;
        this.clientMaster = clientMaster;
        this.totalcorporatedebt = totalcorporatedebt;
@@ -42,13 +46,17 @@ public class Overallclientwalletsize  implements java.io.Serializable {
        this.totalnetinterestincome = totalnetinterestincome;
        this.totalnii = totalnii;
        this.imfeeincome = imfeeincome;
+       this.totalfeeincome = totalfeeincome;
+       this.clientbankingwallet = clientbankingwallet;
+       this.imrevenue = imrevenue;
+       this.estimatedwalletshare = estimatedwalletshare;
     }
    
-    public BigDecimal getClientwalletsizeid() {
+    public int getClientwalletsizeid() {
         return this.clientwalletsizeid;
     }
     
-    public void setClientwalletsizeid(BigDecimal clientwalletsizeid) {
+    public void setClientwalletsizeid(int clientwalletsizeid) {
         this.clientwalletsizeid = clientwalletsizeid;
     }
     public ClientMaster getClientMaster() {
@@ -120,6 +128,34 @@ public class Overallclientwalletsize  implements java.io.Serializable {
     
     public void setImfeeincome(BigDecimal imfeeincome) {
         this.imfeeincome = imfeeincome;
+    }
+    public BigDecimal getTotalfeeincome() {
+        return this.totalfeeincome;
+    }
+    
+    public void setTotalfeeincome(BigDecimal totalfeeincome) {
+        this.totalfeeincome = totalfeeincome;
+    }
+    public BigDecimal getClientbankingwallet() {
+        return this.clientbankingwallet;
+    }
+    
+    public void setClientbankingwallet(BigDecimal clientbankingwallet) {
+        this.clientbankingwallet = clientbankingwallet;
+    }
+    public BigDecimal getImrevenue() {
+        return this.imrevenue;
+    }
+    
+    public void setImrevenue(BigDecimal imrevenue) {
+        this.imrevenue = imrevenue;
+    }
+    public BigDecimal getEstimatedwalletshare() {
+        return this.estimatedwalletshare;
+    }
+    
+    public void setEstimatedwalletshare(BigDecimal estimatedwalletshare) {
+        this.estimatedwalletshare = estimatedwalletshare;
     }
 
 

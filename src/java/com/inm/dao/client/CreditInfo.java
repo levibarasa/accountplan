@@ -23,6 +23,34 @@ public class CreditInfo {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
      
+    public  void createCreditInformation(CreditInfoModel creditInfoModel ) {
+         CreditInformation creditInformation = new CreditInformation(); 
+         CreditInfo cr = new CreditInfo();  
+         creditInformation.setClientMaster(cr.getClientMasterByID(creditInfoModel.getClientMaster()));
+         creditInformation.setApprovedlines(creditInfoModel.getApprovedlines());
+         creditInformation.setCreditid(creditInfoModel.getCreditid());
+         creditInformation.setOutstandingamount(creditInfoModel.getOutstandingamount());
+         creditInformation.setRatingagency(creditInfoModel.getRatingagency());
+         creditInformation.setRiskrating(creditInfoModel.getRiskrating());
+          ops.save(creditInformation);
+    }
+    public  void updateCreditInformation(CreditInfoModel creditInfoModel ) {
+         CreditInformation creditInformation = new CreditInformation(); 
+         CreditInfo cr = new CreditInfo();  
+         creditInformation.setClientMaster(cr.getClientMasterByID(creditInfoModel.getClientMaster()));
+         creditInformation.setApprovedlines(creditInfoModel.getApprovedlines());
+         creditInformation.setCreditid(creditInfoModel.getCreditid());
+         creditInformation.setOutstandingamount(creditInfoModel.getOutstandingamount());
+         creditInformation.setRatingagency(creditInfoModel.getRatingagency());
+         creditInformation.setRiskrating(creditInfoModel.getRiskrating());
+          ops.saveOrUpdate(creditInformation);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
     public ArrayList<CreditInfoModel> getCreditInfo(String rmCode) {
          ArrayList<CreditInfoModel> creditInfoList = new ArrayList<CreditInfoModel>();
        CreditInfo cr = new CreditInfo();

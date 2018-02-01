@@ -5,9 +5,25 @@
 <%@ include file="../include/header.jsp" %>
 <html>
     <head>
-        
-        
-        
+        <script type="text/javascript">
+ 
+            var form = $('#addClientEmployee');
+            form.submit(function () {
+
+            $.ajax({
+            type: "POST",
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClientEmployee',
+            data: form.serialize(),
+            success: function (data) {
+            var result=data;
+           // $('#result').attr("value",result);
+           alert(result);
+            }
+            });
+
+            return false;
+            });
+</script>   
     </head>
 <div class="container">
         <div class="table-wrapper">
@@ -84,7 +100,7 @@
 	<div id="addClientEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addClientEmployee"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClientEmployee"  id="addClientEmployee">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add Client Employee Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -138,7 +154,7 @@
 						</div>
                            <div class="form-group">
                                 <label>Number Of Employees</label>
-                                <input  name="employeenoa" id="employeenoa"  type="text" class="form-control" required>
+                                <input  name="noofemployeea" id="noofemployeea"  type="text" class="form-control" required>
 			  </div>
                         <div class="form-group">
                                 <label>Number Of Employees Banked(All Banks)</label>

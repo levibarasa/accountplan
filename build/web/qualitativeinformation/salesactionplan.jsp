@@ -1,7 +1,5 @@
-<%@page import="com.inm.dao.client.AccountRevenue"%>
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.CreditInfoModel"%> 
-<%@page import="com.inm.dao.client.CreditInfo"%>
+<%@page import="com.inm.dao.qualitativeinformation.*"%>
+<%@page import="com.inm.models.*"%>  
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 
@@ -9,12 +7,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addSaleActionPlan');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddSaleActionPlan',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -35,11 +33,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Credit Information</b></h2>
+						<h2>Manage <b>Sales Action Plan Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCreditInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CreditInformation</span></a>
-						<a href="#deleteCreditInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addSaleActionPlanInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New SaleActionPlanInformation</span></a>
+						<a href="#deleteSaleActionPlanInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -53,17 +51,18 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Approved Lines</th>
-			<th>Outstanding Amount</th>
-                        <th>Risk Rating</th>
-                        <th>Rating Agency</th>
+                        <th>Specification</th>
+			<th>Contact Person</th>
+                        <th>Person Responsible For Action</th>
+                        <th>DateLine</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<CreditInfoModel> list = CreditInfo.getCreditInfo(user_code);
-                        for(CreditInfoModel creditInfoModel :list){
+                        SaleActionPlan sap = new SaleActionPlan();
+                        ArrayList<SalesactionplanModel> list = sap.getSaleActionPlanInfo(user_code);
+                        for(SalesactionplanModel salesactionplanModel :list){
                         %>
                     <tr>
 						<td>
@@ -72,14 +71,14 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=creditInfoModel.getClientID()%></td>
-                        <td><%=creditInfoModel.getApprovedLines()%></td>
-			<td><%=creditInfoModel.getOutstandingAmount()%></td>
-                        <td><%=creditInfoModel.getRiskRating()%></td>
-                        <td><%=creditInfoModel.getRatingAgency()%></td>
+                        <td><%=salesactionplanModel.getClientMaster()%></td>
+                        <td><%=salesactionplanModel.getSpecification()%></td>
+			<td><%=salesactionplanModel.getClocontactpersion()%></td>
+                        <td><%=salesactionplanModel.getClopersonresponsibleforaction()%></td>
+                        <td><%=salesactionplanModel.getClodatelinedate()%></td>
                         <td>
-                            <a href="#editCreditInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editSaleActionPlanInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteSaleActionPlanInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                     
@@ -101,49 +100,45 @@
         </div>
     </div>
 	<!-- Add Modal HTML -->
-	<div id="addCreditInformationModal" class="modal fade">
+	<div id="addSaleActionPlanInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form   name="addSaleActionPlan"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddSaleActionPlan"  id="addSaleActionPlan">
 					<div class="modal-header">						
-						<h4 class="modal-title">Add New Credit Information</h4>
+						<h4 class="modal-title">Add New Sale Action Plan </h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = sap.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
                                      </select>
 						</div>
 						<div class="form-group">
-							<label>Approved Lines</label>
-							<input type="text" name="approvedlinesa" id="approvedlinesa" class="form-control" required>
+							<label>Specification</label>
+							<input type="text" name="specificationa" id="specificationa" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Outstanding Amount</label>
-							<input type="text" name="outstandingamta" id="outstandingamta" class="form-control" required>
+							<label>Contact Person</label>
+							<input type="text" name="contactpersona" id="contactpersona" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Risk Rating</label>
-							<input type="text"  name="riskratinga" id="riskratinga"  class="form-control" required>
+							<label>Person Responsible For Action</label>
+							<input type="text"  name="presponsibleforactiona" id="presponsibleforactiona"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
-							<label>Rating Agency</label>
-							<input type="text"  name="ratingagencya" id="ratingagencya"  class="form-control" required>
+							<label>DateLine</label>
+							<input type="text"  name="dateLinea" id="dateLinea"  class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -155,31 +150,46 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editCreditInformationModal" class="modal fade">
+	<div id="editSaleActionPlanInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditInformation</h4>
+						<h4 class="modal-title">Edit Sales Action Plan </h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                  clientname = sap.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Specification</label>
+							<input type="text" name="specificationa" id="specificationa" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Contact Person</label>
+							<input type="text" name="contactpersona" id="contactpersona" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Person Responsible For Action</label>
+							<input type="text"  name="presponsibleforactiona" id="presponsibleforactiona"  class="form-control" required>
+						</div>	
+                                                <div class="form-group">
+							<label>DateLine</label>
+							<input type="text"  name="dateLinea" id="dateLinea"  class="form-control" required>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -190,12 +200,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCreditInformationModal" class="modal fade">
+	<div id="deleteSaleActionPlanInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete CreditInformation</h4>
+						<h4 class="modal-title">Delete SaleActionPlanInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

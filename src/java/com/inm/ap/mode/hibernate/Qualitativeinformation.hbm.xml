@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.Qualitativeinformation" optimistic-lock="version" schema="ACCPLAN" table="QUALITATIVEINFORMATION">
-    <id name="qinfoid" type="big_decimal">
-      <column name="QINFOID" precision="22" scale="0"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="clientstrategy" type="string">
-      <column length="200" name="CLIENTSTRATEGY"/>
-    </property>
-    <property name="clientwalletalloctnlogic" type="string">
-      <column length="200" name="CLIENTWALLETALLOCTNLOGIC"/>
-    </property>
-    <property name="opportunities" type="string">
-      <column length="200" name="OPPORTUNITIES"/>
-    </property>
-    <property name="specificchallenges" type="string">
-      <column name="SPECIFICCHALLENGES"/>
-    </property>
-    <property name="relationshipquality" type="string">
-      <column length="200" name="RELATIONSHIPQUALITY"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.Qualitativeinformation" table="QUALITATIVEINFORMATION" schema="ACCPLAN" optimistic-lock="version">
+        <id name="qinfoid" type="int">
+            <column name="QINFOID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="clientstrategy" type="string">
+            <column name="CLIENTSTRATEGY" length="200" />
+        </property>
+        <property name="clientwalletalloctnlogic" type="string">
+            <column name="CLIENTWALLETALLOCTNLOGIC" length="200" />
+        </property>
+        <property name="opportunities" type="string">
+            <column name="OPPORTUNITIES" length="200" />
+        </property>
+        <property name="specificchallenges" type="string">
+            <column name="SPECIFICCHALLENGES" />
+        </property>
+        <property name="relationshipquality" type="string">
+            <column name="RELATIONSHIPQUALITY" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>

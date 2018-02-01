@@ -23,6 +23,51 @@ public class KeySupplier {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
     
+    public  void createKeySupplier(KeySupplierModel keySupplierModel ) {
+         Keysuppliermaster keysuppliermaster = new Keysuppliermaster(); 
+         KeySupplier ks = new KeySupplier();  
+         keysuppliermaster.setClientMaster(ks.getClientMasterByID(keySupplierModel.getClientMaster()));
+         keysuppliermaster.setLookupmaster(ks.getLookUpMasterByID(keySupplierModel.getLookupmaster()));
+         keysuppliermaster.setBankedbyim(keySupplierModel.getBankedbyim());
+         keysuppliermaster.setComments(keySupplierModel.getComments());
+         keysuppliermaster.setKsContactperson(keySupplierModel.getKsContactperson());
+         keysuppliermaster.setKsEmail(keySupplierModel.getKsEmail());
+         keysuppliermaster.setKsLocation(keySupplierModel.getKsLocation());
+         keysuppliermaster.setKsPhonenumber(keySupplierModel.getKsPhonenumber());
+         keysuppliermaster.setKsid(keySupplierModel.getKsid());
+         keysuppliermaster.setKsname(keySupplierModel.getKsname());
+         keysuppliermaster.setVolofbusiness(keySupplierModel.getVolofbusiness());
+         ops.save(keysuppliermaster);
+    }
+     public  void updateKeySupplier(KeySupplierModel keySupplierModel ) {
+         Keysuppliermaster keysuppliermaster = new Keysuppliermaster(); 
+         KeySupplier ks = new KeySupplier();  
+         keysuppliermaster.setClientMaster(ks.getClientMasterByID(keySupplierModel.getClientMaster()));
+         keysuppliermaster.setLookupmaster(ks.getLookUpMasterByID(keySupplierModel.getLookupmaster()));
+         keysuppliermaster.setBankedbyim(keySupplierModel.getBankedbyim());
+         keysuppliermaster.setComments(keySupplierModel.getComments());
+         keysuppliermaster.setKsContactperson(keySupplierModel.getKsContactperson());
+         keysuppliermaster.setKsEmail(keySupplierModel.getKsEmail());
+         keysuppliermaster.setKsLocation(keySupplierModel.getKsLocation());
+         keysuppliermaster.setKsPhonenumber(keySupplierModel.getKsPhonenumber());
+         keysuppliermaster.setKsid(keySupplierModel.getKsid());
+         keysuppliermaster.setKsname(keySupplierModel.getKsname());
+         keysuppliermaster.setVolofbusiness(keySupplierModel.getVolofbusiness());
+         ops.saveOrUpdate(keysuppliermaster);
+    }
+         
+     public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
+        coreQuery.addParam("lookupmasterid", lookupmasterid); 
+        List lkup = ops.fetch(coreQuery);
+        return (Lookupmaster) lkup.get(0);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
     public ArrayList<KeySupplierModel> getKeySupplierInfo(String rmCode) {
          ArrayList<KeySupplierModel> keySupplierModelList = new ArrayList<KeySupplierModel>();
        KeySupplier ks = new KeySupplier();

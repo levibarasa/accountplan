@@ -1,47 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.RmCodelist" optimistic-lock="version" schema="ACCPLAN" table="RM_CODELIST">
-    <id name="rmCode" type="string">
-      <column length="20" name="RM_CODE"/>
-      <generator class="assigned"/>
-    </id>
-    <property name="designation" type="string">
-      <column length="50" name="DESIGNATION"/>
-    </property>
-    <property name="branch" type="string">
-      <column length="20" name="BRANCH"/>
-    </property>
-    <property name="branchcode" type="string">
-      <column length="20" name="BRANCHCODE"/>
-    </property>
-    <property name="region" type="string">
-      <column length="50" name="REGION"/>
-    </property>
-    <property name="category" type="string">
-      <column length="50" name="CATEGORY"/>
-    </property>
-    <property name="rmName" type="string">
-      <column length="200" name="RM_NAME"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="clientMastersForRmCode" table="CLIENT_MASTER">
-      <key>
-        <column length="20" name="RM_CODE" not-null="true"/>
-      </key>
-      <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="clientMastersForAlternativeRmCode" table="CLIENT_MASTER">
-      <key>
-        <column length="20" name="ALTERNATIVE_RM_CODE" not-null="true"/>
-      </key>
-      <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="employeeLeaves" table="EMPLOYEE_LEAVE">
-      <key>
-        <column length="20" name="RMCODE"/>
-      </key>
-      <one-to-many class="com.inm.ap.mode.hibernate.EmployeeLeave"/>
-    </set>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.RmCodelist" table="RM_CODELIST" schema="ACCPLAN" optimistic-lock="version">
+        <id name="rmCode" type="string">
+            <column name="RM_CODE" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="designation" type="string">
+            <column name="DESIGNATION" length="50" />
+        </property>
+        <property name="branch" type="string">
+            <column name="BRANCH" length="20" />
+        </property>
+        <property name="branchcode" type="string">
+            <column name="BRANCHCODE" length="20" />
+        </property>
+        <property name="region" type="string">
+            <column name="REGION" length="50" />
+        </property>
+        <property name="category" type="string">
+            <column name="CATEGORY" length="50" />
+        </property>
+        <property name="rmName" type="string">
+            <column name="RM_NAME" length="200" />
+        </property>
+        <set name="clientMastersForRmCode" table="CLIENT_MASTER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RM_CODE" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster" />
+        </set>
+        <set name="clientMastersForAlternativeRmCode" table="CLIENT_MASTER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ALTERNATIVE_RM_CODE" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.ClientMaster" />
+        </set>
+        <set name="employeeLeaves" table="EMPLOYEE_LEAVE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RMCODE" length="20" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.EmployeeLeave" />
+        </set>
+    </class>
 </hibernate-mapping>

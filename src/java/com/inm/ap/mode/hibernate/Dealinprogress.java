@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Dealinprogress  implements java.io.Serializable {
 
 
-     private BigDecimal dealinprogressid;
+     private int dealinprogressid;
      private Lookupmaster lookupmasterByDealpropabilitylookupid;
      private Lookupmaster lookupmasterByProductlookupid;
      private Lookupmaster lookupmasterByDealstagelookupmasterid;
@@ -29,7 +29,7 @@ public class Dealinprogress  implements java.io.Serializable {
     }
 
 	
-    public Dealinprogress(BigDecimal dealinprogressid, Lookupmaster lookupmasterByDealpropabilitylookupid, Lookupmaster lookupmasterByProductlookupid, Lookupmaster lookupmasterByDealstagelookupmasterid, Lookupmaster lookupmasterByCompletionmonthlookupid, Lookupmaster lookupmasterByDealstatuslookupmasterid, Lookupmaster lookupmasterByDealtypelookupmasterid, ClientMaster clientMaster) {
+    public Dealinprogress(int dealinprogressid, Lookupmaster lookupmasterByDealpropabilitylookupid, Lookupmaster lookupmasterByProductlookupid, Lookupmaster lookupmasterByDealstagelookupmasterid, Lookupmaster lookupmasterByCompletionmonthlookupid, Lookupmaster lookupmasterByDealstatuslookupmasterid, Lookupmaster lookupmasterByDealtypelookupmasterid, ClientMaster clientMaster) {
         this.dealinprogressid = dealinprogressid;
         this.lookupmasterByDealpropabilitylookupid = lookupmasterByDealpropabilitylookupid;
         this.lookupmasterByProductlookupid = lookupmasterByProductlookupid;
@@ -39,7 +39,7 @@ public class Dealinprogress  implements java.io.Serializable {
         this.lookupmasterByDealtypelookupmasterid = lookupmasterByDealtypelookupmasterid;
         this.clientMaster = clientMaster;
     }
-    public Dealinprogress(BigDecimal dealinprogressid, Lookupmaster lookupmasterByDealpropabilitylookupid, Lookupmaster lookupmasterByProductlookupid, Lookupmaster lookupmasterByDealstagelookupmasterid, Lookupmaster lookupmasterByCompletionmonthlookupid, Lookupmaster lookupmasterByDealstatuslookupmasterid, Lookupmaster lookupmasterByDealtypelookupmasterid, ClientMaster clientMaster, String currentlyused, BigDecimal imdealamount, BigDecimal allbankswalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, String comments) {
+    public Dealinprogress(int dealinprogressid, Lookupmaster lookupmasterByDealpropabilitylookupid, Lookupmaster lookupmasterByProductlookupid, Lookupmaster lookupmasterByDealstagelookupmasterid, Lookupmaster lookupmasterByCompletionmonthlookupid, Lookupmaster lookupmasterByDealstatuslookupmasterid, Lookupmaster lookupmasterByDealtypelookupmasterid, ClientMaster clientMaster, String currentlyused, BigDecimal imdealamount, BigDecimal allbankswalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, String comments) {
        this.dealinprogressid = dealinprogressid;
        this.lookupmasterByDealpropabilitylookupid = lookupmasterByDealpropabilitylookupid;
        this.lookupmasterByProductlookupid = lookupmasterByProductlookupid;
@@ -56,11 +56,11 @@ public class Dealinprogress  implements java.io.Serializable {
        this.comments = comments;
     }
    
-    public BigDecimal getDealinprogressid() {
+    public int getDealinprogressid() {
         return this.dealinprogressid;
     }
     
-    public void setDealinprogressid(BigDecimal dealinprogressid) {
+    public void setDealinprogressid(int dealinprogressid) {
         this.dealinprogressid = dealinprogressid;
     }
     public Lookupmaster getLookupmasterByDealpropabilitylookupid() {

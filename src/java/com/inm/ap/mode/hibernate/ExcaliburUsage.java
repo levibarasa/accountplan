@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ public class ExcaliburUsage  implements java.io.Serializable {
 
 
      private String usageid;
-     private BigDecimal employeeid;
+     private int employeeid;
      private Date logintime;
      private String logouttime;
 
@@ -23,7 +23,7 @@ public class ExcaliburUsage  implements java.io.Serializable {
     public ExcaliburUsage(String usageid) {
         this.usageid = usageid;
     }
-    public ExcaliburUsage(String usageid, BigDecimal employeeid, Date logintime, String logouttime) {
+    public ExcaliburUsage(String usageid, int employeeid, Date logintime, String logouttime) {
        this.usageid = usageid;
        this.employeeid = employeeid;
        this.logintime = logintime;
@@ -37,11 +37,11 @@ public class ExcaliburUsage  implements java.io.Serializable {
     public void setUsageid(String usageid) {
         this.usageid = usageid;
     }
-    public BigDecimal getEmployeeid() {
+    public int getEmployeeid() {
         return this.employeeid;
     }
     
-    public void setEmployeeid(BigDecimal employeeid) {
+    public void setEmployeeid(int employeeid) {
         this.employeeid = employeeid;
     }
     public Date getLogintime() {

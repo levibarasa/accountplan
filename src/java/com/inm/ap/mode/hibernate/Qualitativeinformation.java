@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Qualitativeinformation  implements java.io.Serializable {
 
 
-     private BigDecimal qinfoid;
+     private int qinfoid;
      private ClientMaster clientMaster;
      private String clientstrategy;
      private String clientwalletalloctnlogic;
@@ -22,11 +22,11 @@ public class Qualitativeinformation  implements java.io.Serializable {
     }
 
 	
-    public Qualitativeinformation(BigDecimal qinfoid, ClientMaster clientMaster) {
+    public Qualitativeinformation(int qinfoid, ClientMaster clientMaster) {
         this.qinfoid = qinfoid;
         this.clientMaster = clientMaster;
     }
-    public Qualitativeinformation(BigDecimal qinfoid, ClientMaster clientMaster, String clientstrategy, String clientwalletalloctnlogic, String opportunities, String specificchallenges, String relationshipquality) {
+    public Qualitativeinformation(int qinfoid, ClientMaster clientMaster, String clientstrategy, String clientwalletalloctnlogic, String opportunities, String specificchallenges, String relationshipquality) {
        this.qinfoid = qinfoid;
        this.clientMaster = clientMaster;
        this.clientstrategy = clientstrategy;
@@ -36,11 +36,11 @@ public class Qualitativeinformation  implements java.io.Serializable {
        this.relationshipquality = relationshipquality;
     }
    
-    public BigDecimal getQinfoid() {
+    public int getQinfoid() {
         return this.qinfoid;
     }
     
-    public void setQinfoid(BigDecimal qinfoid) {
+    public void setQinfoid(int qinfoid) {
         this.qinfoid = qinfoid;
     }
     public ClientMaster getClientMaster() {

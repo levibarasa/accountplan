@@ -25,10 +25,10 @@ public class Company {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
 //    public static void main(String[] args) {
-//        Company com = new Company();  
+//        Company com = new Company();   
 //        CompanyModel companyModel = new CompanyModel(); 
-//        companyModel.setCompanyid(100);
-//        companyModel.setGroupname("The Phassopadiens Group LTD");
+//        companyModel.setCompanyid(0);
+//        companyModel.setGroupname("The Standard Group LTD");
 //        companyModel.setCompanyAddress("po box 1244");
 //        companyModel.setNoofsubsidiaries(Integer.parseInt("1"));
 //        companyModel.setClientMaster("6");
@@ -49,6 +49,19 @@ public class Company {
          companyMaster.setLookupmasterByIndustrylookupmasterid(c.getLookUpMaster("INDUSTRY", Integer.parseInt(companyModel.getLookupmasterByIndustrylookupmasterid())));
          companyMaster.setLookupmasterBySegmentlookupmasterid(c.getLookUpMaster("SEGMENT", Integer.parseInt(companyModel.getLookupmasterBySegmentlookupmasterid()))); 
          ops.save(companyMaster);
+    }
+     public  void updateCompany(CompanyModel companyModel ) {
+         CompanyMaster companyMaster = new CompanyMaster(); 
+         Company c = new Company(); 
+         companyMaster.setCompanyid(companyModel.getCompanyid());
+         companyMaster.setCompanyAddress(companyModel.getCompanyAddress());
+         companyMaster.setGroupname(companyModel.getGroupname());
+         companyMaster.setNoofsubsidiaries(companyModel.getNoofsubsidiaries());
+         companyMaster.setClientMaster(c.getClientMasterByID(companyModel.getClientMaster()));
+         companyMaster.setLookupmasterByAffiliatelookupmasterid(c.getLookUpMaster("AFFILIATE", Integer.parseInt(companyModel.getLookupmasterByAffiliatelookupmasterid())));
+         companyMaster.setLookupmasterByIndustrylookupmasterid(c.getLookUpMaster("INDUSTRY", Integer.parseInt(companyModel.getLookupmasterByIndustrylookupmasterid())));
+         companyMaster.setLookupmasterBySegmentlookupmasterid(c.getLookUpMaster("SEGMENT", Integer.parseInt(companyModel.getLookupmasterBySegmentlookupmasterid()))); 
+         ops.saveOrUpdate(companyMaster);
     }
     public Lookupmaster getLookUpMaster(String code, int lookupId) {
         CoreQuery coreQuery = new CoreQuery("from Lookupmaster where code =:code and lookupmasterid =:lookupId", true);

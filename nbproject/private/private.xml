@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/dao/client/CreditInfo.java</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/models/ClientEmployeeModel.java</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/web/valuechain/clientemployee.jsp</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/dao/valuechain/KeyDistributor.java</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/dao/valuechain/ClientEmployeeMaster.java</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/ap/mode/hibernate/ClientEmployee.java</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/web/client/companyinfo.jsp</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/web/client/creditinfo.jsp</file>
-            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/dao/valuechain/KeySupplier.java</file>
+            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/dao/walletresize/OverallClientWalletSizeMaster.java</file>
+            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/src/java/com/inm/models/OverallClientWalletSizeModel.java</file>
+            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/web/walletresizing/overallclientwalletsize.jsp</file>
+            <file>file:/C:/Users/Levi/Documents/I&amp;M%20Bank/AP/inmap/web/walletresizing/currentandfutureopportunities.jsp</file>
         </group>
     </open-files>
 </project-private>

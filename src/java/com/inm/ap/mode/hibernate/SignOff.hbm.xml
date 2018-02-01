@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.SignOff" table="SIGN_OFF" schema="ACCPLAN" optimistic-lock="version">
+        <id name="signoffid" type="int">
+            <column name="SIGNOFFID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="headofcorporatesignoff" type="string">
+            <column name="HEADOFCORPORATESIGNOFF" length="20" />
+        </property>
+        <property name="rmsignoff" type="string">
+            <column name="RMSIGNOFF" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

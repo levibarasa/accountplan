@@ -24,7 +24,44 @@ public class AccountRevenue {
     public AccountRevenue() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-     
+     public  void createAccountRevenue(AccountRevenueModel accountRevenueModel ) {
+         AccountRevenueInformation accountRevenueInformation = new AccountRevenueInformation(); 
+         AccountRevenue ar = new AccountRevenue();  
+         accountRevenueInformation.setClientMaster(ar.getClientMasterByID(accountRevenueModel.getClientMaster())); 
+         accountRevenueInformation.setAccountRevenueid(accountRevenueModel.getAccountRevenueid());
+         accountRevenueInformation.setCurrentshareofwallet(accountRevenueModel.getCurrentshareofwallet());
+         accountRevenueInformation.setCurrentyearfeeincometarget(accountRevenueModel.getCurrentyearfeeincometarget());
+         accountRevenueInformation.setCurrentyearrevenuetarget(accountRevenueModel.getCurrentyearrevenuetarget());
+         accountRevenueInformation.setPercentagegrowthfeeincome(accountRevenueModel.getPercentagegrowthfeeincome());
+         accountRevenueInformation.setPercentagegrowthrevenue(accountRevenueModel.getPercentagegrowthrevenue());
+         accountRevenueInformation.setPrioryearactualfeeincome(accountRevenueModel.getPrioryearactualfeeincome());
+         accountRevenueInformation.setPrioryearactualrevenue(accountRevenueModel.getPrioryearactualrevenue());
+         accountRevenueInformation.setTargetshareofwallet(accountRevenueModel.getTargetshareofwallet());
+         accountRevenueInformation.setTotalvalueofidopportunities(accountRevenueModel.getTotalvalueofidopportunities());
+          ops.save(accountRevenueInformation);
+    }
+     public  void updateAccountRevenue(AccountRevenueModel accountRevenueModel ) {
+         AccountRevenueInformation accountRevenueInformation = new AccountRevenueInformation(); 
+         AccountRevenue ar = new AccountRevenue();  
+         accountRevenueInformation.setClientMaster(ar.getClientMasterByID(accountRevenueModel.getClientMaster())); 
+         accountRevenueInformation.setAccountRevenueid(accountRevenueModel.getAccountRevenueid());
+         accountRevenueInformation.setCurrentshareofwallet(accountRevenueModel.getCurrentshareofwallet());
+         accountRevenueInformation.setCurrentyearfeeincometarget(accountRevenueModel.getCurrentyearfeeincometarget());
+         accountRevenueInformation.setCurrentyearrevenuetarget(accountRevenueModel.getCurrentyearrevenuetarget());
+         accountRevenueInformation.setPercentagegrowthfeeincome(accountRevenueModel.getPercentagegrowthfeeincome());
+         accountRevenueInformation.setPercentagegrowthrevenue(accountRevenueModel.getPercentagegrowthrevenue());
+         accountRevenueInformation.setPrioryearactualfeeincome(accountRevenueModel.getPrioryearactualfeeincome());
+         accountRevenueInformation.setPrioryearactualrevenue(accountRevenueModel.getPrioryearactualrevenue());
+         accountRevenueInformation.setTargetshareofwallet(accountRevenueModel.getTargetshareofwallet());
+         accountRevenueInformation.setTotalvalueofidopportunities(accountRevenueModel.getTotalvalueofidopportunities());
+          ops.saveOrUpdate(accountRevenueInformation);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
       public ArrayList<AccountRevenueModel> getAccountRevenuenfo(String rmCode) {
         AccountRevenue ar = new AccountRevenue();
         ArrayList<AccountRevenueModel> accountRevenueModelList = new ArrayList<AccountRevenueModel>();

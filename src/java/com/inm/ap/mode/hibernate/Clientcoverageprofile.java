@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Clientcoverageprofile  implements java.io.Serializable {
 
 
-     private BigDecimal clientcoverageprofileid;
+     private int clientcoverageprofileid;
      private ClientMaster clientMaster;
      private String clientofficername;
      private String clientofficerposition;
@@ -25,11 +25,11 @@ public class Clientcoverageprofile  implements java.io.Serializable {
     }
 
 	
-    public Clientcoverageprofile(BigDecimal clientcoverageprofileid, ClientMaster clientMaster) {
+    public Clientcoverageprofile(int clientcoverageprofileid, ClientMaster clientMaster) {
         this.clientcoverageprofileid = clientcoverageprofileid;
         this.clientMaster = clientMaster;
     }
-    public Clientcoverageprofile(BigDecimal clientcoverageprofileid, ClientMaster clientMaster, String clientofficername, String clientofficerposition, String clientofficercontact, String clientofcerrnshipqlty, String clientofficerlastcontact, String clientofficerdiscussionsummary, String clientofficernextplanedcontact, String clientofficernxtcntctpurpose) {
+    public Clientcoverageprofile(int clientcoverageprofileid, ClientMaster clientMaster, String clientofficername, String clientofficerposition, String clientofficercontact, String clientofcerrnshipqlty, String clientofficerlastcontact, String clientofficerdiscussionsummary, String clientofficernextplanedcontact, String clientofficernxtcntctpurpose) {
        this.clientcoverageprofileid = clientcoverageprofileid;
        this.clientMaster = clientMaster;
        this.clientofficername = clientofficername;
@@ -42,11 +42,11 @@ public class Clientcoverageprofile  implements java.io.Serializable {
        this.clientofficernxtcntctpurpose = clientofficernxtcntctpurpose;
     }
    
-    public BigDecimal getClientcoverageprofileid() {
+    public int getClientcoverageprofileid() {
         return this.clientcoverageprofileid;
     }
     
-    public void setClientcoverageprofileid(BigDecimal clientcoverageprofileid) {
+    public void setClientcoverageprofileid(int clientcoverageprofileid) {
         this.clientcoverageprofileid = clientcoverageprofileid;
     }
     public ClientMaster getClientMaster() {

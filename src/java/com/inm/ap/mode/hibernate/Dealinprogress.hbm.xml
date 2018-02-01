@@ -1,50 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.Dealinprogress" optimistic-lock="version" schema="ACCPLAN" table="DEALINPROGRESS">
-    <id name="dealinprogressid" type="big_decimal">
-      <column name="DEALINPROGRESSID" precision="22" scale="0"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByDealpropabilitylookupid">
-      <column name="DEALPROPABILITYLOOKUPID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByProductlookupid">
-      <column name="PRODUCTLOOKUPID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByDealstagelookupmasterid">
-      <column name="DEALSTAGELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByCompletionmonthlookupid">
-      <column name="COMPLETIONMONTHLOOKUPID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByDealstatuslookupmasterid">
-      <column name="DEALSTATUSLOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select" name="lookupmasterByDealtypelookupmasterid">
-      <column name="DEALTYPELOOKUPMASTERID" not-null="true" precision="22" scale="0"/>
-    </many-to-one>
-    <many-to-one class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select" name="clientMaster">
-      <column length="20" name="CLIENTID" not-null="true"/>
-    </many-to-one>
-    <property name="currentlyused" type="string">
-      <column length="20" name="CURRENTLYUSED"/>
-    </property>
-    <property name="imdealamount" type="big_decimal">
-      <column name="IMDEALAMOUNT" precision="22" scale="0"/>
-    </property>
-    <property name="allbankswalletsize" type="big_decimal">
-      <column name="ALLBANKSWALLETSIZE" precision="22" scale="0"/>
-    </property>
-    <property name="improjectedwalletshare" type="big_decimal">
-      <column name="IMPROJECTEDWALLETSHARE" precision="22" scale="0"/>
-    </property>
-    <property name="imexpectedrevenue" type="big_decimal">
-      <column name="IMEXPECTEDREVENUE" precision="22" scale="0"/>
-    </property>
-    <property name="comments" type="string">
-      <column length="200" name="COMMENTS"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.Dealinprogress" table="DEALINPROGRESS" schema="ACCPLAN" optimistic-lock="version">
+        <id name="dealinprogressid" type="int">
+            <column name="DEALINPROGRESSID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="lookupmasterByDealpropabilitylookupid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="DEALPROPABILITYLOOKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByProductlookupid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="PRODUCTLOOKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByDealstagelookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="DEALSTAGELOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByCompletionmonthlookupid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="COMPLETIONMONTHLOOKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByDealstatuslookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="DEALSTATUSLOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByDealtypelookupmasterid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="DEALTYPELOOKUPMASTERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENTID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="currentlyused" type="string">
+            <column name="CURRENTLYUSED" length="20" />
+        </property>
+        <property name="imdealamount" type="big_decimal">
+            <column name="IMDEALAMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="allbankswalletsize" type="big_decimal">
+            <column name="ALLBANKSWALLETSIZE" precision="22" scale="0" />
+        </property>
+        <property name="improjectedwalletshare" type="big_decimal">
+            <column name="IMPROJECTEDWALLETSHARE" precision="22" scale="0" />
+        </property>
+        <property name="imexpectedrevenue" type="big_decimal">
+            <column name="IMEXPECTEDREVENUE" precision="22" scale="0" />
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>

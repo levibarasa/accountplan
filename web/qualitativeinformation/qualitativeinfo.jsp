@@ -1,6 +1,5 @@
-<%@page import="com.inm.dao.client.AccountRevenue"%>
-<%@page import="com.inm.models.AccountRevenueModel"%> 
-<%@page import="com.inm.dao.client.Company"%>
+<%@page import="com.inm.dao.qualitativeinformation.*"%>
+<%@page import="com.inm.models.*"%>  
 <%@page import="java.util.ArrayList"%> 
 <%@ include file="../include/header.jsp" %>
 
@@ -8,12 +7,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addQualitativeInfo');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddQualitativeInfo',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -34,8 +33,8 @@
 						<h2>Manage <b>Account Revenue Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addAccountRevenueModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New AccountRevenue</span></a>
-						<a href="#deleteAccountRevenueModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addQualitativeInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New QualitativeInformation</span></a>
+						<a href="#deleteQualitativeInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -49,22 +48,19 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Cur Yr Rev.Target(Ksh'M)</th>
-			<th>Pr Yr Act.Revenue(Ksh'M)</th>
-                        <th>% Growth Revenue</th>
-                        <th>Cur Yr FeeInc.Target(Ksh'M)</th>
-                        <th> Pr Yr Act.Fee Income(Ksh'M)</th>
-                        <th>% Growth FeeIncome</th>
-                        <th>Cur WalletShare</th>
-                        <th>Target WalletShare</th>
-                        <th>Tot.Val. Of Id.Opportunitie(Ksh'M)</th>
+                        <th>Client Strategy</th>
+			<th>Wallet Allocation Logic</th>
+                        <th>Opportunities</th>
+                        <th>Specific Challenges</th>
+                        <th> Relationship Quality</th> 
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                       <%
-                        ArrayList<AccountRevenueModel> list = AccountRevenue.getAccountRevenuenfo(user_code);
-                        for(AccountRevenueModel accountrevenuemodel :list){
+                         QualitativeInfo qi = new QualitativeInfo(); 
+                        ArrayList<QualitativeinformationModel> list = qi.getQualitativeinfo(user_code);
+                        for(QualitativeinformationModel qualitativeinformationModel :list){
                         %>
                     <tr>
 						<td>
@@ -73,19 +69,15 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=accountrevenuemodel.getClientID()%></td>
-                        <td><%=accountrevenuemodel.getCurrentYearRevenueTarget()%></td>
-			<td><%=accountrevenuemodel.getPriorYearActualRevenue()%></td>
-                        <td><%=accountrevenuemodel.getPercentageGrowthRevenue()%></td>
-                        <td><%=accountrevenuemodel.getCurrentYearFeeIncomeTarget()%></td>
-                        <td><%=accountrevenuemodel.getPriorYearActualFeeIncome()%></td>
-                        <td><%=accountrevenuemodel.getPercentageGrowthFeeIncome()%></td>
-                        <td><%=accountrevenuemodel.getCurrentShareOfWallet()%></td>
-                        <td><%=accountrevenuemodel.getTargetShareOfWallet()%></td>
-                        <td><%=accountrevenuemodel.getTotalValueOfIdentifiedOpportunities()%></td>
+                        <td><%=qualitativeinformationModel.getClientMaster()%></td>
+                        <td><%=qualitativeinformationModel.getClientstrategy()%></td>
+			<td><%=qualitativeinformationModel.getClientwalletalloctnlogic()%></td>
+                        <td><%=qualitativeinformationModel.getOpportunities()%></td>
+                        <td><%=qualitativeinformationModel.getSpecificchallenges()%></td>
+                        <td><%=qualitativeinformationModel.getRelationshipquality()%></td> 
                         <td>
-                            <a href="#editAccountRevenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteAccountRevenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editQualitativeInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteQualitativeInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr> 
 		<%
@@ -106,62 +98,51 @@
         </div>
     </div>
 	<!-- ADD Modal HTML -->
-	<div id="addAccountRevenueModal" class="modal fade">
+	<div id="addQualitativeInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addQualitativeInfo"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddQualitativeInfo"  id="addQualitativeInfo">
 					<div class="modal-header">						
-						<h4 class="modal-title">Add Account Revenue Information</h4>
+						<h4 class="modal-title">Add Qualitative Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = qi.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
                                      </select>
 						</div>
 						<div class="form-group">
-							<label>Current Year Revenue Target(Ksh'M)</label>
-							<input type="text" name="curyrrevtarga" id="curyrrevtarga" class="form-control" required>
+							<label>Client Strategy</label>
+							<input type="text" name="clientstrategya" id="clientstrategya" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Prior Year Actual Revenue(Ksh'M)</label>
-							<input type="text" name="priyractreva" id="priyractreva" class="form-control" required>
+							<label>Wallet Allocation Logic</label>
+							<input type="text" name="clientwalletalloctnlogica" id="clientwalletalloctnlogica" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Current Year Fee Income Target(Ksh'M)</label>
-							<input type="text" name="curyrfeetarga" id="curyrfeetarga" class="form-control" required>
+							<label>Opportunities</label>
+							<input type="text" name="opportunitiesa" id="opportunitiesa" class="form-control" required>
 						</div>	
                                                 <div class="form-group">
-							<label>Prior Year Actual Fee Income(Ksh'M)</label>
-							<input type="text" name="priyractfeea" id="priyractfeea" class="form-control" required>
+							<label>Specific Challenges</label>
+							<input type="text" name="specchallengesa" id="specchallengesa" class="form-control" required>
 						</div>
                                                 <div class="form-group">
-							<label>Current Share Of Wallet(%)</label>
-							<input type="text" name="curwalletshra" id="curwalletshra" class="form-control" required>
+							<label>Relationship Quality</label>
+							<input type="text" name="rshpqltya" id="rshpqltya" class="form-control" required>
 						</div>
-                                            <div class="form-group">
-							<label>Target Share Of Wallet(%)</label>
-							<input type="text" name="totwalshra" id="totwalshra" class="form-control" required>
-						</div>
-                                             <div class="form-group">
-							<label>Total Value Of Identified Opportunities(Ksh'M)</label>
-							<input type="text" name="totidoppa" id="totidoppa" class="form-control" required>
-						</div>
+                                            
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -172,31 +153,51 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editAccountRevenueModal" class="modal fade">
+	<div id="editQualitativeInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit AccountRevenue</h4>
+						<h4 class="modal-title">Edit Qualitative Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                   clientname = qi.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Client Strategy</label>
+							<input type="text" name="clientstrategya" id="clientstrategya" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Wallet Allocation Logic</label>
+							<input type="text" name="clientwalletalloctnlogica" id="clientwalletalloctnlogica" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+							<label>Opportunities</label>
+							<input type="text" name="opportunitiesa" id="opportunitiesa" class="form-control" required>
+						</div>	
+                                                <div class="form-group">
+							<label>Specific Challenges</label>
+							<input type="text" name="specchallengesa" id="specchallengesa" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Relationship Quality</label>
+							<input type="text" name="rshpqltya" id="rshpqltya" class="form-control" required>
+						</div>
+                                            
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -207,12 +208,12 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteAccountRevenueModal" class="modal fade">
+	<div id="deleteQualitativeInformationModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete AccountRevenue</h4>
+						<h4 class="modal-title">Delete QualitativeInformation</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

@@ -561,6 +561,7 @@ $(document).ready(function(){
                       <div class="dropdown-content">
                         <a href="${pageContext.request.contextPath}/walletresizing/overallclientwalletsize.jsp">Overall Client wallet size</a>
                         <a href="${pageContext.request.contextPath}/walletresizing/currentandfutureopportunities.jsp">Current and Future Opportunities</a> 
+                        <a href="${pageContext.request.contextPath}/walletresizing/signoff.jsp">Sign-Off</a>
                       </div>
                   </div>
              <div class="dropdown">

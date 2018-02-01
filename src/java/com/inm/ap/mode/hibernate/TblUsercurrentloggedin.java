@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 25, 2018 9:36:12 AM by Hibernate Tools 4.3.1
+// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.Date;
 public class TblUsercurrentloggedin  implements java.io.Serializable {
 
 
-     private BigDecimal loggedinid;
+     private int loggedinid;
      private String txtUsername;
      private String txtEmployeeid;
      private String txtUsertype;
@@ -21,10 +21,10 @@ public class TblUsercurrentloggedin  implements java.io.Serializable {
     }
 
 	
-    public TblUsercurrentloggedin(BigDecimal loggedinid) {
+    public TblUsercurrentloggedin(int loggedinid) {
         this.loggedinid = loggedinid;
     }
-    public TblUsercurrentloggedin(BigDecimal loggedinid, String txtUsername, String txtEmployeeid, String txtUsertype, Date dtLastlogintime) {
+    public TblUsercurrentloggedin(int loggedinid, String txtUsername, String txtEmployeeid, String txtUsertype, Date dtLastlogintime) {
        this.loggedinid = loggedinid;
        this.txtUsername = txtUsername;
        this.txtEmployeeid = txtEmployeeid;
@@ -32,11 +32,11 @@ public class TblUsercurrentloggedin  implements java.io.Serializable {
        this.dtLastlogintime = dtLastlogintime;
     }
    
-    public BigDecimal getLoggedinid() {
+    public int getLoggedinid() {
         return this.loggedinid;
     }
     
-    public void setLoggedinid(BigDecimal loggedinid) {
+    public void setLoggedinid(int loggedinid) {
         this.loggedinid = loggedinid;
     }
     public String getTxtUsername() {

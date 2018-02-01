@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 25, 2018 9:36:19 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.inm.ap.mode.hibernate.TblUsercurrentloggedin" optimistic-lock="version" schema="ACCPLAN" table="TBL_USERCURRENTLOGGEDIN">
-    <id name="loggedinid" type="big_decimal">
-      <column name="LOGGEDINID" precision="22" scale="0"/>
-      <generator class="identity"/>
-    </id>
-    <property name="txtUsername" type="string">
-      <column length="200" name="TXT_USERNAME"/>
-    </property>
-    <property name="txtEmployeeid" type="string">
-      <column length="200" name="TXT_EMPLOYEEID"/>
-    </property>
-    <property name="txtUsertype" type="string">
-      <column length="200" name="TXT_USERTYPE"/>
-    </property>
-    <property name="dtLastlogintime" type="date">
-      <column length="7" name="DT_LASTLOGINTIME"/>
-    </property>
-  </class>
+    <class name="com.inm.ap.mode.hibernate.TblUsercurrentloggedin" table="TBL_USERCURRENTLOGGEDIN" schema="ACCPLAN" optimistic-lock="version">
+        <id name="loggedinid" type="int">
+            <column name="LOGGEDINID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="txtUsername" type="string">
+            <column name="TXT_USERNAME" length="200" />
+        </property>
+        <property name="txtEmployeeid" type="string">
+            <column name="TXT_EMPLOYEEID" length="200" />
+        </property>
+        <property name="txtUsertype" type="string">
+            <column name="TXT_USERTYPE" length="200" />
+        </property>
+        <property name="dtLastlogintime" type="date">
+            <column name="DT_LASTLOGINTIME" length="7" />
+        </property>
+    </class>
 </hibernate-mapping>

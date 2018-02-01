@@ -1,6 +1,5 @@
-<%@page import="com.inm.dao.client.ClientFinacial"%>
-<%@page import="com.inm.dao.client.Company"%>
-<%@page import="com.inm.models.ClientFinacialModel"%> 
+<%@page import="com.inm.dao.qualitativeinformation.*"%> 
+<%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%>  
 <%@ include file="../include/header.jsp" %>
 
@@ -8,12 +7,12 @@
 <head>
     <script type="text/javascript">
  
-            var form = $('#addClient');
+            var form = $('#addClientCoverage');
             form.submit(function () {
 
             $.ajax({
             type: "POST",
-            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClientCoverage',
             data: form.serialize(),
             success: function (data) {
             var result=data;
@@ -33,11 +32,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Credit Financials</b></h2>
+						<h2>Manage <b>Client Coverage and Profile</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCreditFinancialModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CreditFinancial</span></a>
-						<a href="#deleteCreditFinancialModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addClientCoverageFinancialModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Client Coverage And Profile</span></a>
+						<a href="#deleteClientCoverageFinancialModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
             </div>
@@ -51,19 +50,22 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>TurnOver</th>
-			<th>Operating Profit</th>
-                        <th>Total Debt</th>
-                        <th>Total Deposits</th>
-                        <th>Gearing Ratio</th>
-                        <th>Cash Flow Cycle</th>
+                        <th>Contact Name</th>
+			<th>Contact Position</th>
+                        <th>Contact Detail</th>
+                        <th>Relationship Quality</th>
+                        <th>Last Contact</th>
+                        <th>Discussion summary</th>
+                        <th>Next Contact</th>
+                        <th>Next Contact Purpose</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<ClientFinacialModel> list = ClientFinacial.getClientFinancialInfo(user_code);
-                        for(ClientFinacialModel clientFinancialModel :list){
+                        ClientCoverageMaster ccm = new ClientCoverageMaster();
+                        ArrayList<ClientCoverageModel> list = ccm.getClientCoverageInfo(user_code);
+                        for(ClientCoverageModel clientCoverageModel :list){
                         %>
                     <tr>
 						<td>
@@ -72,16 +74,18 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td><%=clientFinancialModel.getClientID()%></td>
-                        <td><%=clientFinancialModel.getTurnover()%></td>
-			<td><%=clientFinancialModel.getOperatingProfit()%></td>
-                        <td><%=clientFinancialModel.getTotalDebt()%></td>
-                        <td><%=clientFinancialModel.getTotalDeposits()%></td>
-                        <td><%=clientFinancialModel.getGearingRatio()%></td>
-                        <td><%=clientFinancialModel.getCashFlowCycle()%></td>
+                        <td><%=clientCoverageModel.getClientMaster()%></td>
+                        <td><%=clientCoverageModel.getClientofficername()%></td>
+			<td><%=clientCoverageModel.getClientofficerposition()%></td>
+                        <td><%=clientCoverageModel.getClientofficercontact()%></td>
+                        <td><%=clientCoverageModel.getClientofcerrnshipqlty()%></td>
+                        <td><%=clientCoverageModel.getClientofficerlastcontact()%></td>
+                        <td><%=clientCoverageModel.getClientofficerdiscussionsummary()%></td>
+                        <td><%=clientCoverageModel.getClientofficernextplanedcontact()%></td>
+                        <td><%=clientCoverageModel.getClientofficernxtcntctpurpose()%></td>
                         <td>
-                            <a href="#editCreditFinancialModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditFinancialModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editClientCoverageFinancialModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteClientCoverageFinancialModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr> 
 			<%
@@ -102,58 +106,62 @@
         </div>
     </div>
 	<!-- ADD Modal HTML -->
-	<div id="addCreditFinancialModal" class="modal fade">
+	<div id="addClientCoverageFinancialModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form  name="addClientCoverage"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClientCoverage"  id="addClientCoverage">
 					<div class="modal-header">						
-						<h4 class="modal-title">Add Credit Financial Information</h4>
+						<h4 class="modal-title">Add Client Coverage Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
                                                     <%
-                                 ArrayList clientname = Company.getClientName();
-                                  int noOfclientnames = clientname.size();
+                                 ArrayList<ClientModel> clientname = ccm.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
 				 <select name="clientnamea" id="clientnamea" class="form-control" required>
                                       <%
-                                    for (int j = 0; j < noOfclientnames; j++) {
-                                        ArrayList cll = (ArrayList) clientname.get(j);
-                                        String clid = (String) cll.get(0); 
-                                        String clname = (String) cll.get(1); 
+                                    for(ClientModel cl : clientname){ 
                                 %> 
-                                <option value ="<%=clid%>" > <%=clname%></option>  
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
                                 %>   
                                      </select>
 						</div>
-						<div class="form-group">
-							<label>TurnOver(Ksh'M)</label>
-							<input type="text" name="trunovera" id="trunovera" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Operating Profit(Ksh'M)</label>
-							<input type="text" name="operatingprofta" id="operatingprofta" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Total Debt(Ksh'M)</label>
-							<input type="text" name="totaldebta" id="totaldebta" class="form-control" required>
-						</div>	
-                                                 <div class="form-group">
-							<label>Total Deposits(Ksh'M)</label>
-							<input type="text" name="totaldeposita" id="totaldeposita" class="form-control" required>
-						</div>
-                                                <div class="form-group">
-							<label>Gearing Ratio</label>
-							<input type="text" name="geeringratioa" id="geeringratioa" class="form-control" required>
-						</div>
-                                                <div class="form-group">
-							<label>Cash Flow Cycle(Days)</label>
-							<input type="text" name="cashflowcyclea" id="cashflowcyclea" class="form-control" required>
-						</div>
+                            <div class="form-group">
+                                    <label>Contact Person Name</label>
+                                    <input type="text" name="contactnamea" id="contactnamea" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Contact Person Position</label>
+                                    <input type="text" name="contactpositiona" id="contactpositiona" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Contact </label>
+                                    <input type="text" name="contacta" id="contacta" class="form-control" required>
+                            </div>	
+                             <div class="form-group">
+                                    <label>Relationship Quality</label>
+                                    <input type="text" name="rshpqltya" id="rshpqltya" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Last Contact</label>
+                                    <input type="text" name="lastcontacta" id="lastcontacta" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Last Discussion summary</label>
+                                      <textarea  name="discussionsummarya" id="discussionsummarya" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                    <label>Next Planned Contact</label>
+                                      <textarea  name="nxtplanedcontacta" id="nxtplanedcontacta" class="form-control" required></textarea>
+                            </div>
+                             <div class="form-group">
+                                    <label>Next Planned Contact Purpose</label>
+                                      <textarea  name="nxtplanedcontactpurposa" id="nxtplanedcontactpurposa" class="form-control" required></textarea>
+                            </div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -164,47 +172,78 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editCreditFinancialModal" class="modal fade">
+	<div id="editClientCoverageFinancialModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditFinancial</h4>
+						<h4 class="modal-title">Add Client Coverage Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+                                                    <%
+                                   clientname = ccm.getClientMasterList(user_code); 
+                                                        %>
+							<label>Client Name</label>
+				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+                                      <%
+                                    for(ClientModel cl : clientname){ 
+                                %> 
+                                <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
+                                <%
+                                    }
+                                %>   
+                                     </select>
 						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
+                            <div class="form-group">
+                                    <label>Contact Person Name</label>
+                                    <input type="text" name="contactnamea" id="contactnamea" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Contact Person Position</label>
+                                    <input type="text" name="contactpositiona" id="contactpositiona" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Contact </label>
+                                    <input type="text" name="contacta" id="contacta" class="form-control" required>
+                            </div>	
+                             <div class="form-group">
+                                    <label>Relationship Quality</label>
+                                    <input type="text" name="rshpqltya" id="rshpqltya" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Last Contact</label>
+                                    <input type="text" name="lastcontacta" id="lastcontacta" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label>Last Discussion summary</label>
+                                      <textarea  name="discussionsummarya" id="discussionsummarya" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                    <label>Next Planned Contact</label>
+                                      <textarea  name="nxtplanedcontacta" id="nxtplanedcontacta" class="form-control" required></textarea>
+                            </div>
+                             <div class="form-group">
+                                    <label>Next Planned Contact Purpose</label>
+                                      <textarea  name="nxtplanedcontactpurposa" id="nxtplanedcontactpurposa" class="form-control" required></textarea>
+                            </div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="submit" class="btn btn-success" value="Add">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteCreditFinancialModal" class="modal fade">
+	<div id="deleteClientCoverageFinancialModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete CreditFinancial</h4>
+						<h4 class="modal-title">Delete ClientCoverageFinancial</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					

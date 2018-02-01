@@ -24,6 +24,50 @@ public class ClientEmployeeMaster {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
     
+        public  void createClientEmployee(ClientEmployeeModel clientEmployeeModel ) {
+         ClientEmployee clientEmployee = new ClientEmployee(); 
+         ClientEmployeeMaster cem = new ClientEmployeeMaster();  
+         clientEmployee.setClientMaster(cem.getClientMasterByID(clientEmployeeModel.getClientMaster()));
+         clientEmployee.setLookupmaster(cem.getLookUpMasterByID(clientEmployeeModel.getLookupmaster()));
+         clientEmployee.setClientEmployeeContactperson(clientEmployeeModel.getClientEmployeeContactperson());
+         clientEmployee.setClientEmployeeEmail(clientEmployeeModel.getClientEmployeeEmail());
+         clientEmployee.setClientEmployeeLocation(clientEmployeeModel.getClientEmployeeLocation());
+         clientEmployee.setClientEmployeePhonenumber(clientEmployeeModel.getClientEmployeePhonenumber());
+         clientEmployee.setClientemployeeid(clientEmployeeModel.getClientemployeeid());
+         clientEmployee.setNoofbankedemployeesallbanks(clientEmployeeModel.getNoofbankedemployeesallbanks());
+         clientEmployee.setNoofbankedemployeeswithim(clientEmployeeModel.getNoofbankedemployeeswithim());
+         clientEmployee.setNoofemployees(clientEmployeeModel.getNoofemployees());
+         clientEmployee.setTargetnoofemployeesbyim(clientEmployeeModel.getTargetnoofemployeesbyim());
+         ops.save(clientEmployee);
+    }
+         public  void updateClientEmployee(ClientEmployeeModel clientEmployeeModel ) {
+         ClientEmployee clientEmployee = new ClientEmployee(); 
+         ClientEmployeeMaster cem = new ClientEmployeeMaster();  
+         clientEmployee.setClientMaster(cem.getClientMasterByID(clientEmployeeModel.getClientMaster()));
+         clientEmployee.setLookupmaster(cem.getLookUpMasterByID(clientEmployeeModel.getLookupmaster()));
+         clientEmployee.setClientEmployeeContactperson(clientEmployeeModel.getClientEmployeeContactperson());
+         clientEmployee.setClientEmployeeEmail(clientEmployeeModel.getClientEmployeeEmail());
+         clientEmployee.setClientEmployeeLocation(clientEmployeeModel.getClientEmployeeLocation());
+         clientEmployee.setClientEmployeePhonenumber(clientEmployeeModel.getClientEmployeePhonenumber());
+         clientEmployee.setClientemployeeid(clientEmployeeModel.getClientemployeeid());
+         clientEmployee.setNoofbankedemployeesallbanks(clientEmployeeModel.getNoofbankedemployeesallbanks());
+         clientEmployee.setNoofbankedemployeeswithim(clientEmployeeModel.getNoofbankedemployeeswithim());
+         clientEmployee.setNoofemployees(clientEmployeeModel.getNoofemployees());
+         clientEmployee.setTargetnoofemployeesbyim(clientEmployeeModel.getTargetnoofemployeesbyim());
+         ops.saveOrUpdate(clientEmployee);
+    }
+        public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+        CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
+        coreQuery.addParam("lookupmasterid", lookupmasterid); 
+        List lkup = ops.fetch(coreQuery);
+        return (Lookupmaster) lkup.get(0);
+    }
+     public ClientMaster getClientMasterByID(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
+        List clientMaster = ops.fetch(coreQuery);
+        return (ClientMaster) clientMaster.get(0);
+    }
    public  ArrayList<ClientEmployeeModel> getClientEmployeeInfo(String rmCode) { 
        ArrayList<ClientEmployeeModel>  clientEmployeeList = new ArrayList<ClientEmployeeModel> ();
         ClientEmployeeMaster cle = new ClientEmployeeMaster();
