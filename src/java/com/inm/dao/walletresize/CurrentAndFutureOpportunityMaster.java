@@ -23,6 +23,9 @@ public class CurrentAndFutureOpportunityMaster {
     public CurrentAndFutureOpportunityMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteCurrentAndFutureOpportunityMaster(CurrentAndFutureOpportunityModel cfoModel ) {
+     return ops.delete(cfoModel);
+ }
     public  void createCurrentAndFutureOpportunity(CurrentAndFutureOpportunityModel cfoModel ) {
          Currentandfutureopportunities cfo = new Currentandfutureopportunities(); 
          CurrentAndFutureOpportunityMaster cfom = new CurrentAndFutureOpportunityMaster();  
@@ -83,7 +86,7 @@ public class CurrentAndFutureOpportunityMaster {
          cfo.setTotalnetinterestincome(cfoModel.getTotalnetinterestincome());
             ops.saveOrUpdate(cfo);
     }
-    public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+    public Lookupmaster getLookUpMasterByID(int lookupmasterid) {
         CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
         coreQuery.addParam("lookupmasterid", lookupmasterid); 
         List lkup = ops.fetch(coreQuery);
@@ -104,7 +107,7 @@ public class CurrentAndFutureOpportunityMaster {
         for (Object cfoObject : ocwsMaster) {
             Currentandfutureopportunities currentandfutureopportunities = (Currentandfutureopportunities) cfoObject;
             CurrentAndFutureOpportunityModel currentAndFutureOpportunityModel = new CurrentAndFutureOpportunityModel(); 
-            currentAndFutureOpportunityModel.setClientMaster(cfo.getClientMaster(rmCode).getClientname()); 
+            currentAndFutureOpportunityModel.setClientMaster(cfo.getClientMaster(currentandfutureopportunities.getClientMaster().getClientid()).getClientname()); 
             currentAndFutureOpportunityModel.setAllbankswalletsizrevmanual(currentandfutureopportunities.getAllbankswalletsizrevmanual());
             currentAndFutureOpportunityModel.setAssetestimatedtotal(currentandfutureopportunities.getAssetestimatedtotal());
             currentAndFutureOpportunityModel.setAssetsfeeincome(currentandfutureopportunities.getAssetsfeeincome());
@@ -126,7 +129,7 @@ public class CurrentAndFutureOpportunityMaster {
             currentAndFutureOpportunityModel.setLiabilityestimatedtotal(currentandfutureopportunities.getLiabilityestimatedtotal());
             currentAndFutureOpportunityModel.setLiabilityfeeincome(currentandfutureopportunities.getLiabilityfeeincome());
             currentAndFutureOpportunityModel.setLiabilitynetinterestincome(currentandfutureopportunities.getLiabilitynetinterestincome());
-            currentAndFutureOpportunityModel.setLookupmaster(currentandfutureopportunities.getLookupmaster().getValue());
+            currentAndFutureOpportunityModel.setLookupmaster(currentandfutureopportunities.getLookupmaster().getLookupmasterid());
             currentAndFutureOpportunityModel.setPercentwalletsharemanual(currentandfutureopportunities.getPercentwalletsharemanual());
             currentAndFutureOpportunityModel.setTotalnetinterestincome(currentandfutureopportunities.getTotalnetinterestincome()); 
               currentAndFutureOpportunityModels.add(currentAndFutureOpportunityModel);
@@ -167,9 +170,9 @@ public class CurrentAndFutureOpportunityMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -189,7 +192,7 @@ public class CurrentAndFutureOpportunityMaster {
         for (Object cfoObject : ocwsMaster) {
             Currentandfutureopportunities currentandfutureopportunities = (Currentandfutureopportunities) cfoObject;
             CurrentAndFutureOpportunityModel currentAndFutureOpportunityModel = new CurrentAndFutureOpportunityModel(); 
-            currentAndFutureOpportunityModel.setClientMaster(cfo.getClientMaster(rmCode).getClientname()); 
+            currentAndFutureOpportunityModel.setClientMaster(cfo.getClientMaster(currentandfutureopportunities.getClientMaster().getClientid()).getClientname()); 
             currentAndFutureOpportunityModel.setAllbankswalletsizrevmanual(currentandfutureopportunities.getAllbankswalletsizrevmanual());
             currentAndFutureOpportunityModel.setAssetestimatedtotal(currentandfutureopportunities.getAssetestimatedtotal());
             currentAndFutureOpportunityModel.setAssetsfeeincome(currentandfutureopportunities.getAssetsfeeincome());
@@ -211,7 +214,7 @@ public class CurrentAndFutureOpportunityMaster {
             currentAndFutureOpportunityModel.setLiabilityestimatedtotal(currentandfutureopportunities.getLiabilityestimatedtotal());
             currentAndFutureOpportunityModel.setLiabilityfeeincome(currentandfutureopportunities.getLiabilityfeeincome());
             currentAndFutureOpportunityModel.setLiabilitynetinterestincome(currentandfutureopportunities.getLiabilitynetinterestincome());
-            currentAndFutureOpportunityModel.setLookupmaster(currentandfutureopportunities.getLookupmaster().getValue());
+            currentAndFutureOpportunityModel.setLookupmaster(currentandfutureopportunities.getLookupmaster().getLookupmasterid());
             currentAndFutureOpportunityModel.setPercentwalletsharemanual(currentandfutureopportunities.getPercentwalletsharemanual());
             currentAndFutureOpportunityModel.setTotalnetinterestincome(currentandfutureopportunities.getTotalnetinterestincome()); 
               currentAndFutureOpportunityModels.add(currentAndFutureOpportunityModel);

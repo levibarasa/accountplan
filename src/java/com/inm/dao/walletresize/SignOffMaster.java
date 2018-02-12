@@ -23,6 +23,9 @@ public class SignOffMaster {
     public SignOffMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteSignOffMaster(SignOffModel signOffModel ) {
+     return ops.delete(signOffModel);
+ }
     public  void createSignOff(SignOffModel signOffModel ) {
          SignOff signOff = new SignOff(); 
          SignOffMaster som = new SignOffMaster();  
@@ -56,10 +59,10 @@ public class SignOffMaster {
         for (Object soObject : soMaster) {
             SignOff signOff = (SignOff) soObject;
             SignOffModel signOffModel = new SignOffModel(); 
-            signOffModel.setClientMaster(som.getClientMaster(rmCode).getClientname()); 
-            signOffModel.setHeadofcorporatesignoff(signOffModel.getHeadofcorporatesignoff());
-            signOffModel.setRmsignoff(signOffModel.getRmsignoff());
-            signOffModel.setSignoffid(signOffModel.getSignoffid());
+            signOffModel.setClientMaster(som.getClientMaster(signOff.getClientMaster().getClientid()).getClientname()); 
+            signOffModel.setHeadofcorporatesignoff(signOff.getHeadofcorporatesignoff());
+            signOffModel.setRmsignoff(signOff.getRmsignoff());
+            signOffModel.setSignoffid(signOff.getSignoffid());
               signOffModels.add(signOffModel);
         }
 
@@ -98,9 +101,9 @@ public class SignOffMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -120,10 +123,10 @@ public class SignOffMaster {
         for (Object soObject : soMaster) {
             SignOff signOff = (SignOff) soObject;
             SignOffModel signOffModel = new SignOffModel(); 
-            signOffModel.setClientMaster(som.getClientMaster(rmCode).getClientname()); 
-            signOffModel.setHeadofcorporatesignoff(signOffModel.getHeadofcorporatesignoff());
-            signOffModel.setRmsignoff(signOffModel.getRmsignoff());
-            signOffModel.setSignoffid(signOffModel.getSignoffid());
+            signOffModel.setClientMaster(som.getClientMaster(signOff.getClientMaster().getClientid()).getClientname()); 
+            signOffModel.setHeadofcorporatesignoff(signOff.getHeadofcorporatesignoff());
+            signOffModel.setRmsignoff(signOff.getRmsignoff());
+            signOffModel.setSignoffid(signOff.getSignoffid());
               signOffModels.add(signOffModel);
         }
 

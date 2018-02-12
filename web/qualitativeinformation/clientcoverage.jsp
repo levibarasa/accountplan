@@ -15,8 +15,7 @@
             url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClientCoverage',
             data: form.serialize(),
             success: function (data) {
-            var result=data;
-           // $('#result').attr("value",result);
+            var result=data; 
            alert(result);
             }
             });
@@ -127,6 +126,7 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 						</div>
@@ -186,7 +186,7 @@
                                    clientname = ccm.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 

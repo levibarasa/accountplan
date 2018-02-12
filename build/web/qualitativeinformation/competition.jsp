@@ -119,6 +119,7 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 						</div>
@@ -157,17 +158,13 @@
 						<h4 class="modal-title">Edit Competition</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input name="clientnamea" id="clientnamea" type="text" class="form-control" required>
-						</div>
+					<div class="modal-body"> 
 						<div class="form-group">
                                                     <%
                                    clientname = comp.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -180,19 +177,19 @@
                                                       
                                                     <div class="form-group">
 							<label>Bank</label>
-							<input name="banka" id="banka" type="text" class="form-control" required>
+							<input name="banke" id="banke" type="text" class="form-control" required>
 						</div> 	
                                                  <div class="form-group">
 							<label>Estimated Wallet Share</label>
-							<input name="estimatedwalletsharea" id="estimatedwalletsharea" type="text" class="form-control" required>
+							<input name="estimatedwalletsharee" id="estimatedwalletsharee" type="text" class="form-control" required>
 						</div>
                                                   <div class="form-group">
 							<label>Strengths</label>
-                                                        <input name="strengthsa" id="strengthsa" type="text" class="form-control" required>
+                                                        <input name="strengthse" id="strengthse" type="text" class="form-control" required>
 						</div>
                                                         <div class="form-group">
 							<label>Weaknesses</label>
-                                                        <input name="weaknessesa"  id="weaknessesa" type="text" class="form-control" required>
+                                                        <input name="weaknessese"  id="weaknessese" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">

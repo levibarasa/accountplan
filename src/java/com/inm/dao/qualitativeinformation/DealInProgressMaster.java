@@ -23,6 +23,9 @@ public class DealInProgressMaster {
     public DealInProgressMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteDealInProgressMaster(DealProgressModel dealProgressModel) {
+     return ops.delete(dealProgressModel);
+ }
       public  void createDealInProgress(DealProgressModel dealProgressModel ) {
          Dealinprogress dealinprogress = new Dealinprogress(); 
          DealInProgressMaster dip = new DealInProgressMaster();  
@@ -39,7 +42,8 @@ public class DealInProgressMaster {
          dealinprogress.setLookupmasterByDealstagelookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealstagelookupmasterid()));
          dealinprogress.setLookupmasterByDealtypelookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealtypelookupmasterid()));
          dealinprogress.setLookupmasterByProductlookupid(dip.getLookUpMasterByID(dealProgressModel.getProductlookupid()));
-        ops.save(dealinprogress);
+         dealinprogress.setLookupmasterByDealstatuslookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealstatuslookupmasterid()));
+         ops.save(dealinprogress);
     }
       public  void updateDealInProgress(DealProgressModel dealProgressModel ) {
          Dealinprogress dealinprogress = new Dealinprogress(); 
@@ -57,9 +61,10 @@ public class DealInProgressMaster {
          dealinprogress.setLookupmasterByDealstagelookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealstagelookupmasterid()));
          dealinprogress.setLookupmasterByDealtypelookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealtypelookupmasterid()));
          dealinprogress.setLookupmasterByProductlookupid(dip.getLookUpMasterByID(dealProgressModel.getProductlookupid()));
-        ops.saveOrUpdate(dealinprogress);
+       dealinprogress.setLookupmasterByDealstatuslookupmasterid(dip.getLookUpMasterByID(dealProgressModel.getDealstatuslookupmasterid()));
+         ops.saveOrUpdate(dealinprogress);
     }
-      public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+      public Lookupmaster getLookUpMasterByID(int lookupmasterid) {
         CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
         coreQuery.addParam("lookupmasterid", lookupmasterid); 
         List lkup = ops.fetch(coreQuery);
@@ -80,20 +85,48 @@ public class DealInProgressMaster {
         for (Object dipObject : dipMaster) {
             Dealinprogress  dealinprogress = (Dealinprogress) dipObject;
             DealProgressModel  dealProgressModel = new DealProgressModel(); 
-            dealProgressModel.setClientMaster(dip.getClientMaster(rmCode).getClientname());   
+            dealProgressModel.setClientMaster(dip.getClientMaster(dealinprogress.getClientMaster().getClientid()).getClientname());   
             dealProgressModel.setAllbankswalletsize(dealinprogress.getAllbankswalletsize());
             dealProgressModel.setComments(dealinprogress.getComments());
-            dealProgressModel.setCompletionmonthlookupid(dealinprogress.getLookupmasterByCompletionmonthlookupid().getValue());
+            dealProgressModel.setCompletionmonthlookupid(dealinprogress.getLookupmasterByCompletionmonthlookupid().getLookupmasterid());
             dealProgressModel.setCurrentlyused(dealinprogress.getCurrentlyused());
             dealProgressModel.setDealinprogressid(dealinprogress.getDealinprogressid());
-            dealProgressModel.setDealpropabilitylookupid(dealinprogress.getLookupmasterByDealpropabilitylookupid().getValue());
-            dealProgressModel.setDealstagelookupmasterid(dealinprogress.getLookupmasterByDealstagelookupmasterid().getValue());
-            dealProgressModel.setDealstatuslookupmasterid(dealinprogress.getLookupmasterByDealstatuslookupmasterid().getValue());
-            dealProgressModel.setDealtypelookupmasterid(dealinprogress.getLookupmasterByDealtypelookupmasterid().getValue());
+            dealProgressModel.setDealpropabilitylookupid(dealinprogress.getLookupmasterByDealpropabilitylookupid().getLookupmasterid());
+            dealProgressModel.setDealstagelookupmasterid(dealinprogress.getLookupmasterByDealstagelookupmasterid().getLookupmasterid());
+            dealProgressModel.setDealstatuslookupmasterid(dealinprogress.getLookupmasterByDealstatuslookupmasterid().getLookupmasterid());
+            dealProgressModel.setDealtypelookupmasterid(dealinprogress.getLookupmasterByDealtypelookupmasterid().getLookupmasterid());
             dealProgressModel.setImdealamount(dealinprogress.getImdealamount());
             dealProgressModel.setImexpectedrevenue(dealinprogress.getImexpectedrevenue());
             dealProgressModel.setImprojectedwalletshare(dealinprogress.getImprojectedwalletshare());
-            dealProgressModel.setProductlookupid(dealinprogress.getLookupmasterByProductlookupid().getValue());
+            dealProgressModel.setProductlookupid(dealinprogress.getLookupmasterByProductlookupid().getLookupmasterid());
+                dealProgressModelList.add(dealProgressModel);
+        }
+        return dealProgressModelList;
+      }
+   public  ArrayList<DealProgressModel> getDealInProgressInfoByClientId(String rmCode,String clientid) { 
+       ArrayList<DealProgressModel>  dealProgressModelList = new ArrayList<DealProgressModel> ();
+        DealInProgressMaster dip = new DealInProgressMaster();
+         CoreQuery coreQuery = new CoreQuery("from Dealinprogress where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List dipMaster = ops.fetch(coreQuery);
+        for (Object dipObject : dipMaster) {
+            Dealinprogress  dealinprogress = (Dealinprogress) dipObject;
+            DealProgressModel  dealProgressModel = new DealProgressModel(); 
+            dealProgressModel.setClientMaster(dip.getClientMaster(dealinprogress.getClientMaster().getClientid()).getClientname());   
+            dealProgressModel.setAllbankswalletsize(dealinprogress.getAllbankswalletsize());
+            dealProgressModel.setComments(dealinprogress.getComments());
+            dealProgressModel.setCompletionmonthlookupid(dealinprogress.getLookupmasterByCompletionmonthlookupid().getLookupmasterid());
+            dealProgressModel.setCurrentlyused(dealinprogress.getCurrentlyused());
+            dealProgressModel.setDealinprogressid(dealinprogress.getDealinprogressid());
+            dealProgressModel.setDealpropabilitylookupid(dealinprogress.getLookupmasterByDealpropabilitylookupid().getLookupmasterid());
+            dealProgressModel.setDealstagelookupmasterid(dealinprogress.getLookupmasterByDealstagelookupmasterid().getLookupmasterid());
+            dealProgressModel.setDealstatuslookupmasterid(dealinprogress.getLookupmasterByDealstatuslookupmasterid().getLookupmasterid());
+            dealProgressModel.setDealtypelookupmasterid(dealinprogress.getLookupmasterByDealtypelookupmasterid().getLookupmasterid());
+            dealProgressModel.setImdealamount(dealinprogress.getImdealamount());
+            dealProgressModel.setImexpectedrevenue(dealinprogress.getImexpectedrevenue());
+            dealProgressModel.setImprojectedwalletshare(dealinprogress.getImprojectedwalletshare());
+            dealProgressModel.setProductlookupid(dealinprogress.getLookupmasterByProductlookupid().getLookupmasterid());
                 dealProgressModelList.add(dealProgressModel);
         }
         return dealProgressModelList;
@@ -145,9 +178,9 @@ public class DealInProgressMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

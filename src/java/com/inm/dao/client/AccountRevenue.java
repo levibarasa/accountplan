@@ -23,7 +23,10 @@ public class AccountRevenue {
 
     public AccountRevenue() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
-    }
+    } 
+    public  boolean deleteAccountRevenue(AccountRevenueModel accountRevenueModel ) {
+     return ops.delete(accountRevenueModel);
+ }
      public  void createAccountRevenue(AccountRevenueModel accountRevenueModel ) {
          AccountRevenueInformation accountRevenueInformation = new AccountRevenueInformation(); 
          AccountRevenue ar = new AccountRevenue();  
@@ -71,7 +74,7 @@ public class AccountRevenue {
         for (Object accRevObject : accRev) {
             AccountRevenueInformation accountRevenueInformation = (AccountRevenueInformation) accRevObject;
             AccountRevenueModel accountRevenueModel = new AccountRevenueModel(); 
-            accountRevenueModel.setClientMaster(ar.getClientMaster(rmCode).getClientname()); 
+            accountRevenueModel.setClientMaster(ar.getClientMaster(accountRevenueInformation.getClientMaster().getClientid()).getClientname()); 
             accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
             accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
             accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());
@@ -134,9 +137,9 @@ public class AccountRevenue {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -145,18 +148,22 @@ public class AccountRevenue {
         coreQuery.addParam("rmCode", rmCode); 
         List rmCodes = ops.fetch(coreQuery);
         return (RmCodelist) rmCodes.get(0);
+    } 
+     public static void main(String[] args) {
+        AccountRevenue ar = new AccountRevenue();
+         System.out.println(ar.getAccountRevenuenfoByClientId("33","15"));
     }
-public ArrayList<AccountRevenueModel> getAccountRevenuenfoByClientId(String rmCode, String clientId) {
+    public ArrayList<AccountRevenueModel> getAccountRevenuenfoByClientId(String rmCode, String clientid) {
         AccountRevenue ar = new AccountRevenue();
         ArrayList<AccountRevenueModel> accountRevenueModelList = new ArrayList<AccountRevenueModel>();
-        CoreQuery coreQuery = new CoreQuery("from AccountRevenueInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientId =:clientId", true);
+        CoreQuery coreQuery = new CoreQuery("from AccountRevenueInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid ", true);
         coreQuery.addParam("rmCode", rmCode);
-        coreQuery.addParam("clientId", clientId);
+        coreQuery.addParam("clientid", clientid);
         List accRev = ops.fetch(coreQuery);
         for (Object accRevObject : accRev) {
             AccountRevenueInformation accountRevenueInformation = (AccountRevenueInformation) accRevObject;
             AccountRevenueModel accountRevenueModel = new AccountRevenueModel(); 
-            accountRevenueModel.setClientMaster(ar.getClientMaster(rmCode).getClientname()); 
+            accountRevenueModel.setClientMaster(ar.getClientMaster(accountRevenueInformation.getClientMaster().getClientid()).getClientname()); 
             accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
             accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
             accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());

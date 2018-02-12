@@ -133,6 +133,7 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 						</div>
@@ -235,23 +236,23 @@
                                       </div>
                                   <div class="form-group">
                                             <label>I&M Deal Amount</label>
-                                        <textarea  name="imdealamounta" id="imdealamounta" class="form-control" required></textarea>
+                                        <input type="text"  name="imdealamounta" id="imdealamounta" class="form-control" required></textarea>
                                      </div>     
                                      <div class="form-group">
                                             <label>All Banks Wallet Size</label>
-                                        <textarea  name="allbankswalletsizea" id="allbankswalletsizea" class="form-control" required></textarea>
+                                        <input type="text"  name="allbankswalletsizea" id="allbankswalletsizea" class="form-control" required></textarea>
                                      </div>
                                      <div class="form-group">
                                             <label>I&M Projected Wallet Share</label>
-                                        <textarea  name="improjectedwalletsharea" id="improjectedwalletsharea" class="form-control" required></textarea>
+                                        <input type="text"  name="improjectedwalletsharea" id="improjectedwalletsharea" class="form-control" required></textarea>
                                      </div>
                                      <div class="form-group">
                                             <label>I&M Expected Revenue</label>
-                                        <textarea  name="imexpectedrevenuea" id="imexpectedrevenuea" class="form-control" required></textarea>
+                                        <input type="text"  name="imexpectedrevenuea" id="imexpectedrevenuea" class="form-control" required></textarea>
                                      </div>
                                      <div class="form-group">
                                             <label>Comments</label>
-                                        <textarea  name="commenta" id="commenta" class="form-control" required></textarea>
+                                        <textarea  type="text" name="commenta" id="commenta" class="form-control" required></textarea>
                                      </div>
 					</div> 
                                       <div class="modal-footer"> 
@@ -277,7 +278,7 @@
                                    clientname = dip.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -292,7 +293,7 @@
                                     lookupmaster = dip.getLookupList("PRODUCT"); 
                                                         %>
 							<label>Product</label>
-				 <select name="producta" id="producta" class="form-control" required>
+				 <select name="producte" id="producte" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -307,7 +308,7 @@
                                    lookupmaster = dip.getLookupList("DEALPROBABILITY"); 
                                                         %>
 							<label>Deal Probability</label>
-				 <select name="dealprobabilitya" id="dealprobabilitya" class="form-control" required>
+				 <select name="dealprobabilitye" id="dealprobabilitye" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -322,7 +323,7 @@
                                    lookupmaster = dip.getLookupList("DEALSTAGE"); 
                                                         %>
 							<label>Deal Stage</label>
-				 <select name="dealstagea" id="dealstagea" class="form-control" required>
+				 <select name="dealstagee" id="dealstagee" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -337,7 +338,7 @@
                                    lookupmaster = dip.getLookupList("MONTH"); 
                                                         %>
 							<label>Completion Month</label>
-				 <select name="completionmontha" id="completionmontha" class="form-control" required>
+				 <select name="completionmonthe" id="completionmonthe" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -352,7 +353,7 @@
                                    lookupmaster = dip.getLookupList("DEALSTATUS"); 
                                                         %>
 							<label>Deal Status</label>
-				 <select name="dealstatusa" id="dealstatusa" class="form-control" required>
+				 <select name="dealstatuse" id="dealstatuse" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -367,7 +368,7 @@
                                    lookupmaster = dip.getLookupList("DEALTYPE"); 
                                                         %>
 							<label>Deal Type</label>
-				 <select name="dealtypea" id="dealtypea" class="form-control" required>
+				 <select name="dealtypee" id="dealtypee" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : lookupmaster){ 
                                 %> 
@@ -379,7 +380,7 @@
 						</div>
                                       <div class="form-group"> 
 							<label>Currently Used</label>
-				 <select name="currentlyuseda" id="currentlyuseda" class="form-control" required>
+				 <select name="currentlyusede" id="currentlyusede" class="form-control" required>
                                      <option value="Yes">Yes</option>
                                       <option value="No">No</option>
                                  </select>

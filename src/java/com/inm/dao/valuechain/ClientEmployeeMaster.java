@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import com.inm.ap.mode.hibernate.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -23,7 +24,9 @@ public class ClientEmployeeMaster {
     public ClientEmployeeMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-    
+      public  boolean deleteCreditInfo(ClientEmployeeModel clientEmployeeModel ) {
+     return ops.delete(clientEmployeeModel);
+ }
         public  void createClientEmployee(ClientEmployeeModel clientEmployeeModel ) {
          ClientEmployee clientEmployee = new ClientEmployee(); 
          ClientEmployeeMaster cem = new ClientEmployeeMaster();  
@@ -56,7 +59,7 @@ public class ClientEmployeeMaster {
          clientEmployee.setTargetnoofemployeesbyim(clientEmployeeModel.getTargetnoofemployeesbyim());
          ops.saveOrUpdate(clientEmployee);
     }
-        public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+        public Lookupmaster getLookUpMasterByID(int lookupmasterid) {
         CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
         coreQuery.addParam("lookupmasterid", lookupmasterid); 
         List lkup = ops.fetch(coreQuery);
@@ -68,6 +71,31 @@ public class ClientEmployeeMaster {
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
+     public  ArrayList<ClientEmployeeModel> getClientEmployeeInfoByClientId(String rmCode,String clientid) { 
+       ArrayList<ClientEmployeeModel>  clientEmployeeList = new ArrayList<ClientEmployeeModel> ();
+        ClientEmployeeMaster cle = new ClientEmployeeMaster();
+         CoreQuery coreQuery = new CoreQuery("from ClientEmployee where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List cliempMaster = ops.fetch(coreQuery);
+        for (Object cleObject : cliempMaster) {
+            ClientEmployee  clientEmployee = (ClientEmployee) cleObject;
+            ClientEmployeeModel clientEmployeeModel = new ClientEmployeeModel(); 
+            clientEmployeeModel.setClientMaster(cle.getClientMaster(clientEmployee.getClientMaster().getClientid()).getClientname());  
+            clientEmployeeModel.setClientemployeeid(clientEmployee.getClientemployeeid());
+            clientEmployeeModel.setClientEmployeeContactperson(clientEmployee.getClientEmployeeContactperson());
+            clientEmployeeModel.setClientEmployeeEmail(clientEmployee.getClientEmployeeEmail());
+            clientEmployeeModel.setClientEmployeeLocation(clientEmployee.getClientEmployeeLocation());
+            clientEmployeeModel.setClientEmployeePhonenumber(clientEmployee.getClientEmployeePhonenumber());
+            clientEmployeeModel.setLookupmaster(clientEmployee.getLookupmaster().getLookupmasterid());
+            clientEmployeeModel.setNoofbankedemployeesallbanks(clientEmployee.getNoofbankedemployeesallbanks());
+            clientEmployeeModel.setNoofbankedemployeeswithim(clientEmployee.getNoofbankedemployeeswithim());
+            clientEmployeeModel.setNoofemployees(clientEmployee.getNoofemployees());
+            clientEmployeeModel.setTargetnoofemployeesbyim(clientEmployee.getTargetnoofemployeesbyim());
+              clientEmployeeList.add(clientEmployeeModel);
+        }
+        return clientEmployeeList;
+      }
    public  ArrayList<ClientEmployeeModel> getClientEmployeeInfo(String rmCode) { 
        ArrayList<ClientEmployeeModel>  clientEmployeeList = new ArrayList<ClientEmployeeModel> ();
         ClientEmployeeMaster cle = new ClientEmployeeMaster();
@@ -77,13 +105,13 @@ public class ClientEmployeeMaster {
         for (Object cleObject : cliempMaster) {
             ClientEmployee  clientEmployee = (ClientEmployee) cleObject;
             ClientEmployeeModel clientEmployeeModel = new ClientEmployeeModel(); 
-            clientEmployeeModel.setClientMaster(cle.getClientMaster(rmCode).getClientname());  
+            clientEmployeeModel.setClientMaster(cle.getClientMaster(clientEmployee.getClientMaster().getClientid()).getClientname());  
             clientEmployeeModel.setClientemployeeid(clientEmployee.getClientemployeeid());
             clientEmployeeModel.setClientEmployeeContactperson(clientEmployee.getClientEmployeeContactperson());
             clientEmployeeModel.setClientEmployeeEmail(clientEmployee.getClientEmployeeEmail());
             clientEmployeeModel.setClientEmployeeLocation(clientEmployee.getClientEmployeeLocation());
             clientEmployeeModel.setClientEmployeePhonenumber(clientEmployee.getClientEmployeePhonenumber());
-            clientEmployeeModel.setLookupmaster(clientEmployee.getLookupmaster().getValue());
+            clientEmployeeModel.setLookupmaster(clientEmployee.getLookupmaster().getLookupmasterid());
             clientEmployeeModel.setNoofbankedemployeesallbanks(clientEmployee.getNoofbankedemployeesallbanks());
             clientEmployeeModel.setNoofbankedemployeeswithim(clientEmployee.getNoofbankedemployeeswithim());
             clientEmployeeModel.setNoofemployees(clientEmployee.getNoofemployees());
@@ -139,9 +167,9 @@ public class ClientEmployeeMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

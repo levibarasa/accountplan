@@ -26,7 +26,9 @@ public class Client {
     public Client() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
- 
+ public  boolean deleteClient(ClientModel clientModel ) {
+     return ops.delete(clientModel);
+ }
     public  void createClient(ClientModel clientModel ) {
          ClientMaster clMaster = new ClientMaster(); 
          Client cl = new Client();
@@ -64,10 +66,38 @@ public class Client {
         }
         return null;
     }
-    public ArrayList<ClientModel> getClientInfo(String rmCode) {
+   public ArrayList<ClientModel> getClientInfo(String rmCode) {
         ArrayList<ClientModel> clientList = new ArrayList<ClientModel>();
         CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
         coreQuery.addParam("rmCode", rmCode);
+        List clientMaster = ops.fetch(coreQuery);
+        for (Object userObject : clientMaster) {
+            ClientMaster clMaster = (ClientMaster) userObject;
+            ClientModel clientModel = new ClientModel();
+            clientModel.setClientid(clMaster.getClientid());
+            clientModel.setClientname(clMaster.getClientname());
+            clientModel.setRmCode(clMaster.getRmCodelistByRmCode().getRmName());
+            clientModel.setAlternativeRmCode(clMaster.getRmCodelistByAlternativeRmCode().getRmName());
+            clientModel.setAffiliate(getLookUpMaster("AFFILIATE", clMaster.getLookupmaster().getLookupmasterid()).getValue());
+            clientModel.setCurrentDate(clMaster.getCurrentDate());
+            clientModel.setTradeserviceprovider(clMaster.getTradeserviceprovider());
+            clientModel.setCashmanagementpartner(clMaster.getCashmanagementpartner());
+            clientModel.setEBankingpartner(clMaster.getEBankingpartner());
+            clientModel.setRiskmanagementpartner(clMaster.getRiskmanagementpartner());
+            clientList.add(clientModel);
+        }
+
+        return clientList;
+    } 
+//    public static void main(String[] args) {
+//        Client cl = new Client();
+//        System.out.println(cl.getClientInfoByClientId("33","14"));
+//    }
+    public ArrayList<ClientModel> getClientInfoByClientId(String rmCode,String clientid) {
+        ArrayList<ClientModel> clientList = new ArrayList<ClientModel>();
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode and clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
         List clientMaster = ops.fetch(coreQuery);
         for (Object userObject : clientMaster) {
             ClientMaster clMaster = (ClientMaster) userObject;

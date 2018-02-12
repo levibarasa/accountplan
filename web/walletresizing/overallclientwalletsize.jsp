@@ -166,6 +166,7 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 				 </div>
@@ -207,7 +208,7 @@
                                   clientname = ocwm.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamea" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -220,15 +221,15 @@
                                           
                                 <div class="form-group">
                                            <label>Average I&M Loans Margin(%)</label>
-                                           <input name="imavgloanmargina" id="imavgloanmargin" type="text" class="form-control" required>
+                                           <input name="imavgloanmargine" id="imavgloanmargin" type="text" class="form-control" required>
                                    </div>    
                                    <div class="form-group">
                                            <label>Average I&M Margin On Deposits(%)</label>
-                                           <input name="avgimmargindepositsa" id="avgimmargindepositsa" type="text" class="form-control" required>
+                                           <input name="avgimmargindepositse" id="avgimmargindepositsa" type="text" class="form-control" required>
                                    </div>	
                                            <div class="form-group">
                                            <label>I&M Fee Income(Interest Income for Client  %)</label>
-                                           <input name="imincomeinteresta" id="imincomeinteresta" type="text" class="form-control" required>
+                                           <input name="imincomeintereste" id="imincomeinteresta" type="text" class="form-control" required>
                                    </div> 
 					</div>
 					<div class="modal-footer">

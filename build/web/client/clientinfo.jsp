@@ -1,10 +1,40 @@
-<%@page import="com.inm.dao.client.Client"%>
+<%@page import="com.inm.dao.client.*"%>
 <%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
-<%@ include file="../include/header.jsp" %>
-<html>
+<%@ include file="../include/header.jsp" %><html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+ <html>
 <head>
-      <script type="text/javascript"> 
+    <script type="text/javascript"> 
+//     clientid
+//Clientname
+//RmCode
+//AlternativeRmCode
+//Affiliate
+//CurrentDate
+//Tradeserviceprovider
+//Cashmanagementpartner
+//EBankingpartner
+//Riskmanagementpartner
+      function fetchOldRecord(that){		
+		    $("#clientid").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
+		     $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
+		     $("#rmCodee").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().text());
+		    $("#altrmCodee").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().text());
+		    $("#affiliatee").val($(that).parent().prev().prev().prev().prev().prev().prev().text());
+                    $("#currentdatee").val($(that).parent().prev().prev().prev().prev().prev().text());
+                    $("#tradespe").val($(that).parent().prev().prev().prev().prev().text());
+                   $("#cashmpe").val($(that).parent().prev().prev().prev().text());
+                     $("#ebankpe").val($(that).parent().prev().prev().text());
+                    $("#riskmpe").val($(that).parent().prev().text()); 
+       	} 
+       
+   $('#editClientModal').modal('show'); 
+       </script>
+        <script type="text/javascript"> 
           function updateValues(ths, clientid, currentdate,trades,cashm,ebank,riskm) { 
                     var clientidb = document.getElementById("clientidb");
                     var clientnameb = document.getElementById("clientnameb");
@@ -21,17 +51,12 @@
                    ebankpb.value = ebankp;
                     riskmpb.value = riskmp; 
             }
-            
-//       $(document).ready(function () {
-//    $("#clientnameb").change(function () {
-//        var val = $(this).val();
-//        
-//        if (val == "item1") {
-//            $("#size").html("<option value='test'>item1: test 1</option><option value='test2'>item1: test 2</option>");
-//        }  
-//    });
-//});
-    </script>
+            function edititem(){
+                $("#idr").click(function() {
+                    alert($(this).text());
+                    });
+            }
+         </script>
     <script type="text/javascript">
  
             var form = $('#addClient');
@@ -51,35 +76,30 @@
             return false;
             });
 </script>
- <script type="text/javascript"> 
-//            function registerClient() {
-//		var uname = $("#uname").val();
-//		var clientname = $("#clientnamea").val();
-//		var rmCode = $("#uemaila").val();
-//		var altrmCode = $("#altrmCodea").val();
-//                var affiliate = $("#affiliatea").val();
-//                var currentdate = $("#currentdatea").val();
-//                var tradesp = $("#tradespa").val();
-//                var cashmp = $("#cashmpa").val();
-//                var ebankp = $("#ebankpa").val();
-//                var riskmp = $("#riskmpa").val(); 
-//		$.ajax({
-//			type : "POST",
-//			url : ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
-//			data : "clientname=" + clientname + "&rmCode=" + rmCode + "&altrmCode=" + altrmCode
-//                        + "&affiliate=" + affiliate+ "&currentdate=" + currentdate+ "&tradesp=" + tradesp+ "&cashmp=" + cashmp+ "&ebankp=" + ebankp+ "&riskmp=" + riskmp,
-//			success : function(data) {
-//				var ht = data.msg;
-//                                alert(ht);
-//				//$("#resp").html(ht);
-//			},
-//			error : function(data) {
-//				alert("Some error occured.");
-//			}
-//		});
-//	}
-</script>
-   </head>    
+        <script type="text/javascript">
+            function Edit(){
+                    $("try").click(function () {
+    var tr = $(this).parent().parent();
+    var clId = tr.children().first().text(); 
+    var clName = $(tr).children().eq(1);
+    
+    console.log(clId, clName);
+}) 
+//               var par = $(this).parent().parent(); //tr 
+//               var clientId = par.children("td:nth-child(1)").value; 
+//               var clientName = par.children("td:nth-child(2)").value; 
+//               var rmName = par.children("td:nth-child(3)").value; 
+//               var altRm = par.children("td:nth-child(4)").value;
+//               var country = par.children("td:nth-child(4)").value;
+//               var date = par.children("td:nth-child(4)").value;
+//               var tsp = par.children("td:nth-child(4)").value;
+//               var cmp = par.children("td:nth-child(4)").value;
+//               var ebp = par.children("td:nth-child(4)").value;
+//               var rmp = par.children("td:nth-child(4)").value; 
+               
+           }
+        </script>
+</head>    
 <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
@@ -95,13 +115,8 @@
             </div>
             <table id="clientinformation" class="table table-striped table-hover">
                 <thead>
-                    <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th> 
+                    <tr> 
+                        <th>#</th>
                         <th>Client Name</th>
 			<th>Rm Name</th>
                         <th>Alt Rm Name</th>
@@ -123,12 +138,7 @@
                         %>
                   <tr>
                   
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td> 
+			  <td><%=clientModel.getClientid()%></td>
                         <td><%=clientModel.getClientname()%></td>
 			<td><%=clientModel.getRmCode()%></td>
                         <td><%=clientModel.getAlternativeRmCode()%></td>
@@ -137,12 +147,16 @@
                         <td><%=clientModel.getTradeserviceprovider()%> </td>
                         <td><%=clientModel.getCashmanagementpartner()%></td>
                         <td><%=clientModel.getEBankingpartner()%></td>
-                        <td><%=clientModel.getRiskmanagementpartner()%> </td>
-                        <td>
-                            <a href="#editClientModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteClientModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <td><%=clientModel.getRiskmanagementpartner()%>  
+                            
                         </td>
-                        </tr>
+                        
+                        <td> 
+                              <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
+     </td>
+    </tr>			 
+                     
                         <%
                         }
                         %>
@@ -251,11 +265,12 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editClientModal" class="modal fade">
+	
+        <div id="editClientModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-            <form  name="addClient"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClient"  id="addClient">
-		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 			
+            <form  name="editClient"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddClient"  id="editClient">
+		<input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 	 			
                 <div class="modal-header">						
 						<h4 class="modal-title">Edit Client</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -263,15 +278,16 @@
 					<div class="modal-body">					
 						<div class="form-group">
 							<label>Name</label>
-							<input name="clientnamea" id="clientnamea" type="text" class="form-control" required>
+                                                        <input name="clientid" id="clientid" type="hidden" class="form-control" required>
+							<input name="clientnamee" id="clientnamee" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Relationship Officer</label>
                                                         <%
-                                    allRms = client.getRmCodeList();
-                                 
+                                     allRms = client.getRmCodeList();
+
                                                         %>
-			 <select name="rmCodea" id="rmCodea" class="form-control" required>
+			 <select name="rmCodee" id="rmCodee" class="form-control" required>
                               <%
                                     for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
@@ -284,7 +300,7 @@
                                 <div class="form-group">
                                 <label>Alternative Relationship Officer</label>
                             
-                        <select name="altrmCodea" id="altrmCodea" class="form-control" required>
+                        <select name="altrmCodee" id="altrmCodee" class="form-control" required>
                                     <%
                                     for(RmCodelistModel codelistModel : allRms){ 
                                 %> 
@@ -297,11 +313,11 @@
                                                         
 						<div class="form-group">
                                                      <%
-                                  affiliates = client.getLookupList("AFFILIATE");
+                                   affiliates = client.getLookupList("AFFILIATE");
                                  
                                                         %>
 							<label>Country</label>
-             <select name="affiliatea" id="affiliatea" class="form-control" required>
+             <select name="affiliatee" id="affiliatee" class="form-control" required>
                         <%
                                     for(LookupmasterModel lookupmasterModel : affiliates){ 
                                 %> 
@@ -313,23 +329,23 @@
 						</div>
                                                     <div class="form-group">
 							<label>Date</label>
-							<input name="currentdatea" id="currentdatea" type="text" class="form-control" required>
+							<input name="currentdatee" id="currentdatee" type="text" class="form-control" required>
 						</div>    
 						<div class="form-group">
 							<label>Trade Service Partner</label>
-                                                        <input name="tradespa" id="tradespa" type="text" class="form-control" required>
+                                                        <input name="tradespe" id="tradespe" type="text" class="form-control" required>
 						</div>	
                                                         <div class="form-group">
 							<label>Cash Management Partner</label>
-							<input name="cashmpa" id="cashmpa" type="text" class="form-control" required>
+							<input name="cashmpe" id="cashmpe" type="text" class="form-control" required>
 						</div>
                                                   <div class="form-group">
 							<label>E-Banking Partner</label>
-                                                        <input name="ebankpa" id="ebankpa" type="text" class="form-control" required>
+                                                        <input name="ebankpe" id="ebankpe" type="text" class="form-control" required>
 						</div>
                                                         <div class="form-group">
 							<label>Risk Management Partner</label>
-                                                        <input name="riskmpa"  id="riskmpa" type="text" class="form-control" required>
+                                                        <input name="riskmpe"  id="riskmpe" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -340,7 +356,6 @@
 			</div>
 		</div>
 	</div>
-        
         
 	<!-- Delete Modal HTML -->
 	<div id="deleteClientModal" class="modal fade">
@@ -363,7 +378,5 @@
 			</div>
 		</div>
 	</div>
-
-
 
 <%@ include file="../include/footer.jsp" %>

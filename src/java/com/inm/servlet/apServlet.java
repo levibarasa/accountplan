@@ -34,6 +34,9 @@ public class apServlet extends HttpServlet {
                     case "doLog":
                         Accessw.handleLogin(request, response);
                         break;
+                    case "Logout":
+                        Accessw.handleLogout(request, response);
+                        break;
                     case "doGetClient":
                         ClientW.handleGetAllClients(request, response);
                         break;

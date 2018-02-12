@@ -175,7 +175,7 @@
                                    clientname = cf.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 

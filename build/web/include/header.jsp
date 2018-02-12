@@ -17,6 +17,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
        <script type="text/javascript">
             window.onload = function () {
                 new JsDatePick({
@@ -518,7 +524,26 @@ $(document).ready(function(){
 			<span class="icon-bar"></span>
 		</button>
 	</div> 
-	<!-- Collection of nav links, forms, and other content for toggling -->
+	<%
+                String user_name = "Null";
+                String user_code = "0";
+                String user_branch = "Null";
+                String user_region = "Null";
+                String user_access_level = "";
+                
+                user_name = (String) session.getAttribute("name");
+                user_code = (String) session.getAttribute("code");
+                user_branch = (String) session.getAttribute("branch");
+                user_region = (String) session.getAttribute("region");
+                user_access_level = (String) session.getAttribute("accessLevel");
+                String user = (String) session.getAttribute("uname");
+          
+                if( session == null && user == null) {
+                    %>
+                    <jsp:forward page="${pageContext.request.contextPath}/login.jsp" />
+                    <% 
+                }
+         %>
         <h1 style="align-self: center;"> Account Planning </h1> 
         <div  style="position:relative; margin:0 auto;clear:left;height:auto;z-index: 999; text-align:center;">
              <div class="dropdown">
@@ -563,34 +588,25 @@ $(document).ready(function(){
                         <a href="${pageContext.request.contextPath}/walletresizing/currentandfutureopportunities.jsp">Current and Future Opportunities</a> 
                         <a href="${pageContext.request.contextPath}/walletresizing/signoff.jsp">Sign-Off</a>
                       </div>
-                  </div>
+                  </div> 
              <div class="dropdown">
                  <button class="dropbtn">Reports</button>
                       <div class="dropdown-content">
-                        <a href="#">Reports</a>  
+                        <a href="${pageContext.request.contextPath}/rpt/accplan.jsp">Generate Account Plan</a>  
                       </div>
                   </div>
               </div>
-        <div style="display: flex; justify-content: flex-end;position: fixed; top: 20px; left: 20px;">
+        <div style="display: flex; justify-content: flex-end;position:fixed; top: 20px; left: 20px;">
              <div style="margin-left:1080; margin-right:0;float: right !important;">
-                          <%
-                String user_name = "Null";
-                String user_code = "0";
-                String user_branch = "Null";
-                String user_region = "Null";
-                String user_access_level = "";
-                user_name = (String) session.getAttribute("name");
-                user_code = (String) session.getAttribute("code");
-                user_branch = (String) session.getAttribute("branch");
-                user_region = (String) session.getAttribute("region");
-                user_access_level = (String) session.getAttribute("accessLevel");
-            %>
+                          
 
             Welcome, <%=user_name%>  <br />  
             Relationship Officer Code : <%=user_code%>  <br /> 
             Branch : <%=user_branch%>  <br /> 
             Region : <%=user_region%> 
-            <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Logout</button>
+            <form name="logout"  method="post" action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=Logout">
+            <button class="btn btn-primary"   onclick="doLogout()" >Logout</button>
+            </form>
              </div>
              
         </div>

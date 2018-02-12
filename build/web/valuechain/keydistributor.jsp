@@ -217,7 +217,7 @@
                                 clientname = kd.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -252,7 +252,7 @@
                                    segment = kd.getLookupList("SEGMENT"); 
                                                         %>
 							<label>Segment</label>
-				 <select name="segmenta" id="segmenta" class="form-control" required>
+				 <select name="segmente" id="segmente" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : segment){ 
                                 %> 
@@ -268,7 +268,7 @@
                             </div> 
                                       <div class="form-group"> 
 							<label>Banked By I&M</label>
-				 <select name="bankedbyima" id="bankedbyima" class="form-control" required>
+				 <select name="bankedbyime" id="bankedbyime" class="form-control" required>
                                      <option value="Yes">Yes</option>
                                       <option value="No">No</option>
                                  </select>
@@ -279,7 +279,7 @@
                                     allRms = kd.getRmCodeList();
                                  
                                                         %>
-			 <select name="rmCodea" id="rmCodea" class="form-control" required>
+			 <select name="rmCodee" id="rmCodee" class="form-control" required>
                               <%
                                     for(RmCodelistModel codelistModel : allRms){ 
                                 %> 

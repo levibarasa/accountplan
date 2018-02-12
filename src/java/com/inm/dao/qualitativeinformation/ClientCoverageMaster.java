@@ -22,6 +22,9 @@ public class ClientCoverageMaster {
     public ClientCoverageMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteClientCoverageMaster(ClientCoverageModel clientCoverageModel ) {
+     return ops.delete(clientCoverageModel);
+ }
       public  void createClientcoverageprofile(ClientCoverageModel clientCoverageModel ) {
          Clientcoverageprofile clientcoverageprofile = new Clientcoverageprofile(); 
          ClientCoverageMaster ccm = new ClientCoverageMaster();  
@@ -67,7 +70,31 @@ public class ClientCoverageMaster {
         for (Object ccmObject : ClientcoverageprofileMaster) {
             Clientcoverageprofile  clientcoverageprofile = (Clientcoverageprofile) ccmObject;
             ClientCoverageModel clientCoverageModel = new ClientCoverageModel(); 
-            clientCoverageModel.setClientMaster(ccm.getClientMaster(rmCode).getClientname());
+            clientCoverageModel.setClientMaster(ccm.getClientMaster(clientcoverageprofile.getClientMaster().getClientid()).getClientname());
+            clientCoverageModel.setClientcoverageprofileid(clientcoverageprofile.getClientcoverageprofileid());
+            clientCoverageModel.setClientofcerrnshipqlty(clientcoverageprofile.getClientofcerrnshipqlty());
+            clientCoverageModel.setClientofficercontact(clientcoverageprofile.getClientofficercontact());
+            clientCoverageModel.setClientofficerdiscussionsummary(clientcoverageprofile.getClientofficerdiscussionsummary());
+            clientCoverageModel.setClientofficerlastcontact(clientcoverageprofile.getClientofficerlastcontact());
+            clientCoverageModel.setClientofficername(clientcoverageprofile.getClientofficername());
+            clientCoverageModel.setClientofficernextplanedcontact(clientcoverageprofile.getClientofficernextplanedcontact());
+            clientCoverageModel.setClientofficernxtcntctpurpose(clientcoverageprofile.getClientofficernxtcntctpurpose());
+            clientCoverageModel.setClientofficerposition(clientcoverageprofile.getClientofficerposition());
+              clientCoverageModels.add(clientCoverageModel);
+        }
+        return clientCoverageModels;
+      }
+   public  ArrayList<ClientCoverageModel> getClientCoverageInfoByClientId(String rmCode,String clientid) { 
+       ArrayList<ClientCoverageModel>  clientCoverageModels = new ArrayList<ClientCoverageModel> ();
+        ClientCoverageMaster ccm = new ClientCoverageMaster();
+         CoreQuery coreQuery = new CoreQuery("from Clientcoverageprofile where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List ClientcoverageprofileMaster = ops.fetch(coreQuery);
+        for (Object ccmObject : ClientcoverageprofileMaster) {
+            Clientcoverageprofile  clientcoverageprofile = (Clientcoverageprofile) ccmObject;
+            ClientCoverageModel clientCoverageModel = new ClientCoverageModel(); 
+            clientCoverageModel.setClientMaster(ccm.getClientMaster(clientcoverageprofile.getClientMaster().getClientid()).getClientname());
             clientCoverageModel.setClientcoverageprofileid(clientcoverageprofile.getClientcoverageprofileid());
             clientCoverageModel.setClientofcerrnshipqlty(clientcoverageprofile.getClientofcerrnshipqlty());
             clientCoverageModel.setClientofficercontact(clientcoverageprofile.getClientofficercontact());
@@ -128,9 +155,9 @@ public class ClientCoverageMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

@@ -8,7 +8,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.inm.dao.client.*; 
 import com.inm.dao.valuechain.*;
+import com.inm.dao.qualitativeinformation.*;
 import com.inm.models.*;
+import com.inm.dao.walletresize.*;
 import java.io.IOException;
 import java.lang.reflect.Type; 
 import java.util.ArrayList;
@@ -21,11 +23,14 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.lang.*;
 import java.math.RoundingMode;
+import java.util.Random;
 /**
  *
  * @author Levi
  */
 public class ClientW {
+    static Random ran = new Random();
+    static int n = ran.nextInt(600000) + 5; 
         public static void handleGetAllClients(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
             Client client = new Client();
@@ -94,7 +99,7 @@ public class ClientW {
         String clientnamea = request.getParameter("clientnamea");
             System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
         CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
+        companyModel.setCompanyid(n);
         companyModel.setGroupname(grpnamea);
         companyModel.setCompanyAddress(companyaddressa);
          companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
@@ -128,7 +133,7 @@ public class ClientW {
         CreditInfoModel creditInfoModel = new CreditInfoModel(); 
         creditInfoModel.setClientMaster(clientnamea); 
         creditInfoModel.setApprovedlines(approvedlinesa);
-        creditInfoModel.setCreditid(100);
+        creditInfoModel.setCreditid(n);
         creditInfoModel.setOutstandingamount(new BigDecimal(outstandingamta));
         creditInfoModel.setRatingagency(ratingagencya);
         creditInfoModel.setRiskrating(riskratinga);
@@ -159,7 +164,7 @@ public class ClientW {
         ClientFinacialModel cfmodel = new ClientFinacialModel(); 
         cfmodel.setClientMaster(clientnamea); 
         cfmodel.setCashflowcycle(new BigDecimal(cashflowcyclea));
-        cfmodel.setClientFinancialid(100);
+        cfmodel.setClientFinancialid(n);
         cfmodel.setGearingratio(new BigDecimal(geeringratioa));
         cfmodel.setOperatingprofit(new BigDecimal(operatingprofta));
         cfmodel.setTotaldebt(new BigDecimal(totaldebta));
@@ -179,171 +184,176 @@ public class ClientW {
            public static void handleAddClientCoverage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
+        ClientCoverageMaster ccm = new ClientCoverageMaster();
         String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+//nxtplanedcontactpurposa,nxtplanedcontacta,discussionsummarya,lastcontacta,rshpqltya,contacta,
+//contactpositiona,contactnamea,clientnamea
+         String nxtplanedcontactpurposa = request.getParameter("nxtplanedcontactpurposa");
+        String nxtplanedcontacta = request.getParameter("nxtplanedcontacta");
+        String discussionsummarya = request.getParameter("discussionsummarya");
+        String lastcontacta = request.getParameter("lastcontacta");
+        String rshpqltya = request.getParameter("rshpqltya");
+        String contacta = request.getParameter("contacta");
+        String contactpositiona = request.getParameter("contactpositiona");
+        String contactnamea = request.getParameter("contactnamea");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+contactnamea+" "+contactpositiona+" "+contacta+" "+discussionsummarya+" "+rshpqltya);
+        ClientCoverageModel clientCoverageModel = new ClientCoverageModel();
+        clientCoverageModel.setClientcoverageprofileid(n); 
+        clientCoverageModel.setClientMaster(clientnamea);
+        clientCoverageModel.setClientofcerrnshipqlty(rshpqltya);
+        clientCoverageModel.setClientofficercontact(contacta);
+        clientCoverageModel.setClientofficerdiscussionsummary(discussionsummarya);
+        clientCoverageModel.setClientofficerlastcontact(lastcontacta);
+        clientCoverageModel.setClientofficername(contactnamea);
+        clientCoverageModel.setClientofficernextplanedcontact(nxtplanedcontacta);
+        clientCoverageModel.setClientofficernxtcntctpurpose(nxtplanedcontactpurposa);
+        clientCoverageModel.setClientofficerposition(contactpositiona);
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          ccm.createClientcoverageprofile(clientCoverageModel);
+       session.setAttribute("content_page", contextPath+"/qualitativeinformation/clientcoverage.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/qualitativeinformation/clientcoverage.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/qualitativeinformation/clientcoverage.jsp");
         } 
         }
       public static void handleAddCompetition(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
-        String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
+        CompetitionMaster compe = new CompetitionMaster();
+        String contextPath =  request.getContextPath(); 
         String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+        String weaknessesa = request.getParameter("weaknessesa");
+        String strengthsa = request.getParameter("strengthsa");
+        String estimatedwalletsharea = request.getParameter("estimatedwalletsharea");
+        String banka = request.getParameter("banka");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+banka+" "+estimatedwalletsharea+" "+strengthsa+" "+weaknessesa);
+        CompetitionModel competitionModel = new CompetitionModel(); 
+        competitionModel.setCompetitionid(n);
+        competitionModel.setClientMaster(clientnamea);
+        competitionModel.setBank(banka);
+        competitionModel.setEstimatedwalletshare(estimatedwalletsharea);
+        competitionModel.setStrengths(strengthsa);
+        competitionModel.setWeaknesses(weaknessesa);
+         uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+         compe.createCompetition(competitionModel);
+       session.setAttribute("content_page", contextPath+"/qualitativeinformation/competition.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/qualitativeinformation/competition.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/qualitativeinformation/competition.jsp");
         } 
         }
       public static void handleAddDealInProgress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
-        String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
-        String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+        DealInProgressMaster dip = new DealInProgressMaster();
+        String contextPath = request.getContextPath(); 
+        String commenta = request.getParameter("commenta");
+        String imexpectedrevenuea = request.getParameter("imexpectedrevenuea");
+        String improjectedwalletsharea = request.getParameter("improjectedwalletsharea");
+        String allbankswalletsizea = request.getParameter("allbankswalletsizea");
+        String imdealamounta = request.getParameter("imdealamounta");
+        String currentlyuseda = request.getParameter("currentlyuseda");
+        String dealstagea = request.getParameter("dealstagea");
+        String dealtypea = request.getParameter("dealtypea");
+        String dealstatusa = request.getParameter("dealstatusa");
+        String completionmontha = request.getParameter("completionmontha");
+        String dealprobabilitya = request.getParameter("dealprobabilitya");
+        String producta = request.getParameter("producta"); 
+        String clientnamea = request.getParameter("clientnamea"); 
+            System.out.println(clientnamea+" "+producta+" "+dealprobabilitya+" "+dealstatusa+" "+dealtypea+" "+currentlyuseda);
+        DealProgressModel dipModel = new DealProgressModel(); 
+        dipModel.setAllbankswalletsize(new BigDecimal(allbankswalletsizea));
+        dipModel.setClientMaster(clientnamea);
+        dipModel.setComments(commenta);
+        dipModel.setCompletionmonthlookupid(Integer.parseInt(completionmontha));
+        dipModel.setCurrentlyused(currentlyuseda);
+        dipModel.setDealinprogressid(n);
+        dipModel.setDealpropabilitylookupid(Integer.parseInt(dealprobabilitya));
+        dipModel.setDealstagelookupmasterid(Integer.parseInt(dealstagea));
+        dipModel.setDealstatuslookupmasterid(Integer.parseInt(dealstatusa));
+        dipModel.setDealtypelookupmasterid(Integer.parseInt(dealtypea));
+        dipModel.setImdealamount(new BigDecimal(imdealamounta));
+        dipModel.setImexpectedrevenue(new BigDecimal(imexpectedrevenuea));
+        dipModel.setImprojectedwalletshare(new BigDecimal(improjectedwalletsharea));
+        dipModel.setProductlookupid(Integer.parseInt(producta));
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          dip.createDealInProgress(dipModel);
+       session.setAttribute("content_page", contextPath+"/qualitativeinformation/dealsinprogress.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/qualitativeinformation/dealsinprogress.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/qualitativeinformation/dealsinprogress.jsp");
         } 
         }
        public static void handleAddQualitativeInfo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
+        QualitativeInfo qInfo = new QualitativeInfo();
         String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+         String rshpqltya = request.getParameter("rshpqltya");
+        String specchallengesa = request.getParameter("specchallengesa");
+        String opportunitiesa = request.getParameter("opportunitiesa");
+        String clientwalletalloctnlogica = request.getParameter("clientwalletalloctnlogica");
+        String clientstrategya = request.getParameter("clientstrategya"); 
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+clientstrategya+" "+opportunitiesa+" "+specchallengesa+" "+rshpqltya+" "+clientwalletalloctnlogica);
+        QualitativeinformationModel qiModel = new QualitativeinformationModel(); 
+        qiModel.setClientMaster(clientnamea);
+        qiModel.setClientstrategy(clientstrategya);
+        qiModel.setClientwalletalloctnlogic(clientwalletalloctnlogica);
+        qiModel.setOpportunities(opportunitiesa);
+        qiModel.setQinfoid(n);
+        qiModel.setRelationshipquality(rshpqltya);
+        qiModel.setSpecificchallenges(specchallengesa);
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          qInfo.createQualitativeInfo(qiModel);
+       session.setAttribute("content_page", contextPath+"/qualitativeinformation/qualitativeinfo.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/qualitativeinformation/qualitativeinfo.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/qualitativeinformation/qualitativeinfo.jsp");
         } 
         }
      public static void handleAddSaleActionPlan(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
+        SaleActionPlan sap = new SaleActionPlan();
         String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+        //dateLinea,presponsibleforactiona,contactpersona,specificationa , clientnamea 
+        String dateLinea = request.getParameter("dateLinea");
+        String presponsibleforactiona = request.getParameter("presponsibleforactiona");
+        String contactpersona = request.getParameter("contactpersona");
+        String specificationa = request.getParameter("specificationa");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+specificationa+" "+contactpersona+" "+presponsibleforactiona+" "+dateLinea);
+        SalesactionplanModel sapModel = new SalesactionplanModel(); 
+        sapModel.setClientMaster(clientnamea);
+        sapModel.setClocontactpersion(contactpersona);
+        sapModel.setClodatelinedate(dateLinea);
+        sapModel.setClopersonresponsibleforaction(presponsibleforactiona);
+        sapModel.setSalesactionplanid(n);
+        sapModel.setSpecification(specificationa);
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          sap.createSaleActionPlan(sapModel);
+       session.setAttribute("content_page", contextPath+"/qualitativeinformation/salesactionplan.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/qualitativeinformation/salesactionplan.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/qualitativeinformation/salesactionplan.jsp");
         } 
         }
       public static void handleAddClientEmployee(HttpServletRequest request, HttpServletResponse response)
@@ -368,8 +378,8 @@ public class ClientW {
         clientEmpModel.setClientEmployeeLocation(locationa);
         clientEmpModel.setClientEmployeePhonenumber(phonea);
         clientEmpModel.setClientMaster(clientnamea);
-        clientEmpModel.setClientemployeeid(100);
-        clientEmpModel.setLookupmaster(segmenta);
+        clientEmpModel.setClientemployeeid(n);
+        clientEmpModel.setLookupmaster(Integer.parseInt(segmenta));
         clientEmpModel.setNoofbankedemployeesallbanks(employeenoallbanksa);
         clientEmpModel.setNoofbankedemployeeswithim(employeenoinma);
         clientEmpModel.setNoofemployees(noofemployeea);
@@ -378,11 +388,11 @@ public class ClientW {
             System.out.println("username:"+uname);
          if ( uname != null) {
           cem.createClientEmployee(clientEmpModel);
-       session.setAttribute("content_page", contextPath+"/client/clientemployee.jsp");
+       session.setAttribute("content_page", contextPath+"/valuechain/clientemployee.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/clientemployee.jsp");
+            response.sendRedirect(contextPath+"/valuechain/clientemployee.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/clientemployee.jsp");
+            session.setAttribute("content_page", contextPath+"/valuechain/clientemployee.jsp");
         } 
         }
        public static void handleAddKeyDistributor(HttpServletRequest request, HttpServletResponse response)
@@ -412,18 +422,18 @@ public class ClientW {
         keyDistributorModel.setKdLocation(locationa);
         keyDistributorModel.setKdPhonenumber(phonea);
         keyDistributorModel.setKdandclients(kdandclienta);
-        keyDistributorModel.setKdid(100);
-        keyDistributorModel.setLookupmaster(segmenta);
+        keyDistributorModel.setKdid(n);
+        keyDistributorModel.setLookupmaster(Integer.parseInt(segmenta));
         keyDistributorModel.setVolofbusnskdandclient(new BigDecimal(volofbusinessa));
         String uname = (String) session.getAttribute("uname");
             System.out.println("username:"+uname);
          if ( uname != null) {
           kd.createKeyDistributor(keyDistributorModel);
-       session.setAttribute("content_page", contextPath+"/client/keydistributor.jsp");
+       session.setAttribute("content_page", contextPath+"/valuechain/keydistributor.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/keydistributor.jsp");
+            response.sendRedirect(contextPath+"/valuechain/keydistributor.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/keydistributor.jsp");
+            session.setAttribute("content_page", contextPath+"/valuechain/keydistributor.jsp");
         } 
         }
        public static void handleAddKeySupplier(HttpServletRequest request, HttpServletResponse response)
@@ -451,121 +461,140 @@ public class ClientW {
             keySupplierModel.setKsEmail(emaila);
             keySupplierModel.setKsLocation(locationa);
             keySupplierModel.setKsPhonenumber(phonea);
-            keySupplierModel.setKsid(100);
+            keySupplierModel.setKsid(n);
             keySupplierModel.setKsname(ksnamea);
-            keySupplierModel.setLookupmaster(segmenta);
+            keySupplierModel.setLookupmaster(Integer.parseInt(segmenta));
             keySupplierModel.setVolofbusiness(volofbusinessa);
         String uname = (String) session.getAttribute("uname");
             System.out.println("username:"+uname);
          if ( uname != null) {
           ks.createKeySupplier(keySupplierModel);
-       session.setAttribute("content_page", contextPath+"/client/keysupplier.jsp");
+       session.setAttribute("content_page", contextPath+"/valuechain/keysupplier.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/keysupplier.jsp");
+            response.sendRedirect(contextPath+"/valuechain/keysupplier.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/keysupplier.jsp");
+            session.setAttribute("content_page", contextPath+"/valuechain/keysupplier.jsp");
         } 
         }
        public static void handleAddSignOff(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
-        String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+        SignOffMaster som = new SignOffMaster();
+        String contextPath = request.getContextPath(); 
+        String headofcorporatesignoffa = request.getParameter("headofcorporatesignoffa");
+        String rmsignoffa = request.getParameter("rmsignoffa");
+        String uname = request.getParameter("uname"); 
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+        System.out.println(clientnamea+" "+uname+" "+rmsignoffa+" "+headofcorporatesignoffa);
+        SignOffModel somModel = new SignOffModel(); 
+        somModel.setClientMaster(clientnamea);
+        somModel.setSignoffid(n);
+        somModel.setHeadofcorporatesignoff(headofcorporatesignoffa);
+        somModel.setRmsignoff(rmsignoffa);
+        uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          som.createSignOff(somModel);
+       session.setAttribute("content_page", contextPath+"/walletresizing/signoff.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/walletresizing/signoff.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/walletresizing/signoff.jsp");
         } 
         }
     public static void handleAddCFOpportunity(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
-        String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+        CurrentAndFutureOpportunityMaster cfoMaster = new CurrentAndFutureOpportunityMaster();
+        String contextPath = request.getContextPath(); 
+        String esttotasseta = request.getParameter("esttotasseta");
+        String imfeerateassetsa = request.getParameter("imfeerateassetsa");
+        String esttotliabilitya = request.getParameter("esttotliabilitya");
+        String imfeerateliabilitya = request.getParameter("imfeerateliabilitya");
+        String projectedwalletsharea = request.getParameter("projectedwalletsharea");
+        String iminterstmarginliabilitya = request.getParameter("iminterstmarginliabilitya");
+        String feeincomeesttotliabilitya = request.getParameter("feeincomeesttotliabilitya");
+        String imintrstmargina = request.getParameter("imintrstmargina");
+        String assetesttotala = request.getParameter("assetesttotala");
+        String producta = request.getParameter("producta");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+producta+" "+assetesttotala+" "+imintrstmargina+" "+esttotliabilitya+" "+iminterstmarginliabilitya);
+        CurrentAndFutureOpportunityModel cfoModel = new CurrentAndFutureOpportunityModel(); 
+        cfoModel.setAllbankswalletsizrevmanual(BigDecimal.TEN);
+        cfoModel.setAssetestimatedtotal(new BigDecimal(assetesttotala));
+        cfoModel.setAssetsfeeincome(BigDecimal.TEN);
+        cfoModel.setAssetsnetinterestincome(BigDecimal.ZERO);
+        cfoModel.setCafoppid(n);
+        cfoModel.setClientMaster(clientnamea);
+        cfoModel.setDealvolassets(BigDecimal.ZERO);
+        cfoModel.setDealvolliabilities(BigDecimal.ZERO);
+        cfoModel.setDealvolrevenue(BigDecimal.ONE);
+        cfoModel.setDealvolumefees(BigDecimal.ZERO);
+        cfoModel.setEstimatedtotalasset(BigDecimal.ZERO);
+        cfoModel.setEstimatedtotalliability(BigDecimal.ZERO);
+        cfoModel.setImassetaveragefeerate(BigDecimal.ZERO);
+        cfoModel.setEstimatedtotalliability(BigDecimal.ZERO);
+        cfoModel.setImassetaveragefeerate(BigDecimal.ZERO);
+        cfoModel.setImaverageinterestmargin(new BigDecimal(imintrstmargina));
+        cfoModel.setImavrgliabilityintrestmargin(BigDecimal.TEN);
+        cfoModel.setImexpectedrevenue(BigDecimal.TEN);
+        cfoModel.setImliabilityaveragefeerate(BigDecimal.ZERO);
+        cfoModel.setImprojectedwalletshare(BigDecimal.ZERO);
+        cfoModel.setImwalletsize(BigDecimal.ZERO);
+        cfoModel.setIncometotalfee(new BigDecimal(feeincomeesttotliabilitya));
+        cfoModel.setLiabilityestimatedtotal(BigDecimal.ZERO);
+        cfoModel.setLiabilityfeeincome(BigDecimal.TEN);
+        cfoModel.setLiabilitynetinterestincome(BigDecimal.ZERO);
+        cfoModel.setLookupmaster(Integer.parseInt(producta));
+        cfoModel.setPercentwalletsharemanual(BigDecimal.TEN);
+        cfoModel.setTotalnetinterestincome(BigDecimal.ZERO);
+        cfoModel.setImexpectedrevenue(BigDecimal.TEN);
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          cfoMaster.createCurrentAndFutureOpportunity(cfoModel);
+       session.setAttribute("content_page", contextPath+"/walletresizing/currentandfutureopportunities.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/walletresizing/currentandfutureopportunities.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/walletresizing/currentandfutureopportunities.jsp");
         } 
         }
       public static void handleAddOClientWalletSize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
-        Company co = new Company();
+        OverallClientWalletSizeMaster ocwsm = new OverallClientWalletSizeMaster();
         String contextPath = request.getContextPath();
-        String noofsubsidiarya = request.getParameter("noofsubsidiarya");
-        String indrustrya = request.getParameter("indrustrya");
-        String uname = request.getParameter("uname");
-        String hqcountrya = request.getParameter("hqcountrya");
-        String grpnamea = request.getParameter("grpnamea");
-        String segmenta = request.getParameter("segmenta");
-        String companyaddressa = request.getParameter("companyaddressa");
+ // imincomeinteresta , avgimmargindepositsa , imavgloanmargina , clientnamea 
+        String imincomeinteresta = request.getParameter("imincomeinteresta");
+        String avgimmargindepositsa = request.getParameter("avgimmargindepositsa");
+        String imavgloanmargina = request.getParameter("imavgloanmargina");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+companyaddressa+" "+segmenta+" "+grpnamea+" "+hqcountrya+" "+noofsubsidiarya);
-        CompanyModel companyModel = new CompanyModel();
-        companyModel.setCompanyid(100);
-        companyModel.setGroupname(grpnamea);
-        companyModel.setCompanyAddress(companyaddressa);
-        companyModel.setNoofsubsidiaries(Integer.parseInt(noofsubsidiarya));
-        companyModel.setClientMaster(clientnamea);
-        companyModel.setLookupmasterByAffiliatelookupmasterid(hqcountrya);
-        companyModel.setLookupmasterByIndustrylookupmasterid(indrustrya);
-        companyModel.setLookupmasterBySegmentlookupmasterid(segmenta);
-        String user = (String) session.getAttribute("uname");
-            System.out.println("username:"+user);
-         if ( user != null) {
-          co.createCompany(companyModel);
-       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            System.out.println(clientnamea+" "+imavgloanmargina+" "+avgimmargindepositsa+" "+imincomeinteresta);
+        OverallClientWalletSizeModel ocwsModel = new OverallClientWalletSizeModel(); 
+        ocwsModel.setAssetsinterestincome(BigDecimal.ZERO);
+        ocwsModel.setAverageimdepositmargin(new BigDecimal(avgimmargindepositsa));
+        ocwsModel.setClientMaster(clientnamea);
+        ocwsModel.setClientbankingwallet(BigDecimal.ONE);
+        ocwsModel.setClientwalletsizeid(n);
+        ocwsModel.setEstimatedcorporatedeposits(BigDecimal.ZERO);
+        ocwsModel.setEstimatedwalletshare(BigDecimal.ZERO);
+        ocwsModel.setImfeeincome(BigDecimal.ZERO);
+        ocwsModel.setImrevenue(BigDecimal.ONE);
+        ocwsModel.setNetintrstliabltyincome(BigDecimal.ZERO);
+        ocwsModel.setTotalcorporatedebt(BigDecimal.ZERO);
+        ocwsModel.setTotalfeeincome(BigDecimal.ONE);
+        ocwsModel.setTotalnetinterestincome(BigDecimal.ZERO);
+        ocwsModel.setTotalnii(BigDecimal.ONE);
+        String uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+         ocwsm.createOverallClientWalletSize(ocwsModel);
+       session.setAttribute("content_page", contextPath+"/walletresizing/overallclientwalletsize.jsp");
             session.setAttribute("uname", uname); 
-            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+            response.sendRedirect(contextPath+"/walletresizing/overallclientwalletsize.jsp");
          } else {
-            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("content_page", contextPath+"/walletresizing/overallclientwalletsize.jsp");
         } 
         }
       public static void handleAddAccountRevenue(HttpServletRequest request, HttpServletResponse response)
@@ -583,7 +612,7 @@ public class ClientW {
         String clientnamea = request.getParameter("clientnamea");
             System.out.println(clientnamea+" "+totwalshra+" "+curwalletshra+" "+priyractfeea+" "+curyrfeetarga+" "+curyrfeetarga);
         AccountRevenueModel armodel = new AccountRevenueModel();
-        armodel.setAccountRevenueid(100);
+        armodel.setAccountRevenueid(n);
         armodel.setClientMaster(clientnamea);
         armodel.setCurrentshareofwallet(new BigDecimal(curwalletshra));
         armodel.setCurrentyearfeeincometarget(new BigDecimal(curyrfeetarga));

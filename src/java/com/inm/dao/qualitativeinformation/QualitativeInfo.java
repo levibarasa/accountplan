@@ -22,6 +22,9 @@ public class QualitativeInfo {
     public QualitativeInfo() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteQualitativeInfo(QualitativeinformationModel qualitativeinformationModel) {
+     return ops.delete(qualitativeinformationModel);
+ }
      public  void createQualitativeInfo(QualitativeinformationModel qualitativeinformationModel ) {
          Qualitativeinformation qualitativeinformation = new Qualitativeinformation(); 
          QualitativeInfo qinf = new QualitativeInfo();  
@@ -62,7 +65,28 @@ public class QualitativeInfo {
         for (Object QIObject : QIMaster) {
             Qualitativeinformation  qualitativeinformation = (Qualitativeinformation) QIObject;
             QualitativeinformationModel model = new QualitativeinformationModel(); 
-            model.setClientMaster(qualitativeInfo.getClientMaster(rmCode).getClientname());  
+            model.setClientMaster(qualitativeInfo.getClientMaster(qualitativeinformation.getClientMaster().getClientid()).getClientname());  
+            model.setClientstrategy(qualitativeinformation.getClientstrategy());
+            model.setClientwalletalloctnlogic(qualitativeinformation.getClientwalletalloctnlogic());
+            model.setOpportunities(qualitativeinformation.getOpportunities());
+            model.setQinfoid(qualitativeinformation.getQinfoid());
+            model.setRelationshipquality(qualitativeinformation.getRelationshipquality());
+            model.setSpecificchallenges(qualitativeinformation.getSpecificchallenges());
+              qualitativeinformationModels.add(model);
+        }
+        return qualitativeinformationModels;
+      }
+    public  ArrayList<QualitativeinformationModel> getQualitativeinfoByClientId(String rmCode,String clientid) { 
+       ArrayList<QualitativeinformationModel>  qualitativeinformationModels = new ArrayList<QualitativeinformationModel> ();
+        QualitativeInfo qualitativeInfo = new QualitativeInfo();
+         CoreQuery coreQuery = new CoreQuery("from Qualitativeinformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List QIMaster = ops.fetch(coreQuery);
+        for (Object QIObject : QIMaster) {
+            Qualitativeinformation  qualitativeinformation = (Qualitativeinformation) QIObject;
+            QualitativeinformationModel model = new QualitativeinformationModel(); 
+            model.setClientMaster(qualitativeInfo.getClientMaster(qualitativeinformation.getClientMaster().getClientid()).getClientname());  
             model.setClientstrategy(qualitativeinformation.getClientstrategy());
             model.setClientwalletalloctnlogic(qualitativeinformation.getClientwalletalloctnlogic());
             model.setOpportunities(qualitativeinformation.getOpportunities());
@@ -120,9 +144,9 @@ public class QualitativeInfo {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

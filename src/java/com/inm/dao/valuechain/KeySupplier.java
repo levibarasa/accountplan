@@ -22,7 +22,9 @@ public class KeySupplier {
     public KeySupplier() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-    
+    public  boolean deleteKeySupplier(KeySupplierModel keySupplierModel ) {
+     return ops.delete(keySupplierModel);
+ }
     public  void createKeySupplier(KeySupplierModel keySupplierModel ) {
          Keysuppliermaster keysuppliermaster = new Keysuppliermaster(); 
          KeySupplier ks = new KeySupplier();  
@@ -56,7 +58,7 @@ public class KeySupplier {
          ops.saveOrUpdate(keysuppliermaster);
     }
          
-     public Lookupmaster getLookUpMasterByID(String lookupmasterid) {
+     public Lookupmaster getLookUpMasterByID(int lookupmasterid) {
         CoreQuery coreQuery = new CoreQuery("from Lookupmaster where lookupmasterid =:lookupmasterid", true);
         coreQuery.addParam("lookupmasterid", lookupmasterid); 
         List lkup = ops.fetch(coreQuery);
@@ -77,8 +79,8 @@ public class KeySupplier {
         for (Object ksObject : ksMaster) {
             Keysuppliermaster keysuppliermaster = (Keysuppliermaster) ksObject;
             KeySupplierModel keySupplierModel = new KeySupplierModel(); 
-            keySupplierModel.setClientMaster(ks.getClientMaster(rmCode).getClientname());
-            keySupplierModel.setLookupmaster(keysuppliermaster.getLookupmaster().getValue()); 
+            keySupplierModel.setClientMaster(ks.getClientMaster(keysuppliermaster.getClientMaster().getClientid()).getClientname());
+            keySupplierModel.setLookupmaster(keysuppliermaster.getLookupmaster().getLookupmasterid()); 
             keySupplierModel.setBankedbyim(keysuppliermaster.getBankedbyim());
             keySupplierModel.setComments(keysuppliermaster.getComments());
             keySupplierModel.setKsContactperson(keysuppliermaster.getKsContactperson());
@@ -126,9 +128,9 @@ public class KeySupplier {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -148,8 +150,8 @@ public class KeySupplier {
         for (Object ksObject : ksMaster) {
             Keysuppliermaster keysuppliermaster = (Keysuppliermaster) ksObject;
             KeySupplierModel keySupplierModel = new KeySupplierModel(); 
-            keySupplierModel.setClientMaster(ks.getClientMaster(rmCode).getClientname());
-            keySupplierModel.setLookupmaster(keysuppliermaster.getLookupmaster().getValue()); 
+            keySupplierModel.setClientMaster(ks.getClientMaster(keysuppliermaster.getClientMaster().getClientid()).getClientname());
+            keySupplierModel.setLookupmaster(keysuppliermaster.getLookupmaster().getLookupmasterid()); 
             keySupplierModel.setBankedbyim(keysuppliermaster.getBankedbyim());
             keySupplierModel.setComments(keysuppliermaster.getComments());
             keySupplierModel.setKsContactperson(keysuppliermaster.getKsContactperson());

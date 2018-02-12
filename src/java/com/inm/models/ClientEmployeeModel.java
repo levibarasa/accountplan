@@ -11,7 +11,7 @@ package com.inm.models;
  */
 public class ClientEmployeeModel {
       private int clientemployeeid;
-     private String lookupmaster;
+     private int lookupmaster;
      private String clientMaster;
      private String clientEmployeeContactperson;
      private String clientEmployeePhonenumber;
@@ -25,7 +25,7 @@ public class ClientEmployeeModel {
     public ClientEmployeeModel() {
     }
 
-    public ClientEmployeeModel(int clientemployeeid, String lookupmaster, String clientMaster, String clientEmployeeContactperson, String clientEmployeePhonenumber, String clientEmployeeEmail, String clientEmployeeLocation, String noofemployees, String noofbankedemployeesallbanks, String noofbankedemployeeswithim, String targetnoofemployeesbyim) {
+    public ClientEmployeeModel(int clientemployeeid, int lookupmaster, String clientMaster, String clientEmployeeContactperson, String clientEmployeePhonenumber, String clientEmployeeEmail, String clientEmployeeLocation, String noofemployees, String noofbankedemployeesallbanks, String noofbankedemployeeswithim, String targetnoofemployeesbyim) {
         this.clientemployeeid = clientemployeeid;
         this.lookupmaster = lookupmaster;
         this.clientMaster = clientMaster;
@@ -47,11 +47,11 @@ public class ClientEmployeeModel {
         this.clientemployeeid = clientemployeeid;
     }
 
-    public String getLookupmaster() {
+    public int getLookupmaster() {
         return lookupmaster;
     }
 
-    public void setLookupmaster(String lookupmaster) {
+    public void setLookupmaster(int lookupmaster) {
         this.lookupmaster = lookupmaster;
     }
 

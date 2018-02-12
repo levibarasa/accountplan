@@ -36,12 +36,14 @@ public class Accessw {
         String password = request.getParameter("Password");
         String employeeID = "";
         LdapLogin ldapExaminer = new LdapLogin();
-        String loggedInUser = "";//ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
-        System.out.println("Logged in User: " + loggedInUser);
+        String loggedInUser = ldapExaminer.authUser(username, password, ldapExaminer.getLdapContext());
+        System.out.println("Logged in User LDAP: " + loggedInUser);
         //String testUser1 = "soumya.rao";
         String testUser = "nicholast";
-        loggedInUser = testUser;
-        session.setAttribute("loggedInUser", loggedInUser);
+       // loggedInUser = testUser;
+        System.out.println("Logged in User Local: " + loggedInUser);
+      //  String testUsera = "AijazS";
+          session.setAttribute("loggedInUser", loggedInUser);
 //                if (loggedInUser != null && conPage == null) {
 //          employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
 //            session.setAttribute("uname", employeeID);
@@ -55,7 +57,8 @@ public class Accessw {
         branch = "Head Office";
         region = "Head Office";
         if (!loggedInUser.equalsIgnoreCase("") || !loggedInUser.equalsIgnoreCase(null)) {
-            employeeID = Access.getRMCodeByWindowsUserName(loggedInUser);
+            
+            employeeID = Access.getRMCodeByWindowsUserName(loggedInUser.toLowerCase());
 
             userId = Integer.parseInt(employeeID);
             Date currdate = new Date();

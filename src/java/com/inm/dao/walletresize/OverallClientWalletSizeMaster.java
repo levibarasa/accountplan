@@ -23,7 +23,9 @@ public class OverallClientWalletSizeMaster {
     public OverallClientWalletSizeMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-    
+     public  boolean deleteOverallClientWalletSizeMaster(OverallClientWalletSizeModel ocwsModel ) {
+     return ops.delete(ocwsModel);
+ }
     public  void createOverallClientWalletSize(OverallClientWalletSizeModel ocwsModel ) {
          Overallclientwalletsize ocws = new Overallclientwalletsize(); 
          OverallClientWalletSizeMaster ocwsm = new OverallClientWalletSizeMaster();  
@@ -79,7 +81,7 @@ public class OverallClientWalletSizeMaster {
         for (Object ocwsObject : ocwsMaster) {
             Overallclientwalletsize overallclientwalletsize = (Overallclientwalletsize) ocwsObject;
             OverallClientWalletSizeModel clientWalletSizeModel = new OverallClientWalletSizeModel(); 
-            clientWalletSizeModel.setClientMaster(ocws.getClientMaster(rmCode).getClientname());
+            clientWalletSizeModel.setClientMaster(ocws.getClientMaster(overallclientwalletsize.getClientMaster().getClientid()).getClientname());
             clientWalletSizeModel.setAssetsinterestincome(overallclientwalletsize.getAssetsinterestincome());
             clientWalletSizeModel.setAverageimdepositmargin(overallclientwalletsize.getAverageimdepositmargin());
             clientWalletSizeModel.setAverageimloanmargin(overallclientwalletsize.getAverageimloanmargin());
@@ -132,9 +134,9 @@ public class OverallClientWalletSizeMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -154,7 +156,7 @@ public class OverallClientWalletSizeMaster {
         for (Object ocwsObject : ocwsMaster) {
             Overallclientwalletsize overallclientwalletsize = (Overallclientwalletsize) ocwsObject;
             OverallClientWalletSizeModel clientWalletSizeModel = new OverallClientWalletSizeModel(); 
-            clientWalletSizeModel.setClientMaster(ocws.getClientMaster(rmCode).getClientname());
+            clientWalletSizeModel.setClientMaster(ocws.getClientMaster(overallclientwalletsize.getClientMaster().getClientid()).getClientname());
             clientWalletSizeModel.setAssetsinterestincome(overallclientwalletsize.getAssetsinterestincome());
             clientWalletSizeModel.setAverageimdepositmargin(overallclientwalletsize.getAverageimdepositmargin());
             clientWalletSizeModel.setAverageimloanmargin(overallclientwalletsize.getAverageimloanmargin());

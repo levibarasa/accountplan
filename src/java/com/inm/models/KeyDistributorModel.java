@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 public class KeyDistributorModel {
   private int kdid;
-     private String lookupmaster;
+     private int lookupmaster;
      private String clientMaster;
      private String kdandclients;
      private String kdContactperson;
@@ -28,7 +28,7 @@ public class KeyDistributorModel {
     public KeyDistributorModel() {
     }
 
-    public KeyDistributorModel(int kdid, String lookupmaster, String clientMaster, String kdandclients, String kdContactperson, String kdPhonenumber, String kdEmail, String kdLocation, String bankedbyim, String comments, BigDecimal clientturnover, BigDecimal volofbusnskdandclient) {
+    public KeyDistributorModel(int kdid, int lookupmaster, String clientMaster, String kdandclients, String kdContactperson, String kdPhonenumber, String kdEmail, String kdLocation, String bankedbyim, String comments, BigDecimal clientturnover, BigDecimal volofbusnskdandclient) {
         this.kdid = kdid;
         this.lookupmaster = lookupmaster;
         this.clientMaster = clientMaster;
@@ -51,11 +51,11 @@ public class KeyDistributorModel {
         this.kdid = kdid;
     }
 
-    public String getLookupmaster() {
+    public int getLookupmaster() {
         return lookupmaster;
     }
 
-    public void setLookupmaster(String lookupmaster) {
+    public void setLookupmaster(int lookupmaster) {
         this.lookupmaster = lookupmaster;
     }
 

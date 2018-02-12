@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 public class CurrentAndFutureOpportunityModel {
     private int cafoppid;
-     private String lookupmaster;
+     private int lookupmaster;
      private String clientMaster;
      private BigDecimal estimatedtotalasset;
      private BigDecimal imaverageinterestmargin;
@@ -42,7 +42,7 @@ public class CurrentAndFutureOpportunityModel {
     public CurrentAndFutureOpportunityModel() {
     }
 
-    public CurrentAndFutureOpportunityModel(int cafoppid, String lookupmaster, String clientMaster, BigDecimal estimatedtotalasset, BigDecimal imaverageinterestmargin, BigDecimal assetsnetinterestincome, BigDecimal estimatedtotalliability, BigDecimal imavrgliabilityintrestmargin, BigDecimal liabilitynetinterestincome, BigDecimal totalnetinterestincome, BigDecimal assetestimatedtotal, BigDecimal imassetaveragefeerate, BigDecimal assetsfeeincome, BigDecimal liabilityestimatedtotal, BigDecimal imliabilityaveragefeerate, BigDecimal liabilityfeeincome, BigDecimal incometotalfee, BigDecimal imwalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, BigDecimal allbankswalletsizrevmanual, BigDecimal percentwalletsharemanual, BigDecimal dealvolumefees, BigDecimal dealvolassets, BigDecimal dealvolliabilities, BigDecimal dealvolrevenue) {
+    public CurrentAndFutureOpportunityModel(int cafoppid, int lookupmaster, String clientMaster, BigDecimal estimatedtotalasset, BigDecimal imaverageinterestmargin, BigDecimal assetsnetinterestincome, BigDecimal estimatedtotalliability, BigDecimal imavrgliabilityintrestmargin, BigDecimal liabilitynetinterestincome, BigDecimal totalnetinterestincome, BigDecimal assetestimatedtotal, BigDecimal imassetaveragefeerate, BigDecimal assetsfeeincome, BigDecimal liabilityestimatedtotal, BigDecimal imliabilityaveragefeerate, BigDecimal liabilityfeeincome, BigDecimal incometotalfee, BigDecimal imwalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, BigDecimal allbankswalletsizrevmanual, BigDecimal percentwalletsharemanual, BigDecimal dealvolumefees, BigDecimal dealvolassets, BigDecimal dealvolliabilities, BigDecimal dealvolrevenue) {
         this.cafoppid = cafoppid;
         this.lookupmaster = lookupmaster;
         this.clientMaster = clientMaster;
@@ -79,11 +79,11 @@ public class CurrentAndFutureOpportunityModel {
         this.cafoppid = cafoppid;
     }
 
-    public String getLookupmaster() {
+    public int getLookupmaster() {
         return lookupmaster;
     }
 
-    public void setLookupmaster(String lookupmaster) {
+    public void setLookupmaster(int lookupmaster) {
         this.lookupmaster = lookupmaster;
     }
 

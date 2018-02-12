@@ -22,6 +22,9 @@ public class SaleActionPlan {
     public SaleActionPlan() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteSaleActionPlan(SalesactionplanModel salesactionplanModel) {
+     return ops.delete(salesactionplanModel);
+ }
     public  void createSaleActionPlan(SalesactionplanModel salesactionplanModel ) {
          Salesactionplan salesactionplan = new Salesactionplan(); 
          SaleActionPlan sap = new SaleActionPlan();  
@@ -59,7 +62,27 @@ public class SaleActionPlan {
         for (Object sspObject : sspMaster) {
             Salesactionplan  salesactionplan = (Salesactionplan) sspObject;
             SalesactionplanModel salesactionplanModel = new SalesactionplanModel(); 
-            salesactionplanModel.setClientMaster(saleActionPlan.getClientMaster(rmCode).getClientname());
+            salesactionplanModel.setClientMaster(saleActionPlan.getClientMaster(salesactionplan.getClientMaster().getClientid()).getClientname());
+            salesactionplanModel.setClocontactpersion(salesactionplan.getClocontactpersion());
+            salesactionplanModel.setClodatelinedate(salesactionplan.getClodatelinedate());
+            salesactionplanModel.setClopersonresponsibleforaction(salesactionplan.getClopersonresponsibleforaction());
+            salesactionplanModel.setSalesactionplanid(salesactionplan.getSalesactionplanid());
+            salesactionplanModel.setSpecification(salesactionplan.getSpecification());
+            salesactionplanModelList.add(salesactionplanModel);
+        }
+        return salesactionplanModelList;
+      }
+   public  ArrayList<SalesactionplanModel> getSaleActionPlanInfoByClientId(String rmCode,String clientid) { 
+       ArrayList<SalesactionplanModel>  salesactionplanModelList = new ArrayList<SalesactionplanModel> ();
+        SaleActionPlan saleActionPlan = new SaleActionPlan();
+         CoreQuery coreQuery = new CoreQuery("from Salesactionplan where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List sspMaster = ops.fetch(coreQuery);
+        for (Object sspObject : sspMaster) {
+            Salesactionplan  salesactionplan = (Salesactionplan) sspObject;
+            SalesactionplanModel salesactionplanModel = new SalesactionplanModel(); 
+            salesactionplanModel.setClientMaster(saleActionPlan.getClientMaster(salesactionplan.getClientMaster().getClientid()).getClientname());
             salesactionplanModel.setClocontactpersion(salesactionplan.getClocontactpersion());
             salesactionplanModel.setClodatelinedate(salesactionplan.getClodatelinedate());
             salesactionplanModel.setClopersonresponsibleforaction(salesactionplan.getClopersonresponsibleforaction());
@@ -116,9 +139,9 @@ public class SaleActionPlan {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

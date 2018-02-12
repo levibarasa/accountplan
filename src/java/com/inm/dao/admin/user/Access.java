@@ -21,8 +21,8 @@ public class Access {
     private static final Log log = LogFactory.getLog("origlogger");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
 
-    public static String getRMCodeByWindowsUserName(String userName) {
-        String sql = "select employeeID from Employee_Details where WindowsUserName = ?";
+    public static String getRMCodeByWindowsUserName(String userName) {  
+        String sql = "select employeeID from Employee_Details where LOWER(WindowsUserName) = ?";
         String str = AdminDb.getValue(sql, 1, 1, userName);
         return str;
     }

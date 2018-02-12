@@ -24,6 +24,9 @@ public class ClientFinacial {
     public ClientFinacial() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+     public  boolean deleteClientFinacial(ClientFinacialModel clientFinacialModel ) {
+     return ops.delete(clientFinacialModel);
+ }
     public  void createClientFinacial(ClientFinacialModel clientFinacialModel ) {
          ClientFinancial clientFinancial = new ClientFinancial(); 
          ClientFinacial cf = new ClientFinacial();  
@@ -72,7 +75,32 @@ public class ClientFinacial {
             clientFinacialModel.setTotaldebt(clientFinancial.getTotaldebt());
             clientFinacialModel.setTotaldeposits(clientFinancial.getTotaldeposits() );
             clientFinacialModel.setTurnover(clientFinancial.getTurnover()); 
-            clientFinacialModel.setClientMaster(cf.getClientMaster(rmCode).getClientname()); 
+            clientFinacialModel.setClientMaster(cf.getClientMaster(clientFinancial.getClientMaster().getClientid()).getClientname()); 
+            
+              creditFinancialList.add(clientFinacialModel);
+        }
+
+        return creditFinancialList;
+    }
+        
+      public ArrayList<ClientFinacialModel> getClientFinancialInfoByClientId(String rmCode,String clientid) {
+        ClientFinacial cf = new ClientFinacial();
+        ArrayList<ClientFinacialModel> creditFinancialList = new ArrayList<ClientFinacialModel>();
+        CoreQuery coreQuery = new CoreQuery("from ClientFinancial where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List creditFinMaster = ops.fetch(coreQuery);
+        for (Object creObject : creditFinMaster) {
+            ClientFinancial clientFinancial = (ClientFinancial) creObject;
+            ClientFinacialModel clientFinacialModel = new ClientFinacialModel();
+            clientFinacialModel.setClientFinancialid(clientFinancial.getClientFinancialid());
+            clientFinacialModel.setCashflowcycle(clientFinancial.getCashflowcycle());
+            clientFinacialModel.setGearingratio(clientFinancial.getGearingratio());
+            clientFinacialModel.setOperatingprofit(clientFinancial.getOperatingprofit());
+            clientFinacialModel.setTotaldebt(clientFinancial.getTotaldebt());
+            clientFinacialModel.setTotaldeposits(clientFinancial.getTotaldeposits() );
+            clientFinacialModel.setTurnover(clientFinancial.getTurnover()); 
+            clientFinacialModel.setClientMaster(cf.getClientMaster(clientFinancial.getClientMaster().getClientid()).getClientname()); 
             
               creditFinancialList.add(clientFinacialModel);
         }
@@ -126,9 +154,9 @@ public class ClientFinacial {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -139,27 +167,7 @@ public class ClientFinacial {
         return (RmCodelist) rmCodes.get(0);
     }
     
-//      public static ArrayList<ClientFinacialModel> getClientFinancialInfo(String rmCode) {
-//         ArrayList<ClientFinacialModel>  clientFinancialList = new ArrayList<ClientFinacialModel> ();
-//         ClientFinacial clientFinacial = new ClientFinacial();
-//      String sql = "select Client_FinancialID,ClientID,RM_Code,Turnover,OperatingProfit,TotalDebt,TotalDeposits,GearingRatio,CashFlowCycle from [dbo].[Client_Financial] where RM_Code = ?";
-//        String in = rmCode;
-//        ArrayList list = AdminDb.execArrayLists(sql, 1, in, 9);
-//        for(int n =0;n<list.size(); n++){
-//            ArrayList clientItem = (ArrayList) list.get(n);
-//        ClientFinacialModel creditInfoModel = new ClientFinacialModel(); 
-//        creditInfoModel.setClient_FinancialID((String) clientItem.get(0));
-//        creditInfoModel.setClientID( clientFinacial.getClientNameByID((String) clientItem.get(1)));
-//        creditInfoModel.setTurnover((String) clientItem.get(2));
-//        creditInfoModel.setOperatingProfit((String) clientItem.get(3));
-//        creditInfoModel.setTotalDebt((String) clientItem.get(4));
-//        creditInfoModel.setTotalDeposits((String) clientItem.get(5));
-//        creditInfoModel.setGearingRatio((String) clientItem.get(6));
-//        creditInfoModel.setCashFlowCycle((String) clientItem.get(7));
-//        clientFinancialList.add(creditInfoModel);
-//         }
-//        return clientFinancialList;
-//      }
+
        public   String getRMNameByCode(String rmCode) {
        AdminDb ad = new AdminDb();
         String sql = "select  employeeName from Employee_Details where employeeID = ?";
@@ -173,28 +181,5 @@ public class ClientFinacial {
         String str = ad.getStringValue(sql, 1, 1, clientId);
         return str;
     }
-           public ArrayList<ClientFinacialModel> getClientFinancialInfoByClientId(String rmCode,String clientid ) {
-        ClientFinacial cf = new ClientFinacial();
-        ArrayList<ClientFinacialModel> creditFinancialList = new ArrayList<ClientFinacialModel>();
-        CoreQuery coreQuery = new CoreQuery("from ClientFinancial where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientid =:clientid", true);
-        coreQuery.addParam("rmCode", rmCode);
-        coreQuery.addParam("clientid", clientid);
-        List creditFinMaster = ops.fetch(coreQuery);
-        for (Object creObject : creditFinMaster) {
-            ClientFinancial clientFinancial = (ClientFinancial) creObject;
-            ClientFinacialModel clientFinacialModel = new ClientFinacialModel();
-            clientFinacialModel.setClientFinancialid(clientFinancial.getClientFinancialid());
-            clientFinacialModel.setCashflowcycle(clientFinancial.getCashflowcycle());
-            clientFinacialModel.setGearingratio(clientFinancial.getGearingratio());
-            clientFinacialModel.setOperatingprofit(clientFinancial.getOperatingprofit());
-            clientFinacialModel.setTotaldebt(clientFinancial.getTotaldebt());
-            clientFinacialModel.setTotaldeposits(clientFinancial.getTotaldeposits() );
-            clientFinacialModel.setTurnover(clientFinancial.getTurnover()); 
-            clientFinacialModel.setClientMaster(cf.getClientMaster(rmCode).getClientname()); 
-            
-              creditFinancialList.add(clientFinacialModel);
-        }
-
-        return creditFinancialList;
-    }
+        
 }

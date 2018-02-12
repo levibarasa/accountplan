@@ -14,12 +14,12 @@ import java.math.BigDecimal;
  */
 public class DealProgressModel {
     private int dealinprogressid;
-     private String dealpropabilitylookupid;
-     private String productlookupid;
-     private String dealstagelookupmasterid;
-     private String completionmonthlookupid;
-     private String dealstatuslookupmasterid;
-     private String dealtypelookupmasterid;
+     private int dealpropabilitylookupid;
+     private int productlookupid;
+     private int dealstagelookupmasterid;
+     private int completionmonthlookupid;
+     private int dealstatuslookupmasterid;
+     private int dealtypelookupmasterid;
      private String clientMaster;
      private String currentlyused;
      private BigDecimal imdealamount;
@@ -31,7 +31,7 @@ public class DealProgressModel {
     public DealProgressModel() {
     }
 
-    public DealProgressModel(int dealinprogressid, String dealpropabilitylookupid, String productlookupid, String dealstagelookupmasterid, String completionmonthlookupid, String dealstatuslookupmasterid, String dealtypelookupmasterid, String clientMaster, String currentlyused, BigDecimal imdealamount, BigDecimal allbankswalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, String comments) {
+    public DealProgressModel(int dealinprogressid, int dealpropabilitylookupid, int productlookupid, int dealstagelookupmasterid, int completionmonthlookupid, int dealstatuslookupmasterid, int dealtypelookupmasterid, String clientMaster, String currentlyused, BigDecimal imdealamount, BigDecimal allbankswalletsize, BigDecimal improjectedwalletshare, BigDecimal imexpectedrevenue, String comments) {
         this.dealinprogressid = dealinprogressid;
         this.dealpropabilitylookupid = dealpropabilitylookupid;
         this.productlookupid = productlookupid;
@@ -56,51 +56,51 @@ public class DealProgressModel {
         this.dealinprogressid = dealinprogressid;
     }
 
-    public String getDealpropabilitylookupid() {
+    public int getDealpropabilitylookupid() {
         return dealpropabilitylookupid;
     }
 
-    public void setDealpropabilitylookupid(String dealpropabilitylookupid) {
+    public void setDealpropabilitylookupid(int dealpropabilitylookupid) {
         this.dealpropabilitylookupid = dealpropabilitylookupid;
     }
 
-    public String getProductlookupid() {
+    public int getProductlookupid() {
         return productlookupid;
     }
 
-    public void setProductlookupid(String productlookupid) {
+    public void setProductlookupid(int productlookupid) {
         this.productlookupid = productlookupid;
     }
 
-    public String getDealstagelookupmasterid() {
+    public int getDealstagelookupmasterid() {
         return dealstagelookupmasterid;
     }
 
-    public void setDealstagelookupmasterid(String dealstagelookupmasterid) {
+    public void setDealstagelookupmasterid(int dealstagelookupmasterid) {
         this.dealstagelookupmasterid = dealstagelookupmasterid;
     }
 
-    public String getCompletionmonthlookupid() {
+    public int getCompletionmonthlookupid() {
         return completionmonthlookupid;
     }
 
-    public void setCompletionmonthlookupid(String completionmonthlookupid) {
+    public void setCompletionmonthlookupid(int completionmonthlookupid) {
         this.completionmonthlookupid = completionmonthlookupid;
     }
 
-    public String getDealstatuslookupmasterid() {
+    public int getDealstatuslookupmasterid() {
         return dealstatuslookupmasterid;
     }
 
-    public void setDealstatuslookupmasterid(String dealstatuslookupmasterid) {
+    public void setDealstatuslookupmasterid(int dealstatuslookupmasterid) {
         this.dealstatuslookupmasterid = dealstatuslookupmasterid;
     }
 
-    public String getDealtypelookupmasterid() {
+    public int getDealtypelookupmasterid() {
         return dealtypelookupmasterid;
     }
 
-    public void setDealtypelookupmasterid(String dealtypelookupmasterid) {
+    public void setDealtypelookupmasterid(int dealtypelookupmasterid) {
         this.dealtypelookupmasterid = dealtypelookupmasterid;
     }
 
@@ -159,5 +159,6 @@ public class DealProgressModel {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
      
 }

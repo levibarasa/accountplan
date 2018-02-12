@@ -210,7 +210,7 @@
                                    clientname = company.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -237,7 +237,7 @@
                                   industry = company.getLookupList("INDUSTRY"); 
                                                         %>
 							<label>Industry</label>
-				 <select name="indrustrya" id="indrustrya" class="form-control" required>
+				 <select name="indrustrye" id="indrustrye" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : industry){ 
                                 %> 

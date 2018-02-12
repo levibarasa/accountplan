@@ -121,6 +121,7 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 						</div>
@@ -164,7 +165,7 @@
                                   clientname = sap.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -176,19 +177,19 @@
 						</div>
 						<div class="form-group">
 							<label>Specification</label>
-							<input type="text" name="specificationa" id="specificationa" class="form-control" required>
+							<input type="text" name="specificatione" id="specificatione" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Contact Person</label>
-							<input type="text" name="contactpersona" id="contactpersona" class="form-control" required>
+							<input type="text" name="contactpersone" id="contactpersone" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Person Responsible For Action</label>
-							<input type="text"  name="presponsibleforactiona" id="presponsibleforactiona"  class="form-control" required>
+							<input type="text"  name="presponsibleforactione" id="presponsibleforactione"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
 							<label>DateLine</label>
-							<input type="text"  name="dateLinea" id="dateLinea"  class="form-control" required>
+							<input type="text"  name="dateLinee" id="dateLinee"  class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">

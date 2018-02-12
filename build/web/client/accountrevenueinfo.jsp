@@ -7,6 +7,25 @@
 <html>
 <head>
     <script type="text/javascript">
+        $(document).ready(function() {
+    $('#accountplantable').DataTable( {
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: function ( row ) {
+                        var data = row.data();
+                        return 'Details for '+data[0];
+                    }
+                } ),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                    tableClass: 'table'
+                } )
+            }
+        }
+    } );
+} );
+        </script>
+    <script type="text/javascript">
  
             var form = $('#addAccountRevenue');
             form.submit(function () {
@@ -39,14 +58,10 @@
 					</div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table id="accountplantable" class="table table-striped table-hover">
                 <thead>
-                    <tr>
-						<th>
-							<span class="custom-checkbox">
-								 
-							</span>
-						</th>
+                    <tr> 
+                        <th></th> 
                         <th>Client Name</th> 
                         <th>% Growth Revenue</th>
                         <th>Cur Yr FeeInc.Target(Ksh'M)</th> 
@@ -174,7 +189,7 @@
                                    clientname = ar.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel cl : clientname){ 
                                 %> 
@@ -242,15 +257,12 @@
 			</div>
 		</div>
 	</div>
-<div id="viewAll" class="modal fade">
+<div id="accountplan" class="modal fade">
         <div class="table-wrapper">
             
             <table class="table table-striped table-hover">
                 <thead>
-                    <tr>
-						<th>
-							 
-						</th>
+                    <tr> 
                         <th>Client Name</th>
                        <th>Cur Yr Rev.Target(Ksh'M)</th>
 			<th>Pr Yr Act.Revenue(Ksh'M)</th> -->
@@ -270,13 +282,7 @@
                          list = ar.getAccountRevenuenfo(user_code);
                         for(AccountRevenueModel accountrevenuemodel :list){
                         %>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
+                    <tr> 
                         <td><%=accountrevenuemodel.getClientMaster()%></td>
                  <td><%=accountrevenuemodel.getCurrentyearrevenuetarget()%></td>
 			<td><%=accountrevenuemodel.getPrioryearactualrevenue()%></td>  

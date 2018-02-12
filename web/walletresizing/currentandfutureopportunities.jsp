@@ -78,7 +78,7 @@
                 </thead>
                 <tbody>
                     <%
-                       CurrentAndFutureOpportunities cfo = new CurrentAndFutureOpportunities(); 
+                       CurrentAndFutureOpportunityMaster cfo = new CurrentAndFutureOpportunityMaster(); 
                         ArrayList<CurrentAndFutureOpportunityModel> list = cfo.getCurrentAndFutureOpportunitiesInfo(user_code);
                         for(CurrentAndFutureOpportunityModel cfomodel :list){
                         %>
@@ -201,8 +201,8 @@
 							<input type="text"  name="imfeerateassetsa" id="imfeerateassetsa"  class="form-control" required>
 						</div>
                                      <div class="form-group">
-							<label>Estimated Total Liability($mm)</label>
-							<input type="text"  name="esttotliabilitya" id="esttotliabilitya"  class="form-control" required>
+							<label>Fee Income Estimated Total Liability($mm)</label>
+							<input type="text"  name="feeincomeesttotliabilitya" id="feeincomeesttotliabilitya"  class="form-control" required>
 						</div>
                                      <div class="form-group">
 							<label>Average I&M Fee Rate On Liability(%)</label>

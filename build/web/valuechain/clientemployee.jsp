@@ -198,7 +198,7 @@
                                   clientname = cl.getClientMasterList(user_code); 
                                                         %>
 							<label>Client Name</label>
-				 <select name="clientnamea" id="clientnamea" class="form-control" required>
+				 <select name="clientnamee" id="clientnamee" class="form-control" required>
                                       <%
                                     for(ClientModel client : clientname){ 
                                 %> 
@@ -229,7 +229,7 @@
                               segment = cl.getLookupList("SEGMENT"); 
                                                         %>
 							<label>Segment</label>
-				 <select name="segmenta" id="segmenta" class="form-control" required>
+				 <select name="segmente" id="segmente" class="form-control" required>
                                       <%
                                     for(LookupmasterModel lst : segment){ 
                                 %> 

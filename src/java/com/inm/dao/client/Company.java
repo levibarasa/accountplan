@@ -23,20 +23,10 @@ public class Company {
 
     public Company() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
-    }
-//    public static void main(String[] args) {
-//        Company com = new Company();   
-//        CompanyModel companyModel = new CompanyModel(); 
-//        companyModel.setCompanyid(0);
-//        companyModel.setGroupname("The Standard Group LTD");
-//        companyModel.setCompanyAddress("po box 1244");
-//        companyModel.setNoofsubsidiaries(Integer.parseInt("1"));
-//        companyModel.setClientMaster("6");
-//        companyModel.setLookupmasterByAffiliatelookupmasterid("1");
-//        companyModel.setLookupmasterByIndustrylookupmasterid("133");
-//        companyModel.setLookupmasterBySegmentlookupmasterid("87");
-//       com.createCompany(companyModel);  
-//    }
+    } 
+     public  boolean deleteCompany(CompanyModel companyModel ) {
+     return ops.delete(companyModel);
+ }
      public  void createCompany(CompanyModel companyModel ) {
          CompanyMaster companyMaster = new CompanyMaster(); 
          Company c = new Company(); 
@@ -80,7 +70,7 @@ public class Company {
             CompanyMaster comMaster = (CompanyMaster) companyObject;
             CompanyModel companyModel = new CompanyModel();
             companyModel.setCompanyid(comMaster.getCompanyid());
-            companyModel.setClientMaster(company.getClientMaster(rmCode).getClientname()); 
+            companyModel.setClientMaster(company.getClientMaster(comMaster.getClientMaster().getClientid()).getClientname()); 
             companyModel.setCompanyAddress(comMaster.getCompanyAddress());
             companyModel.setGroupname(comMaster.getGroupname());
             companyModel.setNoofsubsidiaries(comMaster.getNoofsubsidiaries());
@@ -145,9 +135,9 @@ public class Company {
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
@@ -183,18 +173,19 @@ public class Company {
         String sql = "select IndustryDescription from [dbo].[IndustryMaster]";
         return AdminDb.execArrayLists(sql, 0, "", 1);
     }
-     public ArrayList<CompanyModel> getCompanyInfoByClientId(String rmCode, String clientId ) {
+     
+     public ArrayList<CompanyModel> getCompanyInfoByClientId(String rmCode, String clientid ) {
         Company company = new Company();
         ArrayList<CompanyModel> companyList = new ArrayList<CompanyModel>();
         CoreQuery coreQuery = new CoreQuery("from CompanyMaster where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
         coreQuery.addParam("rmCode", rmCode);
-        coreQuery.addParam("clientId", clientId);
+        coreQuery.addParam("clientid", clientid);
         List companyMaster = ops.fetch(coreQuery);
         for (Object companyObject : companyMaster) {
             CompanyMaster comMaster = (CompanyMaster) companyObject;
             CompanyModel companyModel = new CompanyModel();
             companyModel.setCompanyid(comMaster.getCompanyid());
-            companyModel.setClientMaster(company.getClientMaster(rmCode).getClientname()); 
+            companyModel.setClientMaster(company.getClientMaster(comMaster.getClientMaster().getClientid()).getClientname()); 
             companyModel.setCompanyAddress(comMaster.getCompanyAddress());
             companyModel.setGroupname(comMaster.getGroupname());
             companyModel.setNoofsubsidiaries(comMaster.getNoofsubsidiaries());

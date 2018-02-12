@@ -22,6 +22,9 @@ public class CompetitionMaster {
     public CompetitionMaster() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
+    public  boolean deleteCompetitionMaster(CompetitionModel competitionModel ) {
+     return ops.delete(competitionModel);
+ }
     public  void createCompetition(CompetitionModel competitionModel ) {
          Competition competition = new Competition(); 
          CompetitionMaster compe = new CompetitionMaster();  
@@ -60,7 +63,27 @@ public class CompetitionMaster {
         for (Object compeObject : compeList) {
             Competition  competition = (Competition) compeObject;
             CompetitionModel competitionModel = new CompetitionModel(); 
-            competitionModel.setClientMaster(compe.getClientMaster(rmCode).getClientname());  
+            competitionModel.setClientMaster(compe.getClientMaster(competition.getClientMaster().getClientid()).getClientname());  
+            competitionModel.setBank(competition.getBank());
+            competitionModel.setCompetitionid(competition.getCompetitionid());
+            competitionModel.setEstimatedwalletshare(competition.getEstimatedwalletshare());
+            competitionModel.setStrengths(competition.getStrengths());
+            competitionModel.setWeaknesses(competition.getWeaknesses());
+              competitionList.add(competitionModel);
+        }
+        return competitionList;
+      }
+   public  ArrayList<CompetitionModel> getCompetitionInfo(String rmCode,String clientid) { 
+       ArrayList<CompetitionModel>  competitionList = new ArrayList<CompetitionModel> ();
+        CompetitionMaster compe = new CompetitionMaster();
+         CoreQuery coreQuery = new CoreQuery("from Competition where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List compeList = ops.fetch(coreQuery);
+        for (Object compeObject : compeList) {
+            Competition  competition = (Competition) compeObject;
+            CompetitionModel competitionModel = new CompetitionModel(); 
+            competitionModel.setClientMaster(compe.getClientMaster(competition.getClientMaster().getClientid()).getClientname());  
             competitionModel.setBank(competition.getBank());
             competitionModel.setCompetitionid(competition.getCompetitionid());
             competitionModel.setEstimatedwalletshare(competition.getEstimatedwalletshare());
@@ -117,9 +140,9 @@ public class CompetitionMaster {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

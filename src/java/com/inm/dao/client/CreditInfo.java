@@ -22,7 +22,9 @@ public class CreditInfo {
     public CreditInfo() {
         ops = OperationsDalImpl.getInstance(Databases.ACCPLAN);
     }
-     
+      public  boolean deleteCreditInfo(CreditInfoModel creditInfoModel ) {
+     return ops.delete(creditInfoModel);
+ }
     public  void createCreditInformation(CreditInfoModel creditInfoModel ) {
          CreditInformation creditInformation = new CreditInformation(); 
          CreditInfo cr = new CreditInfo();  
@@ -51,6 +53,28 @@ public class CreditInfo {
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }
+        public ArrayList<CreditInfoModel> getCreditInfoByClientId(String rmCode,String clientid) {
+         ArrayList<CreditInfoModel> creditInfoList = new ArrayList<CreditInfoModel>();
+       CreditInfo cr = new CreditInfo();
+         CoreQuery coreQuery = new CoreQuery("from CreditInformation where clientMaster.rmCodelistByRmCode.rmCode =:rmCode and clientMaster.clientid =:clientid", true);
+        coreQuery.addParam("rmCode", rmCode);
+        coreQuery.addParam("clientid", clientid);
+        List companyMaster = ops.fetch(coreQuery);
+        for (Object creObject : companyMaster) {
+            CreditInformation creMaster = (CreditInformation) creObject;
+            CreditInfoModel creditInfoModel = new CreditInfoModel();
+            creditInfoModel.setCreditid(creMaster.getCreditid());
+            creditInfoModel.setApprovedlines(creMaster.getApprovedlines());
+            creditInfoModel.setRatingagency(creMaster.getRatingagency());
+            creditInfoModel.setRiskrating(creMaster.getRatingagency());
+            creditInfoModel.setClientMaster(cr.getClientMaster(creMaster.getClientMaster().getClientid()).getClientname()); 
+            creditInfoModel.setOutstandingamount(creMaster.getOutstandingamount());
+            
+              creditInfoList.add(creditInfoModel);
+        }
+
+        return creditInfoList;
+    }
     public ArrayList<CreditInfoModel> getCreditInfo(String rmCode) {
          ArrayList<CreditInfoModel> creditInfoList = new ArrayList<CreditInfoModel>();
        CreditInfo cr = new CreditInfo();
@@ -64,7 +88,7 @@ public class CreditInfo {
             creditInfoModel.setApprovedlines(creMaster.getApprovedlines());
             creditInfoModel.setRatingagency(creMaster.getRatingagency());
             creditInfoModel.setRiskrating(creMaster.getRatingagency());
-            creditInfoModel.setClientMaster(cr.getClientMaster(rmCode).getClientname()); 
+            creditInfoModel.setClientMaster(cr.getClientMaster(creMaster.getClientMaster().getClientid()).getClientname()); 
             creditInfoModel.setOutstandingamount(creMaster.getOutstandingamount());
             
               creditInfoList.add(creditInfoModel);
@@ -119,9 +143,9 @@ public class CreditInfo {
             }
          return clientModelList;
      }
-     public ClientMaster getClientMaster(String rmCode) {
-        CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
-        coreQuery.addParam("rmCode", rmCode); 
+     public ClientMaster getClientMaster(String clientid) {
+        CoreQuery coreQuery = new CoreQuery("from ClientMaster where clientid =:clientid", true);
+        coreQuery.addParam("clientid", clientid); 
         List clientMaster = ops.fetch(coreQuery);
         return (ClientMaster) clientMaster.get(0);
     }

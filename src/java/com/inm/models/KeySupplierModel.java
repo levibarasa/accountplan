@@ -12,7 +12,7 @@ package com.inm.models;
  */
 public class KeySupplierModel {
      private int ksid;
-     private String lookupmaster;
+     private int lookupmaster;
      private String clientMaster;
      private String ksname;
      private String ksContactperson;
@@ -25,7 +25,7 @@ public class KeySupplierModel {
     public KeySupplierModel() {
     }
 
-    public KeySupplierModel(int ksid, String lookupmaster, String clientMaster, String ksname, String ksContactperson, String ksPhonenumber, String ksEmail, String ksLocation, String volofbusiness, String bankedbyim, String comments) {
+    public KeySupplierModel(int ksid, int lookupmaster, String clientMaster, String ksname, String ksContactperson, String ksPhonenumber, String ksEmail, String ksLocation, String volofbusiness, String bankedbyim, String comments) {
         this.ksid = ksid;
         this.lookupmaster = lookupmaster;
         this.clientMaster = clientMaster;
@@ -47,11 +47,11 @@ public class KeySupplierModel {
         this.ksid = ksid;
     }
 
-    public String getLookupmaster() {
+    public int getLookupmaster() {
         return lookupmaster;
     }
 
-    public void setLookupmaster(String lookupmaster) {
+    public void setLookupmaster(int lookupmaster) {
         this.lookupmaster = lookupmaster;
     }
 
