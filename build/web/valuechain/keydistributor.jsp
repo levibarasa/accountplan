@@ -51,7 +51,7 @@
                         <th>ContactPerson</th>
                         <th>Phone#</th>
                         <th>Email</th> 
-                        <th>VolOfBusiness</th>
+                        <th>Annual Vol Of Business</th>
                         <th>BankedByI&M</th>  
                         <th>Actions</th>
                     </tr>
@@ -78,8 +78,8 @@
                         <td><%=keyDistributorModel.getVolofbusnskdandclient()%> </td>
                         <td><%=keyDistributorModel.getBankedbyim()%></td>  
                         <td>
-                            <a href="#editKeyDistributorModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteKeyDistributorModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                         </tr>
                         <%
@@ -148,7 +148,7 @@
                             </div>
                             <div class="form-group">
                                                     <%  
-                                  ArrayList<LookupmasterModel> segment = kd.getLookupList("SEGMENT"); 
+                                  ArrayList<LookupmasterModel> segment = kd.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmenta" id="segmenta" class="form-control" required>
@@ -162,7 +162,7 @@
                                      </select>
 						</div>
                                <div class="form-group">
-                                    <label>Volume Of Business</label>
+                                    <label>Annual Volume Of Business</label>
                                     <input type="text" name="volofbusinessa" id="volofbusinessa"  class="form-control" required>
                             </div> 
                                       <div class="form-group"> 
@@ -249,7 +249,7 @@
                             </div>
                             <div class="form-group">
                                                     <%  
-                                   segment = kd.getLookupList("SEGMENT"); 
+                                   segment = kd.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmente" id="segmente" class="form-control" required>
@@ -263,7 +263,7 @@
                                      </select>
 						</div>
                                <div class="form-group">
-                                    <label>Volume Of Business</label>
+                                    <label>Annual Volume Of Business</label>
                                     <input type="text" name="volofbusinessa" id="volofbusinessa"  class="form-control" required>
                             </div> 
                                       <div class="form-group"> 

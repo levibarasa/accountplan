@@ -75,8 +75,8 @@
                         <td><%=keySupplierModel.getVolofbusiness()%> </td>
                         <td><%=keySupplierModel.getBankedbyim()%></td>  
                         <td>
-                            <a href="#editKeySupplierInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteKeySupplierInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     
@@ -145,7 +145,7 @@
                                      
                                <div class="form-group">
                                                     <%  
-                                ArrayList<LookupmasterModel>   segment = ks.getLookupList("SEGMENT"); 
+                                ArrayList<LookupmasterModel>   segment = ks.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmenta" id="segmenta" class="form-control" required>
@@ -230,7 +230,7 @@
                                      
                                <div class="form-group">
                                                     <%  
-                                   segment = ks.getLookupList("SEGMENT"); 
+                                   segment = ks.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmente" id="segmente" class="form-control" required>

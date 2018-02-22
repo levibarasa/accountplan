@@ -4,7 +4,44 @@
 <%@ include file="../include/header.jsp" %>
 <html>
     <head>
-        
+         <script type="text/javascript">
+ 
+            var form = $('#addShareholder');
+            form.submit(function () {
+
+            $.ajax({
+            type: "POST",
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddShareholder',
+            data: form.serialize(),
+            success: function (data) {
+            var result=data;
+           // $('#result').attr("value",result);
+           alert(result);
+            }
+            });
+
+            return false;
+            });
+</script> 
+        <script type="text/javascript">
+ 
+            var form = $('#addDirector');
+            form.submit(function () {
+
+            $.ajax({
+            type: "POST",
+            url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddDirector',
+            data: form.serialize(),
+            success: function (data) {
+            var result=data;
+           // $('#result').attr("value",result);
+           alert(result);
+            }
+            });
+
+            return false;
+            });
+</script> 
            <script type="text/javascript">
  
             var form = $('#addCompany');
@@ -24,7 +61,19 @@
             return false;
             });
 </script> 
-        
+        <script type="text/javascript">  
+      function fetchOldRecord(that){	 
+            $("#companyid").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().text());
+         $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().text());
+         $("#companyaddresse").val($(that).parent().prev().prev().prev().prev().prev().text());
+         $("#grpnamee").val($(that).parent().prev().prev().prev().prev().text());
+        $("#hqcountrye").val($(that).parent().prev().prev().prev().text());
+          $("#indrustrye").val($(that).parent().prev().prev().text());
+         $("#noofsubsidiarye").val($(that).parent().prev().text()); 
+       	} 
+  //noofsubsidiarye,indrustrye,hqcountrye,grpnamee,companyaddresse,clientnamee,companyid     
+   $('#editCompanyModal').modal('show'); 
+       </script>
     </head>
 <div class="container">
         <div class="table-wrapper">
@@ -34,20 +83,18 @@
 						<h2>Manage <b>Company Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCompanyModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Company</span></a>
-						<a href="#deleteCompanyModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-					</div>
+                                            <a href="#addCompanyModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Company</span></a>
+						<a href="#addShareholderModal" class="btn btn-primary" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Shareholder</span></a>
+                                                <a href="#addDirectorModal" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Director</span></a>
+                                            </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
+                        <th>
+                        #
+                        </th>
                         <th>Client Name</th>
                         <th>Company Address</th>
 			<th>Group Name</th>
@@ -65,12 +112,7 @@
                         for(CompanyModel companyModel :list){
                         %>
                     <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
+                        <td><%=companyModel.getCompanyid()%> </td>
                         <td><%=companyModel.getClientMaster()%></td>
                         <td><%=companyModel.getCompanyAddress()%></td>
                         <td><%=companyModel.getGroupname()%></td>
@@ -79,8 +121,8 @@
                         <td><%=companyModel.getLookupmasterBySegmentlookupmasterid()%></td>
                         <td><%=companyModel.getNoofsubsidiaries()%></td>
                         <td>
-                            <a href="#editCompanyModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCompanyModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                           <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editCompanyModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     
@@ -184,9 +226,99 @@
                                      <div class="form-group">
 							<label>Number Of Subsidiaries</label>
 							<input  name="noofsubsidiarya" id="noofsubsidiarya"  type="text" class="form-control" required>
+						</div>  
+                                     
+					</div>
+                                      <div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+        <!-- Add Shareholder Modal HTML -->                             
+    <div id="addShareholderModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form  name="addShareholder"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddShareholder"  id="addShareholder">
+					<div class="modal-header">						
+						<h4 class="modal-title">Add Shareholder Information</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+                                        <input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 	
+					<div class="modal-body">
+                                            <div class="form-group">
+							<label>Company Name</label>
+                                                        <%   
+                                ArrayList<CompanyModel> companyList = company.getCompanyMasterList(user_code); 
+                                                        %>
+							 
+                                                        <select name="companya" id="companya" class="form-control" required>
+                                      <%
+                                    for(CompanyModel lst : companyList){ 
+                                %> 
+                                <option value ="<%=lst.getCompanyid()%>" > <%=lst.getGroupname()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>		 
+                                     <div class="form-group">
+							<label>ShareHolder Name</label>
+							<input  name="shareholdera" id="shareholdera"  type="text" class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label> Share holding(%)</label>
+							<input  name="shareholdinga" id="shareholdinga"  type="text" class="form-control" required>
 						</div>
                                      
 					</div>
+                                      <div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+     <!-- Add Director Modal HTML -->                             
+    <div id="addDirectorModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form  name="addDirector"  method="POST"  action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=doAddDirector"  id="addDirector">
+					<div class="modal-header">						
+						<h4 class="modal-title">Add Director Information</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+                                        <input type="hidden" name="uname" id="uname" value="<%= user_code%>"> 	
+					<div class="modal-body">
+                                         <div class="form-group">
+							<label>Company Name</label>
+                                                        <%   
+                                  companyList = company.getCompanyMasterList(user_code); 
+                                                        %>
+							 
+                                                        <select name="companya" id="companya" class="form-control" required>
+                                      <%
+                                    for(CompanyModel lst : companyList){ 
+                                %> 
+                                <option value ="<%=lst.getCompanyid()%>" > <%=lst.getGroupname()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
+						</div>	   	 
+                                     <div class="form-group">
+							<label>Director Name</label>
+							<input  name="directornamea" id="directornamea"  type="text" class="form-control" required>
+						</div>
+                                     <div class="form-group">
+							<label>Director Position</label>
+							<input  name="directorposta" id="directorposta"  type="text" class="form-control" required>
+						</div>
+                                     
+					</div> 
                                       <div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
@@ -206,6 +338,7 @@
 					</div>
 					<div class="modal-body">
                                             	<div class="form-group">
+                                                    <input  name="companyid" id="companyid"   type="text" class="form-control" required>
                                                     <%
                                    clientname = company.getClientMasterList(user_code); 
                                                         %>
@@ -222,19 +355,29 @@
 						</div>
 						<div class="form-group">
 							<label>Company Address</label>
-                                                        <textarea  name="companyaddressa" id="companyaddressa" class="form-control" required></textarea>
+                                                        <textarea  name="companyaddresse" id="companyaddresse" class="form-control" required></textarea>
 							 </div>
+    
 						<div class="form-group">
 							<label>Group Name</label>
-							<input  name="grpnamea" id="grpnamea"  type="text" class="form-control" required>
+							<input  name="grpnamee" id="grpnamee"  type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>HQ Country</label>
-							<input type="text" name="hqcountrya" id="hqcountrya"  class="form-control" required>
+							<label>HQ Country</label> 
+							 
+                                                        <select name="hqcountrye" id="hqcountrye" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : affiliate){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
+                                %>   
+                                     </select>
 						</div>	
                                      <div class="form-group">
                                                     <%  
-                                  industry = company.getLookupList("INDUSTRY"); 
+                                   industry = company.getLookupList("INDUSTRY"); 
                                                         %>
 							<label>Industry</label>
 				 <select name="indrustrye" id="indrustrye" class="form-control" required>
@@ -243,14 +386,29 @@
                                 %> 
                                 <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
                                 <%
-                                    }
+                                    } 
+                                %>   
+                                     </select>
+						</div>
+                                     <div class="form-group">
+                                                    <%  
+                                   segment = company.getLookupList("SEGMENT"); 
+                                                        %>
+							<label>Segment</label>
+				 <select name="segmente" id="segmente" class="form-control" required>
+                                      <%
+                                    for(LookupmasterModel lst : segment){ 
+                                %> 
+                                <option value ="<%=lst.getLookupmasterid()%>" > <%=lst.getValue()%></option>  
+                                <%
+                                    } 
                                 %>   
                                      </select>
 						</div>
                                      <div class="form-group">
 							<label>Number Of Subsidiaries</label>
-							<input  name="noofsubsidiarya" id="noofsubsidiarya"  type="text" class="form-control" required>
-						</div>
+							<input  name="noofsubsidiarye" id="noofsubsidiarye"  type="text" class="form-control" required>
+						</div>  
                                      
 					</div>
 					<div class="modal-footer">

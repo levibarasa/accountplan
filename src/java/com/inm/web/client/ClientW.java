@@ -48,6 +48,8 @@ public class ClientW {
             HttpSession session = request.getSession(false); 
             String contextPath = request.getContextPath();
             Client cl = new Client();
+//uname,clientnamea,rmCodea,altrmCodea,affiliatea,currentdatea,tradespa,
+//cashmpa,ecommpa,credmana,treaspa,ibpa,afpa,cardspa,bancasspa 
              String clientname = request.getParameter("clientnamea");
         String rmCode = request.getParameter("rmCodea");
         String altrmCode = request.getParameter("altrmCodea");
@@ -55,19 +57,30 @@ public class ClientW {
         String currentdate = request.getParameter("currentdatea");
         String tradesp = request.getParameter("tradespa");
         String cashmp = request.getParameter("cashmpa");
-        String ebankp = request.getParameter("ebankpa");
-        String riskmp = request.getParameter("riskmpa");   
+        String ecommpa = request.getParameter("ecommpa");
+        String credmana = request.getParameter("credmana");
+        String treaspa = request.getParameter("treaspa");
+        String ibpa = request.getParameter("ibpa");
+        String afpa = request.getParameter("afpa");
+        String cardspa = request.getParameter("cardspa");
+        String bancasspa = request.getParameter("bancasspa");
         String uname = request.getParameter("uname");
-            System.out.println(clientname+" "+rmCode+" "+altrmCode+" "+affiliate+" "+tradesp+" "+cashmp+" "+ebankp+" "+riskmp);
+            System.out.println(clientname+" "+rmCode+" "+altrmCode+" "+affiliate+" "+tradesp+" "+cashmp+" "+ecommpa+" "+credmana);
         ClientModel clientModel = new ClientModel();
         clientModel.setAffiliate(affiliate);
         clientModel.setAlternativeRmCode(altrmCode);
         clientModel.setCashmanagementpartner(cashmp);
         clientModel.setClientname(clientname); 
         clientModel.setCurrentDate(new Date());
-        clientModel.setEBankingpartner(ebankp);
-        clientModel.setRmCode(rmCode);
-        clientModel.setRiskmanagementpartner(riskmp);
+        clientModel.setRmCode(rmCode); 
+        clientModel.setCashmanagementpartner(cashmp); 
+        clientModel.setCreditmanager(credmana);
+        clientModel.setTreasurypartner(treaspa);
+        clientModel.setInternetbankingpartner(ibpa); 
+        clientModel.setAssetfinancepartner(afpa);
+        clientModel.setCardspartner(cardspa);
+        clientModel.setECommercepartner(ecommpa);
+        clientModel.setBancassurancepartner(bancasspa);
         clientModel.setTradeserviceprovider(tradesp);
         clientModel.setClientid("0");
         String user = (String) session.getAttribute("uname");
@@ -88,6 +101,7 @@ public class ClientW {
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
         Company co = new Company();
+//uname,clientnamea,companyaddressa,grpnamea,hqcountrya,indrustrya,segmenta,noofsubsidiarya
          String contextPath = request.getContextPath();
         String noofsubsidiarya = request.getParameter("noofsubsidiarya");
         String grpnamea = request.getParameter("grpnamea");
@@ -123,19 +137,22 @@ public class ClientW {
             throws ServletException, IOException { 
         HttpSession session = request.getSession(false);
          CreditInfo crInfo = new CreditInfo();
+         //riskratinga,alloutstandingamta,allapprovedlinesa,imoutstandingamta,imapprovedlinesa,clientnamea
         String contextPath = request.getContextPath(); 
-        String ratingagencya = request.getParameter("ratingagencya");
+        String imapprovedlinesa = request.getParameter("imapprovedlinesa");
+        String imoutstandingamta = request.getParameter("imoutstandingamta");
         String riskratinga = request.getParameter("riskratinga");
-        String outstandingamta = request.getParameter("outstandingamta");
-        String approvedlinesa = request.getParameter("approvedlinesa");
+        String alloutstandingamta = request.getParameter("alloutstandingamta");
+        String allapprovedlinesa = request.getParameter("allapprovedlinesa");
         String clientnamea = request.getParameter("clientnamea");
-            System.out.println(clientnamea+" "+approvedlinesa+" "+outstandingamta+" "+riskratinga+" "+ratingagencya);
+            System.out.println(clientnamea+" "+imapprovedlinesa+" "+imoutstandingamta+" "+riskratinga+" "+allapprovedlinesa);
         CreditInfoModel creditInfoModel = new CreditInfoModel(); 
         creditInfoModel.setClientMaster(clientnamea); 
-        creditInfoModel.setApprovedlines(approvedlinesa);
+        creditInfoModel.setApprovedlinesallbanks(allapprovedlinesa);
+        creditInfoModel.setImapprovedlines(imapprovedlinesa); 
         creditInfoModel.setCreditid(n);
-        creditInfoModel.setOutstandingamount(new BigDecimal(outstandingamta));
-        creditInfoModel.setRatingagency(ratingagencya);
+        creditInfoModel.setImoutstandingamount(new BigDecimal(imoutstandingamta));
+        creditInfoModel.setOutstandingamountallbanks(new BigDecimal(alloutstandingamta));
         creditInfoModel.setRiskrating(riskratinga);
         String uname = (String) session.getAttribute("uname");
             System.out.println("username:"+uname);
@@ -615,7 +632,7 @@ public class ClientW {
         armodel.setAccountRevenueid(n);
         armodel.setClientMaster(clientnamea);
         armodel.setCurrentshareofwallet(new BigDecimal(curwalletshra));
-        armodel.setCurrentyearfeeincometarget(new BigDecimal(curyrfeetarga));
+        armodel.setCurrentyearnfitarget(new BigDecimal(curyrfeetarga));
         armodel.setCurrentyearrevenuetarget(new BigDecimal(curyrrevtarga));
         armodel.setPercentagegrowthfeeincome(new BigDecimal(curwalletshra));
         armodel.setPrioryearactualfeeincome(new BigDecimal(priyractfeea));
@@ -633,6 +650,131 @@ public class ClientW {
             response.sendRedirect(contextPath+"/client/accountrevenueinfo.jsp");
          } else {
             session.setAttribute("content_page", contextPath+"/client/accountrevenueinfo.jsp");
+        } 
+        }
+      public static void handleAddWalletSize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { 
+        HttpSession session = request.getSession(false);
+        WalletResizeMaster wrm = new WalletResizeMaster();
+        String contextPath = request.getContextPath();  
+        String interstratea = request.getParameter("interstratea");
+        String processfeeratea = request.getParameter("processfeeratea");
+        String tenora = request.getParameter("tenora");
+        String limita = request.getParameter("limita");
+        String avgutilamta = request.getParameter("avgutilamta");
+        String annualavgfloata = request.getParameter("annualavgfloata");
+        String imdealamounta = request.getParameter("imdealamounta");
+        String currencya = request.getParameter("currencya");
+        String producta = request.getParameter("producta");
+        String uname = request.getParameter("uname"); 
+        String clientnamea = request.getParameter("clientnamea");
+        System.out.println(clientnamea+" "+uname+" "+producta+" "+imdealamounta);
+        
+        WalletResizeModel wrModel = new WalletResizeModel(); 
+        wrModel.setAnnualAverageFloat(new BigDecimal(annualavgfloata));
+        wrModel.setAverageUtilizationAmount(new BigDecimal(avgutilamta));
+        wrModel.setClientMaster(clientnamea);
+        wrModel.setDealMount(new BigDecimal(imdealamounta));
+        wrModel.setFtpRate(BigDecimal.ZERO);
+        wrModel.setInterestRate(new BigDecimal(interstratea));
+        wrModel.setLimit(new BigDecimal(limita));
+        wrModel.setLookupmasterByCurrencyLookupid(Integer.parseInt(currencya));
+        wrModel.setLookupmasterByProduct(Integer.parseInt(producta));
+        wrModel.setMargin(BigDecimal.ZERO);
+        wrModel.setProcessingRate(new BigDecimal(processfeeratea));
+        wrModel.setTenor(new BigDecimal(tenora));
+        wrModel.setWalletResizeId(n);
+        uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          wrm.createWalletResize(wrModel);
+       session.setAttribute("content_page", contextPath+"/walletresizing/walletresize.jsp");
+            session.setAttribute("uname", uname); 
+            response.sendRedirect(contextPath+"/walletresizing/walletresize.jsp");
+         } else {
+            session.setAttribute("content_page", contextPath+"/walletresizing/walletresize.jsp");
+        } 
+        }
+      public static void handleEditWalletSize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { 
+        HttpSession session = request.getSession(false);
+        SignOffMaster som = new SignOffMaster();
+        String contextPath = request.getContextPath(); 
+        String headofcorporatesignoffa = request.getParameter("headofcorporatesignoffa");
+        String rmsignoffa = request.getParameter("rmsignoffa");
+        String uname = request.getParameter("uname"); 
+        String clientnamea = request.getParameter("clientnamea");
+        System.out.println(clientnamea+" "+uname+" "+rmsignoffa+" "+headofcorporatesignoffa);
+        SignOffModel somModel = new SignOffModel(); 
+        somModel.setClientMaster(clientnamea);
+        somModel.setSignoffid(n);
+        somModel.setHeadofcorporatesignoff(headofcorporatesignoffa);
+        somModel.setRmsignoff(rmsignoffa);
+        uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          som.createSignOff(somModel);
+       session.setAttribute("content_page", contextPath+"/walletresizing/walletresize.jsp");
+            session.setAttribute("uname", uname); 
+            response.sendRedirect(contextPath+"/walletresizing/walletresize.jsp");
+         } else {
+            session.setAttribute("content_page", contextPath+"/walletresizing/walletresize.jsp");
+        } 
+        }
+      public static void handleAddDirector(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { 
+        HttpSession session = request.getSession(false);
+        //uname,directornamea,directorposta
+        Company c = new Company();
+        String contextPath = request.getContextPath(); 
+        String directorposta = request.getParameter("directorposta");
+        String directornamea = request.getParameter("directornamea");
+        String companya = request.getParameter("companya");
+        String uname = request.getParameter("uname");  
+        System.out.println(uname+" "+directornamea+" "+directorposta);
+        
+        Director director = new Director();  
+        director.setDirectorId(n);
+        director.setDirectorName(directornamea);
+        director.setCompanyId(Integer.parseInt(companya));
+        director.setDirectorPosition(directorposta);
+        uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          c.createDirector(director);
+       session.setAttribute("content_page", contextPath+"/walletresizing/signoff.jsp");
+            session.setAttribute("uname", uname); 
+            response.sendRedirect(contextPath+"/walletresizing/signoff.jsp");
+         } else {
+            session.setAttribute("content_page", contextPath+"/walletresizing/signoff.jsp");
+        } 
+        }
+      public static void handleAddShareholder(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { 
+        HttpSession session = request.getSession(false);
+         Company c = new Company();
+        String contextPath = request.getContextPath();  
+        String shareholdera = request.getParameter("shareholdera");
+        String shareholdinga = request.getParameter("shareholdinga");
+        String companya = request.getParameter("companya");
+        String uname = request.getParameter("uname");  
+        System.out.println(uname+" "+shareholdera+" "+shareholdinga);
+        
+        Shareholder  shareholder  = new Shareholder(); 
+        shareholder.setSharedolderId(n);
+        shareholder.setCompanyId(Integer.parseInt(companya));
+        shareholder.setShareholderName(shareholdera);
+        shareholder.setShareholderPercent(new BigDecimal(shareholdinga));
+        uname = (String) session.getAttribute("uname");
+            System.out.println("username:"+uname);
+         if ( uname != null) {
+          c.createShareholder(shareholder);
+          
+       session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
+            session.setAttribute("uname", uname); 
+            response.sendRedirect(contextPath+"/client/companyinfo.jsp");
+         } else {
+            session.setAttribute("content_page", contextPath+"/client/companyinfo.jsp");
         } 
         }
 }

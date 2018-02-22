@@ -3,8 +3,7 @@
 <%@page import="java.util.ArrayList"%> 
 <%@page import="com.inm.dao.valuechain.*"%> 
 <%@page import="com.inm.dao.client.*"%> 
-<%@page import="com.inm.dao.walletresize.*"%>
-<%@ include file="../include/header.jsp" %>
+<%@page import="com.inm.dao.walletresize.*"%> 
 <% 
  String clientId = request.getParameter("clientnamea");
   String rmCode = request.getParameter("uname");
@@ -33,77 +32,248 @@
    ArrayList<CompetitionModel> cmInfo = cm.getCompetitionInfo(rmCode,clientId);
    ArrayList<DealProgressModel> dipInfo =dipm.getDealInProgressInfoByClientId(rmCode,clientId);
    ArrayList<QualitativeinformationModel> qInf = qInfo.getQualitativeinfoByClientId(rmCode,clientId);
-   ArrayList<SalesactionplanModel> sapInf =sap.getSaleActionPlanInfoByClientId(rmCode,clientId);
+   //ArrayList<SalesactionplanModel> sapInf =sap.getSaleActionPlanInfoByClientId(rmCode,clientId);
     %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style type="text/css">
+    
+body {
+    background-color: #dedede;
+}
 
-<html>
-<link rel="stylesheet" type="text/css" href="/Content/font-awesome/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
-<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
-<head>
-   <script type="text/javascript">
-    jQuery(function ($) {
-        $("#exportButton").click(function () {
-            // parse the HTML table element having an id=exportTable
-            var dataSource = shield.DataSource.create({
-                data: "#exportTable",
-                schema: {
-                    type: "table",
-                    fields: {
-                        Name: { type: String },
-                        Age: { type: Number },
-                        Email: { type: String }
-                    }
-                }
-            });
+.topbar {
+	background: #2A3F54;
+	border-color: #2A3F54;
+	border-radius: 0px;
+}
 
-            // when parsing is done, export the data to PDF
-            dataSource.read().then(function (data) {
-                var pdf = new shield.exp.PDFDocument({
-                    author: "LeviBarasa",
-                    created: new Date()
-                });
+.topbar .navbar-header a {
+	color: #ffffff;
+}
 
-                pdf.addPage("a4", "landscape");
+.wrapper {
+    padding-left: 0px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
-                pdf.table(
-                    50,
-                    50,
-                    data,
-                    [
-                        { field: "Name", title: "Person Name", width: 200 },
-                        { field: "Age", title: "Age", width: 50 },
-                        { field: "Email", title: "Email Address", width: 200 }
-                    ],
-                    {
-                        margins: {
-                            top: 10,
-                            left: 10
-                        }
-                    }
-                );
+.sidebar {
+    z-index: 1000;
+    position: fixed;
+    top: 50px;
+    left: -50px;
+    width: 50px;
+    height: 100%;
+    overflow-y: auto;
+    background: #2A3F54;
+	color: #ffffff;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
-                pdf.saveAs({
-                    fileName: "AccountPlanPDF"
-                });
-            });
-        });
-    });
-</script>
+.main {
+	width: 100%;
+    position: relative;
+    padding-bottom:20px;
+}
 
-<style>
-    #exportButton {
-        border-radius: 0;
+.wrapper.toggled {
+	padding-left: 50px;
+}
+
+.wrapper.toggled .sidebar {
+	left: 0;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 52px;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sidebar-nav li {
+    line-height: 40px;
+}
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #e8e8e8;
+    padding: 0;
+    text-align:center;
+}
+
+.sidebar-nav li a:hover, .sidebar-nav li.active a {
+    text-decoration: none;
+    color: #fff;
+    background: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav li span, .subbar li span {
+	display : none;
+}
+
+nav.subbar {
+	position: relative;
+	width: 100%;
+	border-radius: 0px;
+	background: #fff;
+	margin: 50px 0 -50px 0;
+	padding: 10px 0 0 0;
+	z-index: 2;
+}
+nav.subbar > ul.nav.nav-tabs {
+	padding: 0 5px;
+}
+
+nav.subbar > ul.nav.nav-tabs > li.active > a {
+    background: #dedede;
+    border-top: 1px solid #a6a6a6;
+    border-left: 1px solid #a6a6a6;
+    border-right: 1px solid #a6a6a6;
+    border-radius: 0px;
+}
+
+.content {
+    margin-top: 70px;
+    padding: 0 30px;
+}
+
+@media(min-width:768px){
+	.subbar li span {
+		display: inline;
+	}
+}
+
+@media(min-width:992px) {
+    .wrapper {
+    	padding-left: 50px;
     }
+
+    .sidebar {
+    	left: 0;
+    	width: 50px;
+	}
+
+	.wrapper.toggled {
+		padding-left: 200px;
+	}
+
+	.wrapper.toggled .sidebar, .wrapper.toggled .sidebar-nav {
+		width: 200px;
+	}
+	
+	.wrapper.toggled .sidebar-nav li a {
+		text-align: left;
+		padding: 0 0 0 10px;
+	}
+
+	.wrapper.toggled .sidebar-nav li span {
+		display: inline;
+	}
+
+}
+
+.navbar-btn {
+    background: none;
+    border: none;
+    height: 35px;
+    min-width: 35px;
+    color: #fff;
+}
+.navbar-text {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+@media (min-width: 768px) {
+  .navbar-text {
+    float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
 </style>
-</head>
-<div class="container">
-    <button id="exportButton" class="btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to PDF</button>
-     <table id="exportTable" class="table table-hover" style="font-size: 12px;background-color: white;">
-                 <tr>
-                <td>
-                    <table>
+<script type="text/javascript">
+    $(document).on("click",".sidebar-toggle",function(){
+    $(".wrapper").toggleClass("toggled");
+});
+    </script>
+<link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+
+    <nav class="navbar navbar-default navbar-fixed-top topbar">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+
+				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand"> 
+					<span class="hidden-xs">Go Back </span>
+				</a>
+
+				<p class="navbar-text">
+					<a href="#" class="sidebar-toggle">
+                        <i class="fa fa-bars"></i>
+                    </a>
+				</p>
+                                <h2>Account Plan</h2>
+			</div>
+
+			<div class="navbar-collapse collapse" id="navbar-collapse-main">
+
+				<ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <button class="navbar-btn">
+                            <i class="fa fa-bell"></i>
+                        </button>
+                    </li>
+                     	</ul>
+
+			</div>
+		</div>
+	</nav>
+	
+	<article class="wrapper">
+	    
+	    <aside class="sidebar">
+	        <ul class="sidebar-nav">
+			    <li class="active"><a href="#dashboard" data-toggle="tab"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+			    <li><a href="#configuration" data-toggle="tab"><i class="fa fa-cogs"></i> <span>Configuration</span></a></li>
+			    <li><a href="#users" data-toggle="tab"><i class="fa fa-users"></i> <span>Users</span></a></li>
+			    <li><a href="#mail" data-toggle="tab"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
+		    </ul>
+	    </aside>
+	    
+	    <section class="main">
+	        
+	        <section class="tab-content">
+	            
+	           <section class="tab-pane active fade in content" id="dashboard">
+	               
+	                
+	                         
+	                 <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Client Information
+	                           </div>
+	                           <div class="panel-body"> 
+                                       <table>
                          <%  
                              for(ClientModel clientModel :clientinf){
                                 %>
@@ -138,8 +308,8 @@
                              <td>
                                 <%=clientModel.getAffiliate()%> 
                              </td>
-                             <td>E-Banking Partner:</td> 
-                             <td><%=clientModel.getEBankingpartner()%>  </td>
+                             <td>Credit Manager:</td> 
+                             <td><%=clientModel.getCreditmanager()%>  </td>
                              
                         </tr>
                         <tr>
@@ -147,23 +317,26 @@
                              <td>
                                 <%=clientModel.getCurrentDate()%> 
                              </td>  
-                             <td>Risk Management Partner:</td> 
-                             <td><%=clientModel.getRiskmanagementpartner()%>  </td>
+                             <td>Treasury Partner:</td> 
+                             <td><%=clientModel.getTreasurypartner()%>  </td>
                         </tr>
                         
                           <%  
                              }
                                 %>  
                     </table>
-                </td>
-                 
-                <td> </td>
-                <td> </td>
-            </tr>
-            <tr style="vertical-align: baseline;">
-                <td style="vertical-align: baseline;">
-                    <label style="font-size: 14px;">Company Overview</label>
-                     <table>
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+	                   
+                            <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Company Information
+	                           </div>
+	                           <div class="panel-body"> 
+                                       <table>
                         <%   
                             System.out.println(cominf.get(0).getGroupname());
                              for(CompanyModel comModel : cominf){
@@ -186,10 +359,17 @@
                              }
                                 %>
                     </table>
-                </td>
-                <td style="vertical-align: baseline;"> 
-                    <label style="font-size: 14px;">Account Revenue Information</label>
-                    <table>
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+                             <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Account Revenue Information
+	                           </div>
+	                           <div class="panel-body"> 
+                                    <table>
                          <%    
                               for(AccountRevenueModel arModel : accrev){
                                 %>
@@ -207,7 +387,7 @@
                                 </tr>
                         <tr>
                                 <td>Current Year Fee Income Target(Ksh'M)</td>
-                                <td><%=arModel.getCurrentyearfeeincometarget()%></td>
+                                <td><%=arModel.getCurrentyearnfitarget()%></td>
                                 </tr>
                         <tr>
                                 <td>Prior Year Actual Fee Income(Ksh'M)</td>
@@ -232,38 +412,48 @@
                         <%  
                              }
                                 %>
-                    </table>
-                </td>
-                <td style="vertical-align: baseline;"> 
-                <label style="font-size: 14px;">Credit Information</label>
-                <table>
+                    </table   
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+                            <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Credit Information
+	                           </div>
+	                           <div class="panel-body"> 
+                                       <table>
                      <%  
                               for(CreditInfoModel credInfModel : crinf){
                                 %>
                                 <tr>
                                 <td>Approved Lines(Ksh'M)</td>
-                                <td><%=credInfModel.getApprovedlines()%></td>
+                                <td><%=credInfModel.getImapprovedlines()%></td>
                                 </tr>
                         <tr>
                                 <td>Outstanding Amount(Ksh'M)</td>
-                                <td><%=credInfModel.getOutstandingamount()%></td>
+                                <td><%=credInfModel.getImoutstandingamount()%></td>
                                 </tr>
                                 <tr>
                                 <td>Risk Rating</td>
                                 <td><%=credInfModel.getRiskrating()%></td>
-                                </tr>
-                                <tr>
-                                <td>Rating Agency</td>
-                                <td><%=credInfModel.getRatingagency()%></td>
-                                </tr>
+                                </tr> 
                                   <%  
                              }
                                 %>
                 </table>
-                </td>
-                <td style="vertical-align: baseline;"> 
-                <label style="font-size: 14px;">Client Financials</label>
-               <table>
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Client Financials
+	                           </div>
+	                           <div class="panel-body">
+	                               <table>
                      <%   
                          
                               for(ClientFinacialModel clfinModel : clfin){
@@ -296,12 +486,51 @@
                              }
                                 %>
                 </table> 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label style="font-size: 14px;">Key Suppliers</label>
-                    <table>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Key Distributors
+	                           </div>
+	                           <div class="panel-body"> 
+                                    <table>
+                        <tr>
+                            <td>KD and Clients</td>
+                            <td>Vol Of Business(Ksh'M)</td>
+                            <td>Banked By I&M</td>
+                            <td>Contact Person</td>
+                            <td>Comment</td>
+                        </tr>
+                        
+                            <%     
+                              for(KeySupplierModel ksModel : ksInfo){
+                                %>
+                                <tr>
+                            <td><%=ksModel.getKsname()%></td>
+                            <td><%=ksModel.getVolofbusiness()%></td>
+                            <td><%=ksModel.getBankedbyim()%></td>
+                            <td><%=ksModel.getKsContactperson()%></td>
+                            <td><%=ksModel.getComments()%></td>
+                        </tr>
+                        <%  
+                             }
+                                %>
+                    </table>   
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+	                    
+                 <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Key Suppliers
+	                           </div>
+	                           <div class="panel-body"> 
+                                       
+                                       <table>
                         <tr>
                             <td>Key Suppliers</td>
                             <td>Vol Of Business(Ksh'M)</td>
@@ -324,36 +553,16 @@
                              }
                                 %>
                     </table>
-                </td> 
-                <td>
-                    <label style="font-size: 14px;">Key Distributors</label>
-                    <table>
-                        <tr>
-                            <td>KD and Clients</td>
-                            <td>Vol Of Business(Ksh'M)</td>
-                            <td>Banked By I&M</td>
-                            <td>Contact Person</td>
-                            <td>Comment</td>
-                        </tr>
-                        
-                            <%     
-                              for(KeySupplierModel ksModel : ksInfo){
-                                %>
-                                <tr>
-                            <td><%=ksModel.getKsname()%></td>
-                            <td><%=ksModel.getVolofbusiness()%></td>
-                            <td><%=ksModel.getBankedbyim()%></td>
-                            <td><%=ksModel.getKsContactperson()%></td>
-                            <td><%=ksModel.getComments()%></td>
-                        </tr>
-                        <%  
-                             }
-                                %>
-                    </table>
-                </td>
-                <td>
-                    <label style="font-size: 14px;">Client Employees</label>
-                    <table>
+                                       </div>
+	                       </div>
+	                   </div>
+	                  <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Employees
+	                           </div>
+	                           <div class="panel-body"> 
+                                      <table>
                         <tr>
                             <td>#Employees</td>
                             <td>#Banked Employees(All Banks)</td>
@@ -375,13 +584,18 @@
                         <%  
                              }
                                 %>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                <label style="font-size: 14px;">Qualitative Information</label>     
-                <table>
+                    </table> 
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+	               <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Qualitative Information
+	                           </div>
+	                           <div class="panel-body"> 
+                                      <table>
                     <%  
                               for(QualitativeinformationModel qiModel : qInf){
                                 %>
@@ -413,13 +627,18 @@
                     <%  
                              }
                                 %>
-                </table>    
-                </td>
-                </tr>
-            <tr>
-                <td>
-               <label style="font-size: 14px;">Competition</label>     
-                    <table>
+                </table> 
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+                <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Competition
+	                           </div>
+	                           <div class="panel-body"> 
+                                      <table>
                         <tr>
                             <td>Bank</td>
                             <td>Estimated Wallet Share(%)</td>
@@ -439,13 +658,18 @@
                         <%  
                              }
                                 %>
-                    </table>
-                </td>
-            </tr>
-             <tr>
-                <td>
-               <label style="font-size: 14px;">Current and Future Opportunities</label>     
-                    <table>
+                    </table> 
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+                <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Current And Future Opportunities
+	                           </div>
+	                           <div class="panel-body"> 
+                                       <table>
                         <tr>
                             <td>Product</td>
                             <td>Currently used</td>
@@ -484,12 +708,18 @@
                              }
                                 %>
                     </table>
-                </td>
-            </tr>
-             <tr>
-                <td>
-               <label style="font-size: 14px;">Client Coverage Profile and Meeting History</label>     
-                    <table>
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+                <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Client Coverage profile and meeting History
+	                           </div>
+	                           <div class="panel-body"> 
+                                       
+                                  <table>
                         <tr>
                             <td>Name</td>
                             <td>Role</td>
@@ -517,19 +747,38 @@
                         <%  
                              }
                                 %>
-                    </table>
-                </td>
-            </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-<%@ include file="../include/footer.jsp" %>
+                    </table>     
+                                       </div>
+	                       </div>
+	                   </div>
+                <div class="col-xs-12 col-sm-9">
+	                       <div class="panel panel-default">
+	                           <div class="panel-heading">
+	                               Sales Action Planning
+	                           </div>
+	                           <div class="panel-body"> 
+                                       
+                                       
+                                       </div>
+	                       </div>
+	                   </div>
+	           </section>
+	           
+	            
+	           
+	           <section class="tab-pane fade" id="users">
+	               
+	           </section>
+	           
+	           <section class="tab-pane fade" id="mail">
+	               
+	           </section>
+	           
+	        </section>
+	        
+	        
+	                
+	        
+	    </section>
+	    
+	</article>

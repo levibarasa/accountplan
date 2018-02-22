@@ -186,6 +186,8 @@
 			width: 100%;
 		}
 	}
+       
+         
 </style>
 <style type="text/css">
     body {
@@ -513,6 +515,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+   
     <nav class="navbar navbar-default navbar-expand-xl navbar-light" style="align-self: center;">
 	<div class="navbar-header d-flex col">
             <a class="navbar-brand" href="index.jsp"><img src="${pageContext.request.contextPath}/images/logo.jpg" width="200" height="80"> </a>  <br/>	
@@ -536,16 +539,47 @@ $(document).ready(function(){
                 user_branch = (String) session.getAttribute("branch");
                 user_region = (String) session.getAttribute("region");
                 user_access_level = (String) session.getAttribute("accessLevel");
-                String user = (String) session.getAttribute("uname");
-          
-                if( session == null && user == null) {
-                    %>
-                    <jsp:forward page="${pageContext.request.contextPath}/login.jsp" />
-                    <% 
-                }
-         %>
+                String user = (String) session.getAttribute("uname"); 
+//            if (null == user) {
+//               request.setAttribute("loggedout", true);
+//               RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//               rd.forward(request, response);
+//            }
+               %>
+                 <%
+//            response.setHeader("Cache-Control","no-cache");
+//            response.setHeader("Cache-Control","no-store");
+//            response.setHeader("Pragma","no-cache");
+//            response.setDateHeader ("Expires", 30);
+//
+//            if(session.getAttribute("user")==null)
+//                response.sendRedirect("login.jsp");
+
+  %>      
+            <script type="text/javascript">
+                     if (${loggedout == 'true'}) {
+                          alert("Session has ended.  Please login.");
+                      }
+             </script>
+ 
         <h1 style="align-self: center;"> Account Planning </h1> 
-        <div  style="position:relative; margin:0 auto;clear:left;height:auto;z-index: 999; text-align:center;">
+        
+        <div style="display: flex; justify-content: flex-end;position:fixed; top: 20px; left: 20px;">
+             <div style="margin-left:1080; margin-right:0;float: right !important;">
+                          
+
+            Welcome, <%=user_name%>  <br />  
+            Relationship Officer Code : <%=user_code%>  <br /> 
+            Branch : <%=user_branch%>  <br /> 
+            Region : <%=user_region%> 
+            <form name="logout"  method="post" action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=Logout">
+            <button class="btn btn-primary"   onclick="doLogout()" >Logout</button>
+            </form>
+             </div>
+             
+        </div>
+</nav>
+    <div  style="position:relative; margin:0 auto;clear:left;height:auto;z-index: 999; text-align:center;">
              <div class="dropdown">
                  <a href="${pageContext.request.contextPath}/index.jsp">
                  <button class="dropbtn">Home</button>
@@ -553,6 +587,7 @@ $(document).ready(function(){
                       <div class="dropdown-content">
                             </div>
                   </div>    
+                  
             <div class="dropdown">
                  <button class="dropbtn">Client Master</button>
                       <div class="dropdown-content">
@@ -585,6 +620,7 @@ $(document).ready(function(){
                  <button class="dropbtn">Wallet Resizing</button>
                       <div class="dropdown-content">
                         <a href="${pageContext.request.contextPath}/walletresizing/overallclientwalletsize.jsp">Overall Client wallet size</a>
+                        <a href="${pageContext.request.contextPath}/walletresizing/walletresize.jsp">Wallet size</a>
                         <a href="${pageContext.request.contextPath}/walletresizing/currentandfutureopportunities.jsp">Current and Future Opportunities</a> 
                         <a href="${pageContext.request.contextPath}/walletresizing/signoff.jsp">Sign-Off</a>
                       </div>
@@ -596,19 +632,6 @@ $(document).ready(function(){
                       </div>
                   </div>
               </div>
-        <div style="display: flex; justify-content: flex-end;position:fixed; top: 20px; left: 20px;">
-             <div style="margin-left:1080; margin-right:0;float: right !important;">
-                          
-
-            Welcome, <%=user_name%>  <br />  
-            Relationship Officer Code : <%=user_code%>  <br /> 
-            Branch : <%=user_branch%>  <br /> 
-            Region : <%=user_region%> 
-            <form name="logout"  method="post" action="${pageContext.request.contextPath}/do?MOD=BOK&ACT=Logout">
-            <button class="btn btn-primary"   onclick="doLogout()" >Logout</button>
-            </form>
-             </div>
+            
              
-        </div>
-</nav>
-    
+         

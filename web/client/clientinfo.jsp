@@ -1,3 +1,4 @@
+<%@page import="com.inm.ap.mode.hibernate.RmCodelist"%>
 <%@page import="com.inm.dao.client.*"%>
 <%@page import="com.inm.models.*"%> 
 <%@page import="java.util.ArrayList"%> 
@@ -8,17 +9,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
  <html>
 <head>
-    <script type="text/javascript"> 
-//     clientid
-//Clientname
-//RmCode
-//AlternativeRmCode
-//Affiliate
-//CurrentDate
-//Tradeserviceprovider
-//Cashmanagementpartner
-//EBankingpartner
-//Riskmanagementpartner
+    <script type="text/javascript">  
+        //uname,clientnamea,rmCodea,altrmCodea,affiliatea,currentdatea,tradespa,
+//cashmpa,ecommpa,credmana,treaspa,ibpa,afpa,cardspa,bancasspa 
       function fetchOldRecord(that){		
 		    $("#clientid").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
 		     $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
@@ -33,35 +26,11 @@
        	} 
        
    $('#editClientModal').modal('show'); 
-       </script>
-        <script type="text/javascript"> 
-          function updateValues(ths, clientid, currentdate,trades,cashm,ebank,riskm) { 
-                    var clientidb = document.getElementById("clientidb");
-                    var clientnameb = document.getElementById("clientnameb");
-                    var currentdateb = document.getElementById("currentdateb");
-                    var tradespb = document.getElementById("tradespb");
-                    var cashmpb = document.getElementById("cashmpb");
-                    var ebankpb = document.getElementById("ebankpb");
-                    var riskmpb = document.getElementById("riskmpb"); 
-                    clientnameb.value = ths.value.innerHTML; //for innerhtml
-                    clientidb.value = clientid;
-                    currentdateb.value = currentdate;
-                   tradesp.value = tradespb;
-                    cashmpb.value = cashmp;
-                   ebankpb.value = ebankp;
-                    riskmpb.value = riskmp; 
-            }
-            function edititem(){
-                $("#idr").click(function() {
-                    alert($(this).text());
-                    });
-            }
-         </script>
+       </script> 
     <script type="text/javascript">
  
             var form = $('#addClient');
             form.submit(function () {
-
             $.ajax({
             type: "POST",
             url: ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddClient',
@@ -72,7 +41,6 @@
            alert(result);
             }
             });
-
             return false;
             });
 </script>
@@ -84,19 +52,7 @@
     var clName = $(tr).children().eq(1);
     
     console.log(clId, clName);
-}) 
-//               var par = $(this).parent().parent(); //tr 
-//               var clientId = par.children("td:nth-child(1)").value; 
-//               var clientName = par.children("td:nth-child(2)").value; 
-//               var rmName = par.children("td:nth-child(3)").value; 
-//               var altRm = par.children("td:nth-child(4)").value;
-//               var country = par.children("td:nth-child(4)").value;
-//               var date = par.children("td:nth-child(4)").value;
-//               var tsp = par.children("td:nth-child(4)").value;
-//               var cmp = par.children("td:nth-child(4)").value;
-//               var ebp = par.children("td:nth-child(4)").value;
-//               var rmp = par.children("td:nth-child(4)").value; 
-               
+})        
            }
         </script>
 </head>    
@@ -124,8 +80,8 @@
                         <th>Date</th>
                         <th>Trade Services Partner</th>
                         <th>Cash Management Partner</th>
-                        <th>E-Banking Partner</th>
-                        <th>Risk Management Partner</th>
+                        <th>Credit Manager</th>
+                        <th>Treasury Partner</th>
                         <th>Actions</th>
                     </tr>
                 </thead> 
@@ -146,8 +102,8 @@
                         <td> <%=clientModel.getCurrentDate()%></td>
                         <td><%=clientModel.getTradeserviceprovider()%> </td>
                         <td><%=clientModel.getCashmanagementpartner()%></td>
-                        <td><%=clientModel.getEBankingpartner()%></td>
-                        <td><%=clientModel.getRiskmanagementpartner()%>  
+                        <td><%=clientModel.getCreditmanager()%></td>
+                        <td><%=clientModel.getTreasurypartner()%>  
                             
                         </td>
                         
@@ -191,19 +147,13 @@
 						</div>
 						<div class="form-group">
 							<label>Relationship Officer</label>
+                      <input name="rmCodea" id="rmCodea" value="<%=user_code%>" type="hidden" class="form-control" required>
                                                         <%
                                  ArrayList<RmCodelistModel>  allRms = client.getRmCodeList();
+                                 RmCodelist rmcodelist = client.getRmCodeList(user_code);
                                  
                                                         %>
-			 <select name="rmCodea" id="rmCodea" class="form-control" required>
-                              <%
-                                    for(RmCodelistModel codelistModel : allRms){ 
-                                %> 
-                                <option value ="<%=codelistModel.getRmCode()%>" > <%=codelistModel.getRmName()%></option>  
-                                <%
-                                    } 
-                                %>
-                          </select>
+                     <input name="rmName" id="rmName" value="<%=rmcodelist.getRmName()%>" type="text" class="form-control" readonly>
 						</div>
                                 <div class="form-group">
                                 <label>Alternative Relationship Officer</label>
@@ -240,7 +190,7 @@
 							<input name="currentdatea" id="currentdatea" type="text" class="form-control" required>
 						</div>    
 						<div class="form-group">
-							<label>Trade Service Partner</label>
+							<label>Trade service provider</label>
                                                         <input name="tradespa" id="tradespa" type="text" class="form-control" required>
 						</div>	
                                                         <div class="form-group">
@@ -248,12 +198,32 @@
 							<input name="cashmpa" id="cashmpa" type="text" class="form-control" required>
 						</div>
                                                   <div class="form-group">
-							<label>E-Banking Partner</label>
-                                                        <input name="ebankpa" id="ebankpa" type="text" class="form-control" required>
+							<label>E-commerce partner</label>
+                                                        <input name="ecommpa" id="ecommpa" type="text" class="form-control" required>
 						</div>
                                                         <div class="form-group">
-							<label>Risk Management Partner</label>
-                                                        <input name="riskmpa"  id="riskmpa" type="text" class="form-control" required>
+							<label>Credit Manager</label>
+                                                        <input name="credmana"  id="credmana" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Treasury partner</label>
+                                                        <input name="treaspa"  id="treaspa" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Internet Banking Partner</label>
+                                                        <input name="ibpa"  id="ibpa" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Asset finance partner</label>
+                                                        <input name="afpa"  id="afpa" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Cards partner</label>
+                                                        <input name="cardspa"  id="cardspa" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Bancassurance partner</label>
+                                                        <input name="bancasspa"  id="bancasspa" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -285,7 +255,6 @@
 							<label>Relationship Officer</label>
                                                         <%
                                      allRms = client.getRmCodeList();
-
                                                         %>
 			 <select name="rmCodee" id="rmCodee" class="form-control" required>
                               <%
@@ -340,12 +309,32 @@
 							<input name="cashmpe" id="cashmpe" type="text" class="form-control" required>
 						</div>
                                                   <div class="form-group">
-							<label>E-Banking Partner</label>
-                                                        <input name="ebankpe" id="ebankpe" type="text" class="form-control" required>
+							<label>E-commerce partner</label>
+                                                        <input name="ecommpe" id="ecommpe" type="text" class="form-control" required>
 						</div>
                                                         <div class="form-group">
-							<label>Risk Management Partner</label>
-                                                        <input name="riskmpe"  id="riskmpe" type="text" class="form-control" required>
+							<label>Credit Manager</label>
+                                                        <input name="credmane"  id="credmane" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Treasury partner</label>
+                                                        <input name="treaspe"  id="treaspe" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Internet Banking Partner</label>
+                                                        <input name="ibpe"  id="ibpe" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Asset finance partner</label>
+                                                        <input name="afpe"  id="afpe" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Cards partner</label>
+                                                        <input name="cardspe"  id="cardspe" type="text" class="form-control" required>
+						</div>
+                                                <div class="form-group">
+							<label>Bancassurance partner</label>
+                                                        <input name="bancasspe"  id="bancasspe" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.inm.ap.mode.hibernate.ClientFinancial" table="CLIENT_FINANCIAL" schema="ACCPLAN" optimistic-lock="version">
         <id name="clientFinancialid" type="int">
@@ -18,7 +18,7 @@
             <column name="OPERATINGPROFIT" precision="22" scale="0" />
         </property>
         <property name="totaldebt" type="big_decimal">
-            <column name="TOTALDEBT" precision="22" scale="0" />
+            <column name="TOTALDEBT" precision="22" scale="0" not-null="true" />
         </property>
         <property name="totaldeposits" type="big_decimal">
             <column name="TOTALDEPOSITS" precision="22" scale="0" />
@@ -28,6 +28,12 @@
         </property>
         <property name="cashflowcycle" type="big_decimal">
             <column name="CASHFLOWCYCLE" precision="22" scale="0" />
+        </property>
+        <property name="totalassets" type="big_decimal">
+            <column name="TOTALASSETS" precision="22" scale="0" />
+        </property>
+        <property name="totalcapital" type="big_decimal">
+            <column name="TOTALCAPITAL" precision="22" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

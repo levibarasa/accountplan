@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
+// Generated Feb 19, 2018 4:06:43 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,10 +12,10 @@ public class Salesactionplan  implements java.io.Serializable {
 
      private int salesactionplanid;
      private ClientMaster clientMaster;
-     private String specification;
+     private String specificAction;
      private String clocontactpersion;
      private String clopersonresponsibleforaction;
-     private String clodatelinedate;
+     private String clodeadlinedate;
 
     public Salesactionplan() {
     }
@@ -25,13 +25,13 @@ public class Salesactionplan  implements java.io.Serializable {
         this.salesactionplanid = salesactionplanid;
         this.clientMaster = clientMaster;
     }
-    public Salesactionplan(int salesactionplanid, ClientMaster clientMaster, String specification, String clocontactpersion, String clopersonresponsibleforaction, String clodatelinedate) {
+    public Salesactionplan(int salesactionplanid, ClientMaster clientMaster, String specificAction, String clocontactpersion, String clopersonresponsibleforaction, String clodeadlinedate) {
        this.salesactionplanid = salesactionplanid;
        this.clientMaster = clientMaster;
-       this.specification = specification;
+       this.specificAction = specificAction;
        this.clocontactpersion = clocontactpersion;
        this.clopersonresponsibleforaction = clopersonresponsibleforaction;
-       this.clodatelinedate = clodatelinedate;
+       this.clodeadlinedate = clodeadlinedate;
     }
    
     public int getSalesactionplanid() {
@@ -48,12 +48,12 @@ public class Salesactionplan  implements java.io.Serializable {
     public void setClientMaster(ClientMaster clientMaster) {
         this.clientMaster = clientMaster;
     }
-    public String getSpecification() {
-        return this.specification;
+    public String getSpecificAction() {
+        return this.specificAction;
     }
     
-    public void setSpecification(String specification) {
-        this.specification = specification;
+    public void setSpecificAction(String specificAction) {
+        this.specificAction = specificAction;
     }
     public String getClocontactpersion() {
         return this.clocontactpersion;
@@ -69,12 +69,12 @@ public class Salesactionplan  implements java.io.Serializable {
     public void setClopersonresponsibleforaction(String clopersonresponsibleforaction) {
         this.clopersonresponsibleforaction = clopersonresponsibleforaction;
     }
-    public String getClodatelinedate() {
-        return this.clodatelinedate;
+    public String getClodeadlinedate() {
+        return this.clodeadlinedate;
     }
     
-    public void setClodatelinedate(String clodatelinedate) {
-        this.clodatelinedate = clodatelinedate;
+    public void setClodeadlinedate(String clodeadlinedate) {
+        this.clodeadlinedate = clodeadlinedate;
     }
 
 

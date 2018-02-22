@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.ProductClass" table="PRODUCT_CLASS" schema="ACCPLAN" optimistic-lock="version">
+        <id name="productClassId" type="int">
+            <column name="PRODUCT_CLASS_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="product" type="string">
+            <column name="PRODUCT" length="200" />
+        </property>
+        <property name="productClass" type="string">
+            <column name="PRODUCT_CLASS" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

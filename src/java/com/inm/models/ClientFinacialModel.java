@@ -12,25 +12,16 @@ import java.math.*;
 public class ClientFinacialModel {
       private int clientFinancialid;
      private String clientMaster;
-     private BigDecimal turnover = BigDecimal.ZERO;
-     private BigDecimal operatingprofit = BigDecimal.ZERO;
-     private BigDecimal totaldebt = BigDecimal.ZERO;
-     private BigDecimal totaldeposits = BigDecimal.ZERO;
-     private BigDecimal gearingratio = BigDecimal.ZERO;
-     private BigDecimal cashflowcycle = BigDecimal.ZERO;
+     private BigDecimal turnover ;
+     private BigDecimal operatingprofit ;
+     private BigDecimal totaldebt  ;
+     private BigDecimal totaldeposits  ;
+     private BigDecimal gearingratio ;
+     private BigDecimal cashflowcycle ;
+     private BigDecimal totalassets ;
+     private BigDecimal totalcapital ;
 
     public ClientFinacialModel() {
-    }
-
-    public ClientFinacialModel(int clientFinancialid, String clientMaster, BigDecimal turnover, BigDecimal operatingprofit, BigDecimal totaldebt, BigDecimal totaldeposits, BigDecimal gearingratio, BigDecimal cashflowcycle) {
-        this.clientFinancialid = clientFinancialid;
-        this.clientMaster = clientMaster;
-        this.turnover = turnover;
-        this.operatingprofit = operatingprofit;
-        this.totaldebt = totaldebt;
-        this.totaldeposits = totaldeposits;
-        this.gearingratio = gearingratio;
-        this.cashflowcycle = cashflowcycle;
     }
 
     public int getClientFinancialid() {
@@ -96,5 +87,35 @@ public class ClientFinacialModel {
     public void setCashflowcycle(BigDecimal cashflowcycle) {
         this.cashflowcycle = cashflowcycle;
     }
-     
+
+    public BigDecimal getTotalassets() {
+        return totalassets;
+    }
+
+    public void setTotalassets(BigDecimal totalassets) {
+        this.totalassets = totalassets;
+    }
+
+    public BigDecimal getTotalcapital() {
+        return totalcapital;
+    }
+
+    public void setTotalcapital(BigDecimal totalcapital) {
+        this.totalcapital = totalcapital;
+    }
+
+    public ClientFinacialModel(int clientFinancialid, String clientMaster, BigDecimal turnover, BigDecimal operatingprofit, BigDecimal totaldebt, BigDecimal totaldeposits, BigDecimal gearingratio, BigDecimal cashflowcycle, BigDecimal totalassets, BigDecimal totalcapital) {
+        this.clientFinancialid = clientFinancialid;
+        this.clientMaster = clientMaster;
+        this.turnover = turnover;
+        this.operatingprofit = operatingprofit;
+        this.totaldebt = totaldebt;
+        this.totaldeposits = totaldeposits;
+        this.gearingratio = gearingratio;
+        this.cashflowcycle = cashflowcycle;
+        this.totalassets = totalassets;
+        this.totalcapital = totalcapital;
+    }
+
+    
 }

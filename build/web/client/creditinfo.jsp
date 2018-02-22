@@ -26,6 +26,17 @@
             return false;
             });
 </script>
+  <script type="text/javascript">  
+      function fetchOldRecord(that){	 
+             $("#companyaddressa").val($(that).parent().prev().prev().prev().prev().prev().text());
+         $("#grpnamea").val($(that).parent().prev().prev().prev().prev().text());
+        $("#hqcountrya").val($(that).parent().prev().prev().prev().text());
+          $("#indrustrye").val($(that).parent().prev().prev().text());
+         $("#noofsubsidiarya").val($(that).parent().prev().text()); 
+       	} 
+       
+   $('#editCompanyModal').modal('show'); 
+       </script>
 </head>
  
 
@@ -46,18 +57,14 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
+                        <th># </th>
                         <th>Client Name</th>
-                        <th>Approved Lines</th>
-			<th>Outstanding Amount</th>
+                        <th>I&M Approved Lines</th>
+                        <th>All Banks Approved Lines</th>
+			<th>I&M Outstanding Amount</th>
+                         <th>All Banks Outstanding Amount</th>
                         <th>Risk Rating</th>
-                        <th>Rating Agency</th>
-                        <th>Actions</th>
+                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,20 +74,16 @@
                         for(CreditInfoModel creditInfoModel :list){
                         %>
                     <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
+                        <td> <%=creditInfoModel.getCreditid()%> </td>
                         <td><%=creditInfoModel.getClientMaster()%></td>
-                        <td><%=creditInfoModel.getApprovedlines()%></td>
-			<td><%=creditInfoModel.getOutstandingamount()%></td>
+                        <td><%=creditInfoModel.getImapprovedlines()%></td>
+			<td><%=creditInfoModel.getApprovedlinesallbanks()%></td>
+                        <td><%=creditInfoModel.getImoutstandingamount()%></td>
+                        <td><%=creditInfoModel.getOutstandingamountallbanks()%></td>
                         <td><%=creditInfoModel.getRiskrating()%></td>
-                        <td><%=creditInfoModel.getRatingagency()%></td>
-                        <td>
-                            <a href="#editCreditInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                         <td>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     
@@ -123,25 +126,30 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+
                                 %>   
                                      </select>
 						</div>
 						<div class="form-group">
-							<label>Approved Lines</label>
-							<input type="text" name="approvedlinesa" id="approvedlinesa" class="form-control" required>
+							<label>I&M Approved Lines</label>
+							<input type="text" name="imapprovedlinesa" id="imapprovedlinesa" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Outstanding Amount</label>
-							<input type="text" name="outstandingamta" id="outstandingamta" class="form-control" required>
+							<label>I&M Outstanding Amount</label>
+							<input type="text" name="imoutstandingamta" id="imoutstandingamta" class="form-control" required>
 						</div>
+                                                    <div class="form-group">
+                                                            <label>All Banks Approved Lines</label>
+                                                            <input type="text" name="allapprovedlinesa" id="allapprovedlinesa" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label>All Banks Outstanding Amount</label>
+                                                            <input type="text" name="alloutstandingamta" id="alloutstandingamta" class="form-control" required>
+                                                    </div>
 						<div class="form-group">
 							<label>Risk Rating</label>
 							<input type="text"  name="riskratinga" id="riskratinga"  class="form-control" required>
-						</div>	
-                                                <div class="form-group">
-							<label>Rating Agency</label>
-							<input type="text"  name="ratingagencya" id="ratingagencya"  class="form-control" required>
-						</div>
+						</div> 
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -157,7 +165,7 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit CreditInformation</h4>
+						<h4 class="modal-title">Edit Credit Information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-content">
@@ -179,24 +187,25 @@
                                 <option value ="<%=cl.getClientid()%>" > <%=cl.getClientname()%></option>  
                                 <%
                                     }
+//ratingagencye,riskratinge,outstandingamte,approvedlinese,clientnamee
                                 %>   
                                      </select>
 						</div>
 						<div class="form-group">
 							<label>Approved Lines</label>
-							<input type="text" name="approvedlinesa" id="approvedlinesa" class="form-control" required>
+							<input type="text" name="approvedlinese" id="approvedlinese" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Outstanding Amount</label>
-							<input type="text" name="outstandingamta" id="outstandingamta" class="form-control" required>
+							<input type="text" name="outstandingamte" id="outstandingamta" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Risk Rating</label>
-							<input type="text"  name="riskratinga" id="riskratinga"  class="form-control" required>
+							<input type="text"  name="riskratinge" id="riskratinge"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
 							<label>Rating Agency</label>
-							<input type="text"  name="ratingagencya" id="ratingagencya"  class="form-control" required>
+							<input type="text"  name="ratingagencye" id="ratingagencye"  class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">

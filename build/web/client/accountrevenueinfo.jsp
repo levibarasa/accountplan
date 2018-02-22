@@ -25,6 +25,22 @@
     } );
 } );
         </script>
+          <script type="text/javascript">  
+//totidoppe,totwalshre,curwalletshre,priyractfeee,curyrfeetarge,priyractreve,curyrrevtarge,clientnamee,accountrevenueId
+      function fetchOldRecord(that){	 
+            $("#accountrevenueId").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text());
+            $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().prev().text());
+           $("#curyrrevtarge").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().text());
+           $("#priyractreve").val($(that).parent().prev().prev().prev().prev().prev().prev().text());
+           $("#curyrfeetarge").val($(that).parent().prev().prev().prev().prev().prev().text());
+           $("#priyractfeee").val($(that).parent().prev().prev().prev().prev().text());
+          $("#curwalletshre").val($(that).parent().prev().prev().prev().text());
+            $("#totwalshre").val($(that).parent().prev().prev().text());
+           $("#totidoppe").val($(that).parent().prev().text()); 
+       	} 
+       
+   $('#editAccountRevenueModal').modal('show'); 
+       </script>
     <script type="text/javascript">
  
             var form = $('#addAccountRevenue');
@@ -53,7 +69,7 @@
 						<h2>Manage <b>Account Revenue Information</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addAccountRevenueModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New AccountRevenue</span></a>
+						<a href="#addAccountRevenueModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Account Revenue</span></a>
 						<a href="#deleteAccountRevenueModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
@@ -61,10 +77,14 @@
             <table id="accountplantable" class="table table-striped table-hover">
                 <thead>
                     <tr> 
-                        <th></th> 
-                        <th>Client Name</th> 
+                        <th>#</th> 
+                        <th>Client Name</th>
+                        <th style="display: none;">Cur Yr Rev.Target(Ksh'M)</th>
+			<th  style="display: none;">Pr Yr Act.Revenue(Ksh'M)</th> -->
                         <th>% Growth Revenue</th>
-                        <th>Cur Yr FeeInc.Target(Ksh'M)</th> 
+                        <th  style="display: none;">Cur Yr FeeInc.Target(Ksh'M)</th>
+                      <th  style="display: none;"> Pr Yr Act.Fee Income(Ksh'M)</th>
+                        <th>% Growth FeeIncome</th> 
                         <th>Cur WalletShare</th>
                         <th>Target WalletShare</th>
                         <th>Tot.Val. Of Id.Opportunitie(Ksh'M)</th>
@@ -78,20 +98,20 @@
                         for(AccountRevenueModel accountrevenuemodel :list){
                         %>
                     <tr>
-						<td>
-                                            <span class="custom-checkbox">
-                                              <a href="#viewAll" data-toggle="modal" data-target="#viewAll"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            </span>
-						</td>
-                        <td><%=accountrevenuemodel.getClientMaster()%></td> 
-                        <td><%=accountrevenuemodel.getPercentagegrowthrevenue()%></td> 
+                        <td> <%=accountrevenuemodel.getAccountRevenueid()%> </td>
+                        <td><%=accountrevenuemodel.getClientMaster()%></td>
+                        <td  style="display: none;"><%=accountrevenuemodel.getCurrentyearrevenuetarget()%></td>
+			<td  style="display: none;"><%=accountrevenuemodel.getPrioryearactualrevenue()%></td>  
+                        <td><%=accountrevenuemodel.getPercentagegrowthrevenue()%></td>
+                        <td  style="display: none;"><%=accountrevenuemodel.getCurrentyearnfitarget()%></td>
+                        <td  style="display: none;"><%=accountrevenuemodel.getPrioryearactualfeeincome()%></td>  
                         <td><%=accountrevenuemodel.getPercentagegrowthfeeincome()%></td>
                         <td><%=accountrevenuemodel.getCurrentshareofwallet()%></td>
                         <td><%=accountrevenuemodel.getTargetshareofwallet()%></td>
                         <td><%=accountrevenuemodel.getTotalvalueofidopportunities()%></td>
                         <td>
-                            <a href="#editAccountRevenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteAccountRevenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editAccountRevenueModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger' data-target='#deleteAccountRevenueModal'>Delete</button>
                         </td>
                     </tr> 
 		<%
@@ -185,6 +205,7 @@
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
+                                                    <input  name="accountrevenueId" id="accountrevenueId"   type="text" class="form-control" required>
                                                     <%
                                    clientname = ar.getClientMasterList(user_code); 
                                                         %>
@@ -201,31 +222,32 @@
 						</div>
 						<div class="form-group">
 							<label>Current Year Revenue Target(Ksh'M)</label>
-							<input type="text" name="curyrrevtarga" id="curyrrevtarga" class="form-control" required>
+							<input type="text" name="curyrrevtarge" id="curyrrevtarge" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Prior Year Actual Revenue(Ksh'M)</label>
-							<input type="text" name="priyractreva" id="priyractreva" class="form-control" required>
+							<input type="text" name="priyractreve" id="priyractreve" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Current Year Fee Income Target(Ksh'M)</label>
-							<input type="text" name="curyrfeetarga" id="curyrfeetarga" class="form-control" required>
+							<input type="text" name="curyrfeetarge" id="curyrfeetarge" class="form-control" required>
 						</div>	
                                                 <div class="form-group">
 							<label>Prior Year Actual Fee Income(Ksh'M)</label>
-							<input type="text" name="priyractfeea" id="priyractfeea" class="form-control" required>
+							<input type="text" name="priyractfeee" id="priyractfeee" class="form-control" required>
 						</div>
                                                 <div class="form-group">
 							<label>Current Share Of Wallet(%)</label>
-							<input type="text" name="curwalletshra" id="curwalletshra" class="form-control" required>
+							<input type="text" name="curwalletshre" id="curwalletshre" class="form-control" required>
 						</div>
+             
                                             <div class="form-group">
 							<label>Target Share Of Wallet(%)</label>
-							<input type="text" name="totwalshra" id="totwalshra" class="form-control" required>
+							<input type="text" name="totwalshre" id="totwalshre" class="form-control" required>
 						</div>
                                              <div class="form-group">
 							<label>Total Value Of Identified Opportunities(Ksh'M)</label>
-							<input type="text" name="totidoppa" id="totidoppa" class="form-control" required>
+							<input type="text" name="totidoppe" id="totidoppe" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -284,10 +306,10 @@
                         %>
                     <tr> 
                         <td><%=accountrevenuemodel.getClientMaster()%></td>
-                 <td><%=accountrevenuemodel.getCurrentyearrevenuetarget()%></td>
+                        <td><%=accountrevenuemodel.getCurrentyearrevenuetarget()%></td>
 			<td><%=accountrevenuemodel.getPrioryearactualrevenue()%></td>  
                         <td><%=accountrevenuemodel.getPercentagegrowthrevenue()%></td>
-                   <td><%=accountrevenuemodel.getCurrentyearfeeincometarget()%></td>
+                        <td><%=accountrevenuemodel.getCurrentyearnfitarget()%></td>
                         <td><%=accountrevenuemodel.getPrioryearactualfeeincome()%></td>  
                         <td><%=accountrevenuemodel.getPercentagegrowthfeeincome()%></td>
                         <td><%=accountrevenuemodel.getCurrentshareofwallet()%></td>

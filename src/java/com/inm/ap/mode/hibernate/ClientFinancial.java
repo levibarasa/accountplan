@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
+// Generated Feb 19, 2018 4:06:43 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -18,16 +18,19 @@ public class ClientFinancial  implements java.io.Serializable {
      private BigDecimal totaldeposits;
      private BigDecimal gearingratio;
      private BigDecimal cashflowcycle;
+     private BigDecimal totalassets;
+     private BigDecimal totalcapital;
 
     public ClientFinancial() {
     }
 
 	
-    public ClientFinancial(int clientFinancialid, ClientMaster clientMaster) {
+    public ClientFinancial(int clientFinancialid, ClientMaster clientMaster, BigDecimal totaldebt) {
         this.clientFinancialid = clientFinancialid;
         this.clientMaster = clientMaster;
+        this.totaldebt = totaldebt;
     }
-    public ClientFinancial(int clientFinancialid, ClientMaster clientMaster, BigDecimal turnover, BigDecimal operatingprofit, BigDecimal totaldebt, BigDecimal totaldeposits, BigDecimal gearingratio, BigDecimal cashflowcycle) {
+    public ClientFinancial(int clientFinancialid, ClientMaster clientMaster, BigDecimal turnover, BigDecimal operatingprofit, BigDecimal totaldebt, BigDecimal totaldeposits, BigDecimal gearingratio, BigDecimal cashflowcycle, BigDecimal totalassets, BigDecimal totalcapital) {
        this.clientFinancialid = clientFinancialid;
        this.clientMaster = clientMaster;
        this.turnover = turnover;
@@ -36,6 +39,8 @@ public class ClientFinancial  implements java.io.Serializable {
        this.totaldeposits = totaldeposits;
        this.gearingratio = gearingratio;
        this.cashflowcycle = cashflowcycle;
+       this.totalassets = totalassets;
+       this.totalcapital = totalcapital;
     }
    
     public int getClientFinancialid() {
@@ -93,6 +98,20 @@ public class ClientFinancial  implements java.io.Serializable {
     
     public void setCashflowcycle(BigDecimal cashflowcycle) {
         this.cashflowcycle = cashflowcycle;
+    }
+    public BigDecimal getTotalassets() {
+        return this.totalassets;
+    }
+    
+    public void setTotalassets(BigDecimal totalassets) {
+        this.totalassets = totalassets;
+    }
+    public BigDecimal getTotalcapital() {
+        return this.totalcapital;
+    }
+    
+    public void setTotalcapital(BigDecimal totalcapital) {
+        this.totalcapital = totalcapital;
     }
 
 

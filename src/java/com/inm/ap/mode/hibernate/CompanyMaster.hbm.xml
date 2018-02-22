@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 21, 2018 4:01:49 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.inm.ap.mode.hibernate.CompanyMaster" table="COMPANY_MASTER" schema="ACCPLAN" optimistic-lock="version">
         <id name="companyid" type="int">
@@ -29,5 +29,17 @@
         <property name="noofsubsidiaries" type="int">
             <column name="NOOFSUBSIDIARIES" precision="22" scale="0" />
         </property>
+        <set name="companyShareholderses" table="COMPANY_SHAREHOLDERS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COMPANYID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.CompanyShareholders" />
+        </set>
+        <set name="companyDirectorses" table="COMPANY_DIRECTORS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COMPANYID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.CompanyDirectors" />
+        </set>
     </class>
 </hibernate-mapping>

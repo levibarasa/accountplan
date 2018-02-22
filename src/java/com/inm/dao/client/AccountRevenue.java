@@ -33,7 +33,7 @@ public class AccountRevenue {
          accountRevenueInformation.setClientMaster(ar.getClientMasterByID(accountRevenueModel.getClientMaster())); 
          accountRevenueInformation.setAccountRevenueid(accountRevenueModel.getAccountRevenueid());
          accountRevenueInformation.setCurrentshareofwallet(accountRevenueModel.getCurrentshareofwallet());
-         accountRevenueInformation.setCurrentyearfeeincometarget(accountRevenueModel.getCurrentyearfeeincometarget());
+         accountRevenueInformation.setCurrentyearnfitarget(accountRevenueModel.getCurrentyearnfitarget());
          accountRevenueInformation.setCurrentyearrevenuetarget(accountRevenueModel.getCurrentyearrevenuetarget());
          accountRevenueInformation.setPercentagegrowthfeeincome(accountRevenueModel.getPercentagegrowthfeeincome());
          accountRevenueInformation.setPercentagegrowthrevenue(accountRevenueModel.getPercentagegrowthrevenue());
@@ -49,7 +49,7 @@ public class AccountRevenue {
          accountRevenueInformation.setClientMaster(ar.getClientMasterByID(accountRevenueModel.getClientMaster())); 
          accountRevenueInformation.setAccountRevenueid(accountRevenueModel.getAccountRevenueid());
          accountRevenueInformation.setCurrentshareofwallet(accountRevenueModel.getCurrentshareofwallet());
-         accountRevenueInformation.setCurrentyearfeeincometarget(accountRevenueModel.getCurrentyearfeeincometarget());
+         accountRevenueInformation.setCurrentyearnfitarget(accountRevenueModel.getCurrentyearnfitarget());
          accountRevenueInformation.setCurrentyearrevenuetarget(accountRevenueModel.getCurrentyearrevenuetarget());
          accountRevenueInformation.setPercentagegrowthfeeincome(accountRevenueModel.getPercentagegrowthfeeincome());
          accountRevenueInformation.setPercentagegrowthrevenue(accountRevenueModel.getPercentagegrowthrevenue());
@@ -77,7 +77,7 @@ public class AccountRevenue {
             accountRevenueModel.setClientMaster(ar.getClientMaster(accountRevenueInformation.getClientMaster().getClientid()).getClientname()); 
             accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
             accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
-            accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());
+            accountRevenueModel.setCurrentyearnfitarget(accountRevenueInformation.getCurrentyearnfitarget());
             accountRevenueModel.setCurrentyearrevenuetarget(accountRevenueInformation.getCurrentyearrevenuetarget());
             accountRevenueModel.setPercentagegrowthfeeincome(accountRevenueInformation.getPercentagegrowthfeeincome());
             accountRevenueModel.setPercentagegrowthrevenue(accountRevenueInformation.getPercentagegrowthrevenue());
@@ -130,7 +130,8 @@ public class AccountRevenue {
                 for (Object rm : rms) {
                     if (rm != null) {
                      ClientMaster clientMaster = (ClientMaster) rm;
-                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                     
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(),clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getECommercepartner(), clientMaster.getCreditmanager(), clientMaster.getTreasurypartner(), clientMaster.getInternetbankingpartner(),clientMaster.getAssetfinancepartner(), clientMaster.getCardspartner(),clientMaster.getBancassurancepartner());
                         clientModelList.add(clientModel);
                         }
                 }
@@ -148,11 +149,8 @@ public class AccountRevenue {
         coreQuery.addParam("rmCode", rmCode); 
         List rmCodes = ops.fetch(coreQuery);
         return (RmCodelist) rmCodes.get(0);
-    } 
-     public static void main(String[] args) {
-        AccountRevenue ar = new AccountRevenue();
-         System.out.println(ar.getAccountRevenuenfoByClientId("33","15"));
-    }
+    }  
+      
     public ArrayList<AccountRevenueModel> getAccountRevenuenfoByClientId(String rmCode, String clientid) {
         AccountRevenue ar = new AccountRevenue();
         ArrayList<AccountRevenueModel> accountRevenueModelList = new ArrayList<AccountRevenueModel>();
@@ -166,7 +164,7 @@ public class AccountRevenue {
             accountRevenueModel.setClientMaster(ar.getClientMaster(accountRevenueInformation.getClientMaster().getClientid()).getClientname()); 
             accountRevenueModel.setAccountRevenueid(accountRevenueInformation.getAccountRevenueid());
             accountRevenueModel.setCurrentshareofwallet(accountRevenueInformation.getCurrentshareofwallet());
-            accountRevenueModel.setCurrentyearfeeincometarget(accountRevenueInformation.getCurrentyearfeeincometarget());
+            accountRevenueModel.setCurrentyearnfitarget(accountRevenueInformation.getCurrentyearnfitarget());
             accountRevenueModel.setCurrentyearrevenuetarget(accountRevenueInformation.getCurrentyearrevenuetarget());
             accountRevenueModel.setPercentagegrowthfeeincome(accountRevenueInformation.getPercentagegrowthfeeincome());
             accountRevenueModel.setPercentagegrowthrevenue(accountRevenueInformation.getPercentagegrowthrevenue());

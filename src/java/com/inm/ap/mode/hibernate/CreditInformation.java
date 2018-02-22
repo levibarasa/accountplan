@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
+// Generated Feb 19, 2018 4:06:43 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,10 +12,11 @@ public class CreditInformation  implements java.io.Serializable {
 
      private int creditid;
      private ClientMaster clientMaster;
-     private String approvedlines;
-     private BigDecimal outstandingamount;
+     private String imapprovedlines;
+     private BigDecimal imoutstandingamount;
      private String riskrating;
-     private String ratingagency;
+     private String approvedlinesallbanks;
+     private BigDecimal outstandingamountallbanks;
 
     public CreditInformation() {
     }
@@ -25,13 +26,14 @@ public class CreditInformation  implements java.io.Serializable {
         this.creditid = creditid;
         this.clientMaster = clientMaster;
     }
-    public CreditInformation(int creditid, ClientMaster clientMaster, String approvedlines, BigDecimal outstandingamount, String riskrating, String ratingagency) {
+    public CreditInformation(int creditid, ClientMaster clientMaster, String imapprovedlines, BigDecimal imoutstandingamount, String riskrating, String approvedlinesallbanks, BigDecimal outstandingamountallbanks) {
        this.creditid = creditid;
        this.clientMaster = clientMaster;
-       this.approvedlines = approvedlines;
-       this.outstandingamount = outstandingamount;
+       this.imapprovedlines = imapprovedlines;
+       this.imoutstandingamount = imoutstandingamount;
        this.riskrating = riskrating;
-       this.ratingagency = ratingagency;
+       this.approvedlinesallbanks = approvedlinesallbanks;
+       this.outstandingamountallbanks = outstandingamountallbanks;
     }
    
     public int getCreditid() {
@@ -48,19 +50,19 @@ public class CreditInformation  implements java.io.Serializable {
     public void setClientMaster(ClientMaster clientMaster) {
         this.clientMaster = clientMaster;
     }
-    public String getApprovedlines() {
-        return this.approvedlines;
+    public String getImapprovedlines() {
+        return this.imapprovedlines;
     }
     
-    public void setApprovedlines(String approvedlines) {
-        this.approvedlines = approvedlines;
+    public void setImapprovedlines(String imapprovedlines) {
+        this.imapprovedlines = imapprovedlines;
     }
-    public BigDecimal getOutstandingamount() {
-        return this.outstandingamount;
+    public BigDecimal getImoutstandingamount() {
+        return this.imoutstandingamount;
     }
     
-    public void setOutstandingamount(BigDecimal outstandingamount) {
-        this.outstandingamount = outstandingamount;
+    public void setImoutstandingamount(BigDecimal imoutstandingamount) {
+        this.imoutstandingamount = imoutstandingamount;
     }
     public String getRiskrating() {
         return this.riskrating;
@@ -69,12 +71,19 @@ public class CreditInformation  implements java.io.Serializable {
     public void setRiskrating(String riskrating) {
         this.riskrating = riskrating;
     }
-    public String getRatingagency() {
-        return this.ratingagency;
+    public String getApprovedlinesallbanks() {
+        return this.approvedlinesallbanks;
     }
     
-    public void setRatingagency(String ratingagency) {
-        this.ratingagency = ratingagency;
+    public void setApprovedlinesallbanks(String approvedlinesallbanks) {
+        this.approvedlinesallbanks = approvedlinesallbanks;
+    }
+    public BigDecimal getOutstandingamountallbanks() {
+        return this.outstandingamountallbanks;
+    }
+    
+    public void setOutstandingamountallbanks(BigDecimal outstandingamountallbanks) {
+        this.outstandingamountallbanks = outstandingamountallbanks;
     }
 
 

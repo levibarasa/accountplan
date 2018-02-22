@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 21, 2018 10:45:43 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.WalletResize" table="WALLET_RESIZE" schema="ACCPLAN" optimistic-lock="version">
+        <id name="walletResizeId" type="int">
+            <column name="WALLET_RESIZE_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="lookupmasterByProduct" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="PRODUCT" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="lookupmasterByCurrencyLookupid" class="com.inm.ap.mode.hibernate.Lookupmaster" fetch="select">
+            <column name="CURRENCY_LOOKUPID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
+            <column name="CLIENT_ID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="interestRate" type="big_decimal">
+            <column name="INTEREST_RATE" precision="22" scale="0" />
+        </property>
+        <property name="ftpRate" type="big_decimal">
+            <column name="FTP_RATE" precision="22" scale="0" />
+        </property>
+        <property name="processingFees" type="big_decimal">
+            <column name="PROCESSING_FEES" precision="22" scale="0" />
+        </property>
+        <property name="tenor" type="big_decimal">
+            <column name="TENOR" precision="22" scale="0" />
+        </property>
+        <property name="margin" type="big_decimal">
+            <column name="MARGIN" precision="22" scale="0" />
+        </property>
+        <property name="disbursedAmount" type="big_decimal">
+            <column name="DISBURSED_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="limit" type="big_decimal">
+            <column name="LIMIT" precision="22" scale="0" />
+        </property>
+        <property name="averageUtilizationAmount" type="big_decimal">
+            <column name="AVERAGE_UTILIZATION_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="annualAverageFloat" type="big_decimal">
+            <column name="ANNUAL_AVERAGE_FLOAT" precision="22" scale="0" />
+        </property>
+        <property name="totalrevenue" type="big_decimal">
+            <column name="TOTALREVENUE" precision="22" scale="0" />
+        </property>
+        <property name="percentagePerAnnum" type="big_decimal">
+            <column name="PERCENTAGE_PER_ANNUM" precision="22" scale="0" />
+        </property>
+        <property name="percentageFlatFee" type="big_decimal">
+            <column name="PERCENTAGE_FLAT_FEE" precision="22" scale="0" />
+        </property>
+        <property name="drawdownAmount" type="big_decimal">
+            <column name="DRAWDOWN_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="amountDeposited" type="big_decimal">
+            <column name="AMOUNT_DEPOSITED" precision="22" scale="0" />
+        </property>
+        <property name="timesRolledOverInAYrear" type="big_decimal">
+            <column name="TIMES_ROLLED_OVER_IN_A_YREAR" precision="22" scale="0" />
+        </property>
+        <property name="numberOfQuarters" type="big_decimal">
+            <column name="NUMBER_OF_QUARTERS" precision="22" scale="0" />
+        </property>
+        <property name="percentageAllInclusive" type="big_decimal">
+            <column name="PERCENTAGE_ALL_INCLUSIVE" precision="22" scale="0" />
+        </property>
+        <property name="percentagePerQuarter" type="big_decimal">
+            <column name="PERCENTAGE_PER_QUARTER" precision="22" scale="0" />
+        </property>
+        <property name="flatFeeAmount" type="big_decimal">
+            <column name="FLAT_FEE_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="quarterlyOpeningCommRate" type="big_decimal">
+            <column name="QUARTERLY_OPENING_COMM_RATE" precision="22" scale="0" />
+        </property>
+        <property name="acceptanceCommissionRate" type="big_decimal">
+            <column name="ACCEPTANCE_COMMISSION_RATE" precision="22" scale="0" />
+        </property>
+        <property name="retirementCommissionRate" type="big_decimal">
+            <column name="RETIREMENT_COMMISSION_RATE" precision="22" scale="0" />
+        </property>
+        <property name="tariff" type="big_decimal">
+            <column name="TARIFF" precision="22" scale="0" />
+        </property>
+        <property name="handlingCommissionRate" type="big_decimal">
+            <column name="HANDLING_COMMISSION_RATE" precision="22" scale="0" />
+        </property>
+        <property name="discountedAmount" type="big_decimal">
+            <column name="DISCOUNTED_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="spread" type="big_decimal">
+            <column name="SPREAD" precision="22" scale="0" />
+        </property>
+        <property name="annualPremiumAmount" type="big_decimal">
+            <column name="ANNUAL_PREMIUM_AMOUNT" precision="22" scale="0" />
+        </property>
+        <property name="insuranceCompany" type="string">
+            <column name="INSURANCE_COMPANY" length="200" />
+        </property>
+        <property name="discountingRate" type="big_decimal">
+            <column name="DISCOUNTING_RATE" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

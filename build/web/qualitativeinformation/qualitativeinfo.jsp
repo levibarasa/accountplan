@@ -34,56 +34,40 @@
 					</div>
 					<div class="col-sm-6">
 						<a href="#addQualitativeInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New QualitativeInformation</span></a>
-						<a href="#deleteQualitativeInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						 
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
+                         						
 					</div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-                        <th>Client Name</th>
-                        <th>Client Strategy</th>
-			<th>Wallet Allocation Logic</th>
-                        <th>Opportunities</th>
-                        <th>Specific Challenges</th>
-                        <th> Relationship Quality</th> 
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                      <%
+            <table class="table table-striped table-hover"> 
+                    <%
                          QualitativeInfo qi = new QualitativeInfo(); 
                         ArrayList<QualitativeinformationModel> list = qi.getQualitativeinfo(user_code);
                         for(QualitativeinformationModel qualitativeinformationModel :list){
                         %>
                     <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td><%=qualitativeinformationModel.getClientMaster()%></td>
-                        <td><%=qualitativeinformationModel.getClientstrategy()%></td>
-			<td><%=qualitativeinformationModel.getClientwalletalloctnlogic()%></td>
-                        <td><%=qualitativeinformationModel.getOpportunities()%></td>
-                        <td><%=qualitativeinformationModel.getSpecificchallenges()%></td>
-                        <td><%=qualitativeinformationModel.getRelationshipquality()%></td> 
-                        <td>
-                            <a href="#editQualitativeInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteQualitativeInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
+						 
+                        <td>Client Name:</td><td><%=qualitativeinformationModel.getClientMaster()%></td> </tr>
+                        <tr> <td>Client Strategy:</td> </tr><td><%=qualitativeinformationModel.getClientstrategy()%></td></tr>
+			<tr><td>Wallet Allocation Logic:</td><td><%=qualitativeinformationModel.getClientwalletalloctnlogic()%></td></tr>
+                        <tr><td>Opportunities:</td><td><%=qualitativeinformationModel.getOpportunities()%></td></tr> 
+                        <tr><td>Specific Challenges:</td><td><%=qualitativeinformationModel.getSpecificchallenges()%></td></tr> 
+                        <tr><td> Relationship Quality:</td><td><%=qualitativeinformationModel.getRelationshipquality()%></td> </tr> 
+                         <tr>
+						 
+                        
+                        
+			
+                        
+                        
+                         
+                        
                     </tr> 
 		<%
                         }
-                        %>			
-                </tbody>
+                        %> 
             </table>
 			<div class="clearfix">
                 <div class="hint-text">Showing <b>1</b> out of <b>1</b> entries</div>

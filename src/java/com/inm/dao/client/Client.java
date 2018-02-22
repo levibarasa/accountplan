@@ -38,9 +38,14 @@ public class Client {
          clMaster.setLookupmaster(cl.getLookUpMaster("AFFILIATE", Integer.parseInt(clientModel.getAffiliate())));
          clMaster.setCurrentDate(clientModel.getCurrentDate());
          clMaster.setTradeserviceprovider(clientModel.getTradeserviceprovider());
-         clMaster.setCashmanagementpartner(clientModel.getCashmanagementpartner());
-         clMaster.setEBankingpartner(clientModel.getEBankingpartner());
-         clMaster.setRiskmanagementpartner(clientModel.getRiskmanagementpartner());
+         clMaster.setCashmanagementpartner(clientModel.getCashmanagementpartner()); 
+         clMaster.setCreditmanager(clientModel.getCreditmanager());
+         clMaster.setTreasurypartner(clientModel.getTreasurypartner());
+         clMaster.setInternetbankingpartner(clientModel.getInternetbankingpartner());
+         clMaster.setAssetfinancepartner(clientModel.getAssetfinancepartner());
+         clMaster.setCardspartner(clientModel.getCardspartner());
+         clMaster.setECommercepartner(clientModel.getECommercepartner());
+         clMaster.setBancassurancepartner(clientModel.getBancassurancepartner());
          clMaster.setClientid(clientModel.getClientid());
          ops.save(clMaster);
     } 
@@ -54,8 +59,13 @@ public class Client {
          clMaster.setCurrentDate(clientModel.getCurrentDate());
          clMaster.setTradeserviceprovider(clientModel.getTradeserviceprovider());
          clMaster.setCashmanagementpartner(clientModel.getCashmanagementpartner());
-         clMaster.setEBankingpartner(clientModel.getEBankingpartner());
-         clMaster.setRiskmanagementpartner(clientModel.getRiskmanagementpartner());
+         clMaster.setCreditmanager(clientModel.getCreditmanager());
+         clMaster.setTreasurypartner(clientModel.getTreasurypartner());
+         clMaster.setInternetbankingpartner(clientModel.getInternetbankingpartner());
+         clMaster.setAssetfinancepartner(clientModel.getAssetfinancepartner());
+         clMaster.setCardspartner(clientModel.getCardspartner());
+         clMaster.setECommercepartner(clientModel.getECommercepartner());
+         clMaster.setBancassurancepartner(clientModel.getBancassurancepartner());
          clMaster.setClientid(clientModel.getClientid());
          ops.saveOrUpdate(clMaster);
     } 
@@ -66,6 +76,7 @@ public class Client {
         }
         return null;
     }
+     
    public ArrayList<ClientModel> getClientInfo(String rmCode) {
         ArrayList<ClientModel> clientList = new ArrayList<ClientModel>();
         CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode", true);
@@ -81,18 +92,21 @@ public class Client {
             clientModel.setAffiliate(getLookUpMaster("AFFILIATE", clMaster.getLookupmaster().getLookupmasterid()).getValue());
             clientModel.setCurrentDate(clMaster.getCurrentDate());
             clientModel.setTradeserviceprovider(clMaster.getTradeserviceprovider());
-            clientModel.setCashmanagementpartner(clMaster.getCashmanagementpartner());
-            clientModel.setEBankingpartner(clMaster.getEBankingpartner());
-            clientModel.setRiskmanagementpartner(clMaster.getRiskmanagementpartner());
+            clientModel.setCashmanagementpartner(clMaster.getCashmanagementpartner()); 
+            clientModel.setCreditmanager(clMaster.getCreditmanager());
+            clientModel.setTreasurypartner(clMaster.getTreasurypartner());
+            clientModel.setInternetbankingpartner(clMaster.getInternetbankingpartner());
+            clientModel.setTradeserviceprovider(clMaster.getTradeserviceprovider());
+            clientModel.setAssetfinancepartner(clMaster.getAssetfinancepartner());
+            clientModel.setCardspartner(clMaster.getCardspartner());
+            clientModel.setECommercepartner(clMaster.getECommercepartner());
+            clientModel.setBancassurancepartner(clMaster.getBancassurancepartner());
             clientList.add(clientModel);
         }
 
         return clientList;
     } 
-//    public static void main(String[] args) {
-//        Client cl = new Client();
-//        System.out.println(cl.getClientInfoByClientId("33","14"));
-//    }
+ 
     public ArrayList<ClientModel> getClientInfoByClientId(String rmCode,String clientid) {
         ArrayList<ClientModel> clientList = new ArrayList<ClientModel>();
         CoreQuery coreQuery = new CoreQuery("from ClientMaster where rmCodelistByRmCode.rmCode =:rmCode and clientid =:clientid", true);
@@ -110,8 +124,14 @@ public class Client {
             clientModel.setCurrentDate(clMaster.getCurrentDate());
             clientModel.setTradeserviceprovider(clMaster.getTradeserviceprovider());
             clientModel.setCashmanagementpartner(clMaster.getCashmanagementpartner());
-            clientModel.setEBankingpartner(clMaster.getEBankingpartner());
-            clientModel.setRiskmanagementpartner(clMaster.getRiskmanagementpartner());
+            clientModel.setCreditmanager(clMaster.getCreditmanager());
+            clientModel.setTreasurypartner(clMaster.getTreasurypartner());
+            clientModel.setInternetbankingpartner(clMaster.getInternetbankingpartner());
+            clientModel.setTradeserviceprovider(clMaster.getTradeserviceprovider());
+            clientModel.setAssetfinancepartner(clMaster.getAssetfinancepartner());
+            clientModel.setCardspartner(clMaster.getCardspartner());
+            clientModel.setECommercepartner(clMaster.getECommercepartner());
+            clientModel.setBancassurancepartner(clMaster.getBancassurancepartner());
             clientList.add(clientModel);
         }
 
@@ -168,9 +188,12 @@ public class Client {
         String str = ad.getStringValue(sql, 1, 1, rmCode);
         return str;
     }
-
      
-
+   public static String getCurrentClient(String rmCode) {
+        String sql = "select max(to_number(CLIENTID)) from CLIENT_MASTER where RM_CODE = ?";
+        String str = AdminDb.getValue(sql, 1, 1, rmCode);
+        return str;
+    }
     public static ArrayList getAffiliate() {
         String sql = "select AffiliateName from [dbo].[AffiliateMaster]";
         return AdminDb.execArrayLists(sql, 0, "", 1);

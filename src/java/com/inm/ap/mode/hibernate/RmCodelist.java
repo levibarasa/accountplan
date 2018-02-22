@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
+// Generated Feb 19, 2018 4:06:43 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;

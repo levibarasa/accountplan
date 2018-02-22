@@ -6,6 +6,19 @@
 
 <html>
 <head>
+      <script type="text/javascript">  
+      function fetchOldRecord(that){	 
+            $("#clientid").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().text());
+         $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().text());
+         $("#companyaddressa").val($(that).parent().prev().prev().prev().prev().prev().text());
+         $("#grpnamea").val($(that).parent().prev().prev().prev().prev().text());
+        $("#hqcountrya").val($(that).parent().prev().prev().prev().text());
+          $("#indrustrye").val($(that).parent().prev().prev().text());
+         $("#noofsubsidiarya").val($(that).parent().prev().text()); 
+       	} 
+       
+   $('#editCompanyModal').modal('show'); 
+       </script>
     <script type="text/javascript">
  
             var form = $('#addCreditFinancial');
@@ -81,8 +94,8 @@
                         <td><%=clientFinancialModel.getGearingratio()%></td>
                         <td><%=clientFinancialModel.getCashflowcycle()%></td>
                         <td>
-                            <a href="#editCreditFinancialModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCreditFinancialModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr> 
 			<%

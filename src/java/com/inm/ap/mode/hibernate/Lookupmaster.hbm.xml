@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.inm.ap.mode.hibernate.Lookupmaster" table="LOOKUPMASTER" schema="ACCPLAN" optimistic-lock="version">
         <id name="lookupmasterid" type="int">
@@ -50,6 +50,12 @@
             </key>
             <one-to-many class="com.inm.ap.mode.hibernate.CompanyMaster" />
         </set>
+        <set name="walletResizesForProduct" table="WALLET_RESIZE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PRODUCT" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.WalletResize" />
+        </set>
         <set name="companyMastersForSegmentlookupmasterid" table="COMPANY_MASTER" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="SEGMENTLOOKUPMASTERID" precision="22" scale="0" not-null="true" />
@@ -61,6 +67,12 @@
                 <column name="PRODUCTLOOKKUPID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.inm.ap.mode.hibernate.Currentandfutureopportunities" />
+        </set>
+        <set name="walletResizesForCurrencyLookupid" table="WALLET_RESIZE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CURRENCY_LOOKUPID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.inm.ap.mode.hibernate.WalletResize" />
         </set>
         <set name="dealinprogressesForDealstagelookupmasterid" table="DEALINPROGRESS" inverse="true" lazy="true" fetch="select">
             <key>

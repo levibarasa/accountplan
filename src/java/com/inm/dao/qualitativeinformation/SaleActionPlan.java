@@ -30,10 +30,10 @@ public class SaleActionPlan {
          SaleActionPlan sap = new SaleActionPlan();  
          salesactionplan.setClientMaster(sap.getClientMasterByID(salesactionplanModel.getClientMaster()));
          salesactionplan.setClocontactpersion(salesactionplanModel.getClocontactpersion());
-         salesactionplan.setClodatelinedate(salesactionplanModel.getClodatelinedate());
+         salesactionplan.setClodeadlinedate(salesactionplanModel.getClodatelinedate());
          salesactionplan.setClopersonresponsibleforaction(salesactionplanModel.getClopersonresponsibleforaction());
          salesactionplan.setSalesactionplanid(salesactionplanModel.getSalesactionplanid());
-         salesactionplan.setSpecification(salesactionplanModel.getSpecification());
+         salesactionplan.setSpecificAction(salesactionplanModel.getSpecification());
        ops.save(salesactionplan);
     }
     public  void updateSaleActionPlan(SalesactionplanModel salesactionplanModel ) {
@@ -41,10 +41,10 @@ public class SaleActionPlan {
          SaleActionPlan sap = new SaleActionPlan();  
          salesactionplan.setClientMaster(sap.getClientMasterByID(salesactionplanModel.getClientMaster()));
          salesactionplan.setClocontactpersion(salesactionplanModel.getClocontactpersion());
-         salesactionplan.setClodatelinedate(salesactionplanModel.getClodatelinedate());
+         salesactionplan.setClodeadlinedate(salesactionplanModel.getClodatelinedate());
          salesactionplan.setClopersonresponsibleforaction(salesactionplanModel.getClopersonresponsibleforaction());
          salesactionplan.setSalesactionplanid(salesactionplanModel.getSalesactionplanid());
-         salesactionplan.setSpecification(salesactionplanModel.getSpecification());
+         salesactionplan.setSpecificAction(salesactionplanModel.getSpecification());
        ops.saveOrUpdate(salesactionplan);
     }
      public ClientMaster getClientMasterByID(String clientid) {
@@ -64,10 +64,10 @@ public class SaleActionPlan {
             SalesactionplanModel salesactionplanModel = new SalesactionplanModel(); 
             salesactionplanModel.setClientMaster(saleActionPlan.getClientMaster(salesactionplan.getClientMaster().getClientid()).getClientname());
             salesactionplanModel.setClocontactpersion(salesactionplan.getClocontactpersion());
-            salesactionplanModel.setClodatelinedate(salesactionplan.getClodatelinedate());
+            salesactionplanModel.setClodatelinedate(salesactionplan.getClodeadlinedate());
             salesactionplanModel.setClopersonresponsibleforaction(salesactionplan.getClopersonresponsibleforaction());
             salesactionplanModel.setSalesactionplanid(salesactionplan.getSalesactionplanid());
-            salesactionplanModel.setSpecification(salesactionplan.getSpecification());
+            salesactionplanModel.setSpecification(salesactionplan.getSpecificAction());
             salesactionplanModelList.add(salesactionplanModel);
         }
         return salesactionplanModelList;
@@ -84,10 +84,10 @@ public class SaleActionPlan {
             SalesactionplanModel salesactionplanModel = new SalesactionplanModel(); 
             salesactionplanModel.setClientMaster(saleActionPlan.getClientMaster(salesactionplan.getClientMaster().getClientid()).getClientname());
             salesactionplanModel.setClocontactpersion(salesactionplan.getClocontactpersion());
-            salesactionplanModel.setClodatelinedate(salesactionplan.getClodatelinedate());
+            salesactionplanModel.setClodatelinedate(salesactionplan.getClodeadlinedate());
             salesactionplanModel.setClopersonresponsibleforaction(salesactionplan.getClopersonresponsibleforaction());
             salesactionplanModel.setSalesactionplanid(salesactionplan.getSalesactionplanid());
-            salesactionplanModel.setSpecification(salesactionplan.getSpecification());
+            salesactionplanModel.setSpecification(salesactionplan.getSpecificAction());
             salesactionplanModelList.add(salesactionplanModel);
         }
         return salesactionplanModelList;
@@ -132,7 +132,8 @@ public class SaleActionPlan {
                 for (Object rm : rms) {
                     if (rm != null) {
                      ClientMaster clientMaster = (ClientMaster) rm;
-                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                     
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(),clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getECommercepartner(), clientMaster.getCreditmanager(), clientMaster.getTreasurypartner(), clientMaster.getInternetbankingpartner(),clientMaster.getAssetfinancepartner(), clientMaster.getCardspartner(),clientMaster.getBancassurancepartner());
                         clientModelList.add(clientModel);
                         }
                 }

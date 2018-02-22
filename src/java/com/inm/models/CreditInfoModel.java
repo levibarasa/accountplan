@@ -15,21 +15,23 @@ import java.math.BigDecimal;
 public class CreditInfoModel {
     private int creditid;
      private String clientMaster;
-     private String approvedlines;
-     private BigDecimal outstandingamount;
+     private String imapprovedlines;
+     private BigDecimal imoutstandingamount;
      private String riskrating;
-     private String ratingagency;
+     private String approvedlinesallbanks;
+     private BigDecimal outstandingamountallbanks;
 
     public CreditInfoModel() {
     }
 
-    public CreditInfoModel(int creditid, String clientMaster, String approvedlines, BigDecimal outstandingamount, String riskrating, String ratingagency) {
+    public CreditInfoModel(int creditid, String clientMaster, String imapprovedlines, BigDecimal imoutstandingamount, String riskrating, String approvedlinesallbanks, BigDecimal outstandingamountallbanks) {
         this.creditid = creditid;
         this.clientMaster = clientMaster;
-        this.approvedlines = approvedlines;
-        this.outstandingamount = outstandingamount;
+        this.imapprovedlines = imapprovedlines;
+        this.imoutstandingamount = imoutstandingamount;
         this.riskrating = riskrating;
-        this.ratingagency = ratingagency;
+        this.approvedlinesallbanks = approvedlinesallbanks;
+        this.outstandingamountallbanks = outstandingamountallbanks;
     }
 
     public int getCreditid() {
@@ -48,20 +50,20 @@ public class CreditInfoModel {
         this.clientMaster = clientMaster;
     }
 
-    public String getApprovedlines() {
-        return approvedlines;
+    public String getImapprovedlines() {
+        return imapprovedlines;
     }
 
-    public void setApprovedlines(String approvedlines) {
-        this.approvedlines = approvedlines;
+    public void setImapprovedlines(String imapprovedlines) {
+        this.imapprovedlines = imapprovedlines;
     }
 
-    public BigDecimal getOutstandingamount() {
-        return outstandingamount;
+    public BigDecimal getImoutstandingamount() {
+        return imoutstandingamount;
     }
 
-    public void setOutstandingamount(BigDecimal outstandingamount) {
-        this.outstandingamount = outstandingamount;
+    public void setImoutstandingamount(BigDecimal imoutstandingamount) {
+        this.imoutstandingamount = imoutstandingamount;
     }
 
     public String getRiskrating() {
@@ -72,13 +74,21 @@ public class CreditInfoModel {
         this.riskrating = riskrating;
     }
 
-    public String getRatingagency() {
-        return ratingagency;
+    public String getApprovedlinesallbanks() {
+        return approvedlinesallbanks;
     }
 
-    public void setRatingagency(String ratingagency) {
-        this.ratingagency = ratingagency;
+    public void setApprovedlinesallbanks(String approvedlinesallbanks) {
+        this.approvedlinesallbanks = approvedlinesallbanks;
     }
 
-     
+    public BigDecimal getOutstandingamountallbanks() {
+        return outstandingamountallbanks;
+    }
+
+    public void setOutstandingamountallbanks(BigDecimal outstandingamountallbanks) {
+        this.outstandingamountallbanks = outstandingamountallbanks;
+    }
+
+       
 }

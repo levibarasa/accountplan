@@ -46,6 +46,12 @@ public class apServlet extends HttpServlet {
                     case "doAddCompany":
                         ClientW.handleAddCompany(request, response);
                         break;
+                    case "doAddDirector":
+                        ClientW.handleAddDirector(request, response);
+                        break;
+                    case "doAddShareholder":
+                        ClientW.handleAddShareholder(request, response);
+                        break;
                     case "doAddCreditInfo":
                         ClientW.handleAddCreditInfo(request, response);
                         break;
@@ -87,6 +93,12 @@ public class apServlet extends HttpServlet {
                         break;
                    case "doAddOClientWalletSize":
                         ClientW.handleAddOClientWalletSize(request, response);
+                        break;
+                   case "doAddWalletSize":
+                        ClientW.handleAddWalletSize(request, response);
+                        break;
+                   case "doEditWalletSize":
+                        ClientW.handleEditWalletSize(request, response);
                         break;
                         
                     

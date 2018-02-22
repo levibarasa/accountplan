@@ -74,8 +74,8 @@
                         <td><%=clientEmployeeModel.getNoofbankedemployeeswithim()%></td>
                         <td><%=clientEmployeeModel.getTargetnoofemployeesbyim()%></td>
                         <td>
-                            <a href="#editClientEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteClientEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     
@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group">
                                                     <%  
-                                  ArrayList<LookupmasterModel> segment = cl.getLookupList("SEGMENT"); 
+                                  ArrayList<LookupmasterModel> segment = cl.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmenta" id="segmenta" class="form-control" required>
@@ -226,7 +226,7 @@
                             </div>
                             <div class="form-group">
                                                     <%  
-                              segment = cl.getLookupList("SEGMENT"); 
+                              segment = cl.getLookupList("VALUECHAINSEGMENT"); 
                                                         %>
 							<label>Segment</label>
 				 <select name="segmente" id="segmente" class="form-control" required>

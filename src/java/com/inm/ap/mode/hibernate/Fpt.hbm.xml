@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.Fpt" table="FPT" schema="ACCPLAN" optimistic-lock="version">
+        <id name="fptId" type="int">
+            <column name="FPT_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="tenorStart" type="big_decimal">
+            <column name="TENOR_START" precision="22" scale="0" />
+        </property>
+        <property name="tenorEnd" type="big_decimal">
+            <column name="TENOR_END" precision="22" scale="0" />
+        </property>
+        <property name="debitPoolRate" type="big_decimal">
+            <column name="DEBIT_POOL_RATE" precision="22" scale="0" />
+        </property>
+        <property name="creditPoolRate" type="big_decimal">
+            <column name="CREDIT_POOL_RATE" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

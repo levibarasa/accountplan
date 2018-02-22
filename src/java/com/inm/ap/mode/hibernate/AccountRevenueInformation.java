@@ -1,5 +1,5 @@
 package com.inm.ap.mode.hibernate;
-// Generated Jan 31, 2018 3:59:00 PM by Hibernate Tools 4.3.1
+// Generated Feb 19, 2018 4:06:43 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class AccountRevenueInformation  implements java.io.Serializable {
      private BigDecimal currentyearrevenuetarget;
      private BigDecimal prioryearactualrevenue;
      private BigDecimal percentagegrowthrevenue;
-     private BigDecimal currentyearfeeincometarget;
+     private BigDecimal currentyearnfitarget;
      private BigDecimal prioryearactualfeeincome;
      private BigDecimal percentagegrowthfeeincome;
      private BigDecimal currentshareofwallet;
@@ -30,13 +30,13 @@ public class AccountRevenueInformation  implements java.io.Serializable {
         this.accountRevenueid = accountRevenueid;
         this.clientMaster = clientMaster;
     }
-    public AccountRevenueInformation(int accountRevenueid, ClientMaster clientMaster, BigDecimal currentyearrevenuetarget, BigDecimal prioryearactualrevenue, BigDecimal percentagegrowthrevenue, BigDecimal currentyearfeeincometarget, BigDecimal prioryearactualfeeincome, BigDecimal percentagegrowthfeeincome, BigDecimal currentshareofwallet, BigDecimal targetshareofwallet, BigDecimal totalvalueofidopportunities) {
+    public AccountRevenueInformation(int accountRevenueid, ClientMaster clientMaster, BigDecimal currentyearrevenuetarget, BigDecimal prioryearactualrevenue, BigDecimal percentagegrowthrevenue, BigDecimal currentyearnfitarget, BigDecimal prioryearactualfeeincome, BigDecimal percentagegrowthfeeincome, BigDecimal currentshareofwallet, BigDecimal targetshareofwallet, BigDecimal totalvalueofidopportunities) {
        this.accountRevenueid = accountRevenueid;
        this.clientMaster = clientMaster;
        this.currentyearrevenuetarget = currentyearrevenuetarget;
        this.prioryearactualrevenue = prioryearactualrevenue;
        this.percentagegrowthrevenue = percentagegrowthrevenue;
-       this.currentyearfeeincometarget = currentyearfeeincometarget;
+       this.currentyearnfitarget = currentyearnfitarget;
        this.prioryearactualfeeincome = prioryearactualfeeincome;
        this.percentagegrowthfeeincome = percentagegrowthfeeincome;
        this.currentshareofwallet = currentshareofwallet;
@@ -79,12 +79,12 @@ public class AccountRevenueInformation  implements java.io.Serializable {
     public void setPercentagegrowthrevenue(BigDecimal percentagegrowthrevenue) {
         this.percentagegrowthrevenue = percentagegrowthrevenue;
     }
-    public BigDecimal getCurrentyearfeeincometarget() {
-        return this.currentyearfeeincometarget;
+    public BigDecimal getCurrentyearnfitarget() {
+        return this.currentyearnfitarget;
     }
     
-    public void setCurrentyearfeeincometarget(BigDecimal currentyearfeeincometarget) {
-        this.currentyearfeeincometarget = currentyearfeeincometarget;
+    public void setCurrentyearnfitarget(BigDecimal currentyearnfitarget) {
+        this.currentyearnfitarget = currentyearnfitarget;
     }
     public BigDecimal getPrioryearactualfeeincome() {
         return this.prioryearactualfeeincome;

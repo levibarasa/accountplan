@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 21, 2018 4:01:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.CompanyDirectors" table="COMPANY_DIRECTORS" schema="ACCPLAN" optimistic-lock="version">
+        <id name="companyDirectorsId" type="int">
+            <column name="COMPANY_DIRECTORS_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="companyMaster" class="com.inm.ap.mode.hibernate.CompanyMaster" fetch="select">
+            <column name="COMPANYID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="directorName" type="string">
+            <column name="DIRECTOR_NAME" length="200" />
+        </property>
+        <property name="directorPosition" type="string">
+            <column name="DIRECTOR_POSITION" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

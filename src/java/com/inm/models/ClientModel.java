@@ -17,15 +17,20 @@ public class ClientModel {
      private String affiliate;
      private String clientname;
      private Date currentDate;
-     private String tradeserviceprovider;
+       private String tradeserviceprovider;
      private String cashmanagementpartner;
-     private String EBankingpartner;
-     private String riskmanagementpartner;
+     private String ECommercepartner;
+     private String creditmanager;
+     private String treasurypartner;
+     private String internetbankingpartner;
+     private String assetfinancepartner;
+     private String cardspartner;
+     private String bancassurancepartner;
 
     public ClientModel() {
     }
 
-    public ClientModel(String clientid, String rmCode, String alternativeRmCode, String affiliate, String clientname, Date currentDate, String tradeserviceprovider, String cashmanagementpartner, String EBankingpartner) {
+    public ClientModel(String clientid, String rmCode, String alternativeRmCode, String affiliate, String clientname, Date currentDate, String tradeserviceprovider, String cashmanagementpartner, String ECommercepartner, String creditmanager, String treasurypartner, String internetbankingpartner, String assetfinancepartner, String cardspartner, String bancassurancepartner) {
         this.clientid = clientid;
         this.rmCode = rmCode;
         this.alternativeRmCode = alternativeRmCode;
@@ -34,7 +39,13 @@ public class ClientModel {
         this.currentDate = currentDate;
         this.tradeserviceprovider = tradeserviceprovider;
         this.cashmanagementpartner = cashmanagementpartner;
-        this.EBankingpartner = EBankingpartner;
+        this.ECommercepartner = ECommercepartner;
+        this.creditmanager = creditmanager;
+        this.treasurypartner = treasurypartner;
+        this.internetbankingpartner = internetbankingpartner;
+        this.assetfinancepartner = assetfinancepartner;
+        this.cardspartner = cardspartner;
+        this.bancassurancepartner = bancassurancepartner;
     }
 
     public String getClientid() {
@@ -101,19 +112,61 @@ public class ClientModel {
         this.cashmanagementpartner = cashmanagementpartner;
     }
 
-    public String getEBankingpartner() {
-        return EBankingpartner;
+    public String getECommercepartner() {
+        return ECommercepartner;
     }
 
-    public void setEBankingpartner(String EBankingpartner) {
-        this.EBankingpartner = EBankingpartner;
+    public void setECommercepartner(String ECommercepartner) {
+        this.ECommercepartner = ECommercepartner;
     }
 
-    public String getRiskmanagementpartner() {
-        return riskmanagementpartner;
+    public String getCreditmanager() {
+        return creditmanager;
     }
 
-    public void setRiskmanagementpartner(String riskmanagementpartner) {
-        this.riskmanagementpartner = riskmanagementpartner;
+    public void setCreditmanager(String creditmanager) {
+        this.creditmanager = creditmanager;
     }
+
+    public String getTreasurypartner() {
+        return treasurypartner;
+    }
+
+    public void setTreasurypartner(String treasurypartner) {
+        this.treasurypartner = treasurypartner;
+    }
+
+    public String getInternetbankingpartner() {
+        return internetbankingpartner;
+    }
+
+    public void setInternetbankingpartner(String internetbankingpartner) {
+        this.internetbankingpartner = internetbankingpartner;
+    }
+
+    public String getAssetfinancepartner() {
+        return assetfinancepartner;
+    }
+
+    public void setAssetfinancepartner(String assetfinancepartner) {
+        this.assetfinancepartner = assetfinancepartner;
+    }
+
+    public String getCardspartner() {
+        return cardspartner;
+    }
+
+    public void setCardspartner(String cardspartner) {
+        this.cardspartner = cardspartner;
+    }
+
+    public String getBancassurancepartner() {
+        return bancassurancepartner;
+    }
+
+    public void setBancassurancepartner(String bancassurancepartner) {
+        this.bancassurancepartner = bancassurancepartner;
+    }
+
+     
 }

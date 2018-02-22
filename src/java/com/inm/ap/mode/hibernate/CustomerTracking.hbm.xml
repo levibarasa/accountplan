@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.inm.ap.mode.hibernate.CustomerTracking" table="CUSTOMER_TRACKING" schema="ACCPLAN" optimistic-lock="version">
+        <id name="id" type="string">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="customerId" type="big_decimal">
+            <column name="CUSTOMER_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="filledDate" type="string">
+            <column name="FILLED_DATE" length="20" />
+        </property>
+        <property name="filledWeek" type="string">
+            <column name="FILLED_WEEK" length="20" />
+        </property>
+        <property name="clientContacted" type="string">
+            <column name="CLIENT_CONTACTED" length="20" />
+        </property>
+        <property name="salesCommitment" type="string">
+            <column name="SALES_COMMITMENT" length="20" />
+        </property>
+        <property name="docsSubmitted" type="string">
+            <column name="DOCS_SUBMITTED" length="20" />
+        </property>
+        <property name="closed" type="string">
+            <column name="CLOSED" length="20" />
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="20" />
+        </property>
+        <property name="productSold" type="string">
+            <column name="PRODUCT_SOLD" length="20" />
+        </property>
+        <property name="rmCode" type="string">
+            <column name="RM_CODE" length="20" />
+        </property>
+        <property name="bmCode" type="big_decimal">
+            <column name="BM_CODE" precision="22" scale="0" />
+        </property>
+        <property name="regionalManagerCode" type="java.lang.Double">
+            <column name="REGIONAL_MANAGER_CODE" precision="126" scale="0" />
+        </property>
+        <property name="branch" type="string">
+            <column name="BRANCH" length="20" />
+        </property>
+        <property name="productValue" type="big_decimal">
+            <column name="PRODUCT_VALUE" precision="22" scale="0" />
+        </property>
+        <property name="customerType" type="string">
+            <column name="CUSTOMER_TYPE" length="20" />
+        </property>
+        <property name="bmCodeSustainability" type="java.lang.Double">
+            <column name="BM_CODE_SUSTAINABILITY" precision="126" scale="0" />
+        </property>
+        <property name="regmCodeSustainability" type="java.lang.Double">
+            <column name="REGM_CODE_SUSTAINABILITY" precision="126" scale="0" />
+        </property>
+        <property name="currentWeek" type="string">
+            <column name="CURRENT_WEEK" length="20" />
+        </property>
+        <property name="currency" type="string">
+            <column name="CURRENCY" length="20" />
+        </property>
+        <property name="marketedValue" type="big_decimal">
+            <column name="MARKETED_VALUE" precision="22" scale="0" />
+        </property>
+        <property name="leadSource" type="string">
+            <column name="LEAD_SOURCE" length="20" />
+        </property>
+        <property name="productCategory" type="string">
+            <column name="PRODUCT_CATEGORY" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

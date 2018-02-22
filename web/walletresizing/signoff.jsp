@@ -22,35 +22,7 @@
 
             return false;
             });
-</script>
- <script type="text/javascript"> 
-//            function registerSignOff() {
-//		var uname = $("#uname").val();
-//		var clientname = $("#clientnamea").val();
-//		var rmCode = $("#uemaila").val();
-//		var altrmCode = $("#altrmCodea").val();
-//                var affiliate = $("#affiliatea").val();
-//                var currentdate = $("#currentdatea").val();
-//                var tradesp = $("#tradespa").val();
-//                var cashmp = $("#cashmpa").val();
-//                var ebankp = $("#ebankpa").val();
-//                var riskmp = $("#riskmpa").val(); 
-//		$.ajax({
-//			type : "POST",
-//			url : ${pageContext.request.contextPath}+'/do?MOD=BOK&ACT=doAddSignOff',
-//			data : "clientname=" + clientname + "&rmCode=" + rmCode + "&altrmCode=" + altrmCode
-//                        + "&affiliate=" + affiliate+ "&currentdate=" + currentdate+ "&tradesp=" + tradesp+ "&cashmp=" + cashmp+ "&ebankp=" + ebankp+ "&riskmp=" + riskmp,
-//			success : function(data) {
-//				var ht = data.msg;
-//                                alert(ht);
-//				//$("#resp").html(ht);
-//			},
-//			error : function(data) {
-//				alert("Some error occured.");
-//			}
-//		});
-//	}
-</script>
+</script> 
    </head>    
 <div class="container">
         <div class="table-wrapper">
@@ -99,8 +71,8 @@
 			<td><%=somModel.getHeadofcorporatesignoff()%></td>
                         <td><%=somModel.getRmsignoff()%></td> 
                         <td>
-                            <a href="#editSignOffModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteSignOffModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                         </tr>
                         <%

@@ -18,7 +18,7 @@ private int accountRevenueid;
      private BigDecimal currentyearrevenuetarget;
      private BigDecimal prioryearactualrevenue;
      private BigDecimal percentagegrowthrevenue;
-     private BigDecimal currentyearfeeincometarget;
+     private BigDecimal currentyearnfitarget;
      private BigDecimal prioryearactualfeeincome;
      private BigDecimal percentagegrowthfeeincome;
      private BigDecimal currentshareofwallet;
@@ -28,13 +28,13 @@ private int accountRevenueid;
     public AccountRevenueModel() {
     }
 
-    public AccountRevenueModel(int accountRevenueid, String clientMaster, BigDecimal currentyearrevenuetarget, BigDecimal prioryearactualrevenue, BigDecimal percentagegrowthrevenue, BigDecimal currentyearfeeincometarget, BigDecimal prioryearactualfeeincome, BigDecimal percentagegrowthfeeincome, BigDecimal currentshareofwallet, BigDecimal targetshareofwallet, BigDecimal totalvalueofidopportunities) {
+    public AccountRevenueModel(int accountRevenueid, String clientMaster, BigDecimal currentyearrevenuetarget, BigDecimal prioryearactualrevenue, BigDecimal percentagegrowthrevenue, BigDecimal currentyearnfitarget, BigDecimal prioryearactualfeeincome, BigDecimal percentagegrowthfeeincome, BigDecimal currentshareofwallet, BigDecimal targetshareofwallet, BigDecimal totalvalueofidopportunities) {
         this.accountRevenueid = accountRevenueid;
         this.clientMaster = clientMaster;
         this.currentyearrevenuetarget = currentyearrevenuetarget;
         this.prioryearactualrevenue = prioryearactualrevenue;
         this.percentagegrowthrevenue = percentagegrowthrevenue;
-        this.currentyearfeeincometarget = currentyearfeeincometarget;
+        this.currentyearnfitarget = currentyearnfitarget;
         this.prioryearactualfeeincome = prioryearactualfeeincome;
         this.percentagegrowthfeeincome = percentagegrowthfeeincome;
         this.currentshareofwallet = currentshareofwallet;
@@ -82,12 +82,12 @@ private int accountRevenueid;
         this.percentagegrowthrevenue = percentagegrowthrevenue;
     }
 
-    public BigDecimal getCurrentyearfeeincometarget() {
-        return currentyearfeeincometarget;
+    public BigDecimal getCurrentyearnfitarget() {
+        return currentyearnfitarget;
     }
 
-    public void setCurrentyearfeeincometarget(BigDecimal currentyearfeeincometarget) {
-        this.currentyearfeeincometarget = currentyearfeeincometarget;
+    public void setCurrentyearnfitarget(BigDecimal currentyearnfitarget) {
+        this.currentyearnfitarget = currentyearnfitarget;
     }
 
     public BigDecimal getPrioryearactualfeeincome() {

@@ -33,11 +33,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Current And Future Opportunities Information</b></h2>
+						<h2>Manage <b>Current And Future Opportunities </b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addCurrentAndFutureOpportunitiesInformationModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New CurrentAndFutureOpportunitiesInformation</span></a>
-						<a href="#deleteCurrentAndFutureOpportunitiesInformationModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="${pageContext.request.contextPath}/walletresizing/cfoadd.jsp" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New </span></a>
+                                                <a href="${pageContext.request.contextPath}/walletresizing/cfoedit.jsp" class="btn btn-primary a-btn-slide-text"><i class="material-icons">&#xE147;</i> <span>Edit</span></a>						
 					</div>
                 </div>
             </div>
@@ -113,8 +113,8 @@
                         <td><%=cfomodel.getDealvolassets()%></td>
                         <td><%=cfomodel.getDealvolrevenue()%></td>
                         <td>
-                            <a href="#editCurrentAndFutureOpportunitiesInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteCurrentAndFutureOpportunitiesInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                           <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     

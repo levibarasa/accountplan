@@ -51,10 +51,10 @@
 							</span>
 						</th>
                         <th>Client Name</th>
-                        <th>Specification</th>
+                        <th>Specific Action</th>
 			<th>Contact Person</th>
                         <th>Person Responsible For Action</th>
-                        <th>DateLine</th>
+                        <th>DeadLine Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -77,8 +77,8 @@
                         <td><%=salesactionplanModel.getClopersonresponsibleforaction()%></td>
                         <td><%=salesactionplanModel.getClodatelinedate()%></td>
                         <td>
-                            <a href="#editSaleActionPlanInformationModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteSaleActionPlanInformationModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr>
                     
@@ -126,7 +126,7 @@
                                      </select>
 						</div>
 						<div class="form-group">
-							<label>Specification</label>
+							<label>Specific Action</label>
 							<input type="text" name="specificationa" id="specificationa" class="form-control" required>
 						</div>
 						<div class="form-group">
@@ -138,7 +138,7 @@
 							<input type="text"  name="presponsibleforactiona" id="presponsibleforactiona"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
-							<label>DateLine</label>
+							<label>DeadLine Date</label>
 							<input type="text"  name="dateLinea" id="dateLinea"  class="form-control" required>
 						</div>
 					</div>
@@ -176,7 +176,7 @@
                                      </select>
 						</div>
 						<div class="form-group">
-							<label>Specification</label>
+							<label>Specific Action</label>
 							<input type="text" name="specificatione" id="specificatione" class="form-control" required>
 						</div>
 						<div class="form-group">
@@ -188,7 +188,7 @@
 							<input type="text"  name="presponsibleforactione" id="presponsibleforactione"  class="form-control" required>
 						</div>	
                                                 <div class="form-group">
-							<label>DateLine</label>
+							<label>Deadline Date</label>
 							<input type="text"  name="dateLinee" id="dateLinee"  class="form-control" required>
 						</div>
 					</div>

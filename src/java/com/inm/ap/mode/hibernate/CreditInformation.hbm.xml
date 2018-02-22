@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.inm.ap.mode.hibernate.CreditInformation" table="CREDIT_INFORMATION" schema="ACCPLAN" optimistic-lock="version">
         <id name="creditid" type="int">
@@ -11,17 +11,20 @@
         <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
             <column name="CLIENTID" length="20" not-null="true" />
         </many-to-one>
-        <property name="approvedlines" type="string">
-            <column name="APPROVEDLINES" length="200" />
+        <property name="imapprovedlines" type="string">
+            <column name="IMAPPROVEDLINES" length="200" />
         </property>
-        <property name="outstandingamount" type="big_decimal">
-            <column name="OUTSTANDINGAMOUNT" precision="22" scale="0" />
+        <property name="imoutstandingamount" type="big_decimal">
+            <column name="IMOUTSTANDINGAMOUNT" precision="22" scale="0" />
         </property>
         <property name="riskrating" type="string">
             <column name="RISKRATING" length="200" />
         </property>
-        <property name="ratingagency" type="string">
-            <column name="RATINGAGENCY" length="200" />
+        <property name="approvedlinesallbanks" type="string">
+            <column name="APPROVEDLINESALLBANKS" length="200" />
+        </property>
+        <property name="outstandingamountallbanks" type="big_decimal">
+            <column name="OUTSTANDINGAMOUNTALLBANKS" precision="22" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

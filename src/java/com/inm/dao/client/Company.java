@@ -10,6 +10,7 @@ import com.inm.ap.mode.hibernate.*;
 import com.inm.models.*;
 import com.inm.ap.conn.AdminDb; 
 import com.inm.models.CompanyModel;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,60 @@ public class Company {
      public  boolean deleteCompany(CompanyModel companyModel ) {
      return ops.delete(companyModel);
  }
+     public ArrayList<CompanyModel> getCompanyMasterList(String rmCode) {
+         ArrayList<CompanyModel> companyModelList = new ArrayList<CompanyModel>();
+        CoreQuery coreQuery = new CoreQuery("from CompanyMaster where clientMaster.rmCodelistByRmCode.rmCode =:rmCode", true);
+        coreQuery.addParam("rmCode", rmCode); 
+        List coms = ops.fetch(coreQuery);
+         if (Validator.validateList(coms)) {
+                for (Object com : coms) {
+                    if (com != null) {
+                     CompanyMaster companyMaster = (CompanyMaster) com;
+                       CompanyModel companyModel =   new CompanyModel(companyMaster.getCompanyid(), companyMaster.getLookupmasterByIndustrylookupmasterid().getValue(), companyMaster.getLookupmasterByAffiliatelookupmasterid().getValue(), companyMaster.getLookupmasterBySegmentlookupmasterid().getValue(), companyMaster.getClientMaster().getClientname(), companyMaster.getCompanyAddress(), companyMaster.getGroupname(),companyMaster.getNoofsubsidiaries(), "", "");
+                        companyModelList.add(companyModel);
+                        }
+                }
+            }
+         return companyModelList;
+     }
+     public  void createShareholder(Shareholder shareholder ) {
+     CompanyShareholders csh = new CompanyShareholders();
+     Company c = new Company();
+     csh.setSharedolderId(shareholder.getSharedolderId());
+     csh.setShareholderName(shareholder.getShareholderName());
+     csh.setCompanyMaster(c.getCompanyMasterByID(shareholder.getCompanyId()));
+     csh.setShareholderPercent(shareholder.getShareholderPercent());
+     ops.save(csh);
+     }
+      public  void createDirector(Director director ) {
+     CompanyDirectors cd = new CompanyDirectors();
+     Company c = new Company();
+     cd.setCompanyDirectorsId(director.getDirectorId());
+     cd.setDirectorName(director.getDirectorName());
+     cd.setCompanyMaster(c.getCompanyMasterByID(director.getCompanyId()));
+     cd.setDirectorPosition(director.getDirectorPosition());
+     ops.save(cd);
+     }
+       public CompanyShareholders getCompanyShareholderByID(int sharedolderId) {
+        CoreQuery coreQuery = new CoreQuery("from CompanyShareholders where sharedolderId =:sharedolderId", true);
+        coreQuery.addParam("sharedolderId", sharedolderId); 
+        List shareHolder = ops.fetch(coreQuery);
+        return (CompanyShareholders) shareHolder.get(0);
+    }
+       public CompanyDirectors getCompanyDirectorByID(int companyDirectorsId) {
+        CoreQuery coreQuery = new CoreQuery("from CompanyDirectors where companyDirectorsId =:companyDirectorsId", true);
+        coreQuery.addParam("companyDirectorsId", companyDirectorsId); 
+        List directors = ops.fetch(coreQuery);
+        return (CompanyDirectors) directors.get(0);
+    }
+      public CompanyMaster getCompanyMasterByID(int companyid) {
+        CoreQuery coreQuery = new CoreQuery("from CompanyMaster where companyid =:companyid", true);
+        coreQuery.addParam("companyid", companyid); 
+        List company = ops.fetch(coreQuery);
+        return (CompanyMaster) company.get(0);
+    }
+   
+              
      public  void createCompany(CompanyModel companyModel ) {
          CompanyMaster companyMaster = new CompanyMaster(); 
          Company c = new Company(); 
@@ -122,7 +177,8 @@ public class Company {
                 for (Object rm : rms) {
                     if (rm != null) {
                      ClientMaster clientMaster = (ClientMaster) rm;
-                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                     
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(),clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getECommercepartner(), clientMaster.getCreditmanager(), clientMaster.getTreasurypartner(), clientMaster.getInternetbankingpartner(),clientMaster.getAssetfinancepartner(), clientMaster.getCardspartner(),clientMaster.getBancassurancepartner());
                         clientModelList.add(clientModel);
                         }
                 }

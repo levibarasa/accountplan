@@ -83,8 +83,8 @@
                         <td><%=clientCoverageModel.getClientofficernextplanedcontact()%></td>
                         <td><%=clientCoverageModel.getClientofficernxtcntctpurpose()%></td>
                         <td>
-                            <a href="#editClientCoverageFinancialModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteClientCoverageFinancialModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <button onclick='fetchOldRecord(this);' class='btn btn-sm btn-info' data-toggle='modal' data-target='#editClientModal'>Update</button>
+                            <button onclick='deleteUser(this);' class='btn btn-sm btn-danger'>Delete</button>
                         </td>
                     </tr> 
 			<%

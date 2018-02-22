@@ -8,6 +8,19 @@
 
  <html>
 <head>
+      <script type="text/javascript">  
+      function fetchOldRecord(that){	 
+            $("#clientid").val($(that).parent().prev().prev().prev().prev().prev().prev().prev().text());
+         $("#clientnamee").val($(that).parent().prev().prev().prev().prev().prev().prev().text());
+         $("#companyaddressa").val($(that).parent().prev().prev().prev().prev().prev().text());
+         $("#grpnamea").val($(that).parent().prev().prev().prev().prev().text());
+        $("#hqcountrya").val($(that).parent().prev().prev().prev().text());
+          $("#indrustrye").val($(that).parent().prev().prev().text());
+         $("#noofsubsidiarya").val($(that).parent().prev().text()); 
+       	} 
+       
+   $('#editCompanyModal').modal('show'); 
+       </script>
       <script type="text/javascript"> 
           function updateValues(ths, clientid, currentdate,trades,cashm,ebank,riskm) { 
                     var clientidb = document.getElementById("clientidb");

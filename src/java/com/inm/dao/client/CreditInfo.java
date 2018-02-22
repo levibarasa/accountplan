@@ -10,6 +10,7 @@ import com.inm.ap.hibernate.Util.*;
 import com.inm.models.*;
 import java.util.ArrayList;
 import com.inm.ap.mode.hibernate.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 /**
@@ -29,10 +30,11 @@ public class CreditInfo {
          CreditInformation creditInformation = new CreditInformation(); 
          CreditInfo cr = new CreditInfo();  
          creditInformation.setClientMaster(cr.getClientMasterByID(creditInfoModel.getClientMaster()));
-         creditInformation.setApprovedlines(creditInfoModel.getApprovedlines());
+         creditInformation.setApprovedlinesallbanks(creditInfoModel.getApprovedlinesallbanks());
+         creditInformation.setImapprovedlines(creditInfoModel.getImapprovedlines());
          creditInformation.setCreditid(creditInfoModel.getCreditid());
-         creditInformation.setOutstandingamount(creditInfoModel.getOutstandingamount());
-         creditInformation.setRatingagency(creditInfoModel.getRatingagency());
+         creditInformation.setImoutstandingamount(creditInfoModel.getImoutstandingamount()); 
+         creditInformation.setOutstandingamountallbanks(creditInfoModel.getOutstandingamountallbanks());
          creditInformation.setRiskrating(creditInfoModel.getRiskrating());
           ops.save(creditInformation);
     }
@@ -40,10 +42,11 @@ public class CreditInfo {
          CreditInformation creditInformation = new CreditInformation(); 
          CreditInfo cr = new CreditInfo();  
          creditInformation.setClientMaster(cr.getClientMasterByID(creditInfoModel.getClientMaster()));
-         creditInformation.setApprovedlines(creditInfoModel.getApprovedlines());
+         creditInformation.setApprovedlinesallbanks(creditInfoModel.getApprovedlinesallbanks());
+         creditInformation.setImapprovedlines(creditInfoModel.getImapprovedlines());
          creditInformation.setCreditid(creditInfoModel.getCreditid());
-         creditInformation.setOutstandingamount(creditInfoModel.getOutstandingamount());
-         creditInformation.setRatingagency(creditInfoModel.getRatingagency());
+         creditInformation.setImoutstandingamount(creditInfoModel.getImoutstandingamount()); 
+         creditInformation.setOutstandingamountallbanks(creditInfoModel.getOutstandingamountallbanks());
          creditInformation.setRiskrating(creditInfoModel.getRiskrating());
           ops.saveOrUpdate(creditInformation);
     }
@@ -64,13 +67,12 @@ public class CreditInfo {
             CreditInformation creMaster = (CreditInformation) creObject;
             CreditInfoModel creditInfoModel = new CreditInfoModel();
             creditInfoModel.setCreditid(creMaster.getCreditid());
-            creditInfoModel.setApprovedlines(creMaster.getApprovedlines());
-            creditInfoModel.setRatingagency(creMaster.getRatingagency());
-            creditInfoModel.setRiskrating(creMaster.getRatingagency());
+            creditInfoModel.setImapprovedlines(creMaster.getImapprovedlines());
+            creditInfoModel.setImoutstandingamount(creMaster.getImoutstandingamount());
+            creditInfoModel.setOutstandingamountallbanks(creMaster.getOutstandingamountallbanks());
+            creditInfoModel.setApprovedlinesallbanks(creMaster.getApprovedlinesallbanks());
             creditInfoModel.setClientMaster(cr.getClientMaster(creMaster.getClientMaster().getClientid()).getClientname()); 
-            creditInfoModel.setOutstandingamount(creMaster.getOutstandingamount());
-            
-              creditInfoList.add(creditInfoModel);
+               creditInfoList.add(creditInfoModel);
         }
 
         return creditInfoList;
@@ -85,13 +87,12 @@ public class CreditInfo {
             CreditInformation creMaster = (CreditInformation) creObject;
             CreditInfoModel creditInfoModel = new CreditInfoModel();
             creditInfoModel.setCreditid(creMaster.getCreditid());
-            creditInfoModel.setApprovedlines(creMaster.getApprovedlines());
-            creditInfoModel.setRatingagency(creMaster.getRatingagency());
-            creditInfoModel.setRiskrating(creMaster.getRatingagency());
+            creditInfoModel.setImapprovedlines(creMaster.getImapprovedlines());
+            creditInfoModel.setImoutstandingamount(creMaster.getImoutstandingamount());
+            creditInfoModel.setOutstandingamountallbanks(creMaster.getOutstandingamountallbanks());
+            creditInfoModel.setApprovedlinesallbanks(creMaster.getApprovedlinesallbanks());
             creditInfoModel.setClientMaster(cr.getClientMaster(creMaster.getClientMaster().getClientid()).getClientname()); 
-            creditInfoModel.setOutstandingamount(creMaster.getOutstandingamount());
-            
-              creditInfoList.add(creditInfoModel);
+               creditInfoList.add(creditInfoModel);
         }
 
         return creditInfoList;
@@ -136,7 +137,8 @@ public class CreditInfo {
                 for (Object rm : rms) {
                     if (rm != null) {
                      ClientMaster clientMaster = (ClientMaster) rm;
-                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(), clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getEBankingpartner());
+                     
+                     ClientModel clientModel =   new ClientModel(clientMaster.getClientid(), clientMaster.getRmCodelistByRmCode().getRmCode(), clientMaster.getRmCodelistByAlternativeRmCode().getRmCode(), clientMaster.getLookupmaster().getValue(), clientMaster.getClientname(), clientMaster.getCurrentDate(),clientMaster.getTradeserviceprovider(), clientMaster.getCashmanagementpartner(), clientMaster.getECommercepartner(), clientMaster.getCreditmanager(), clientMaster.getTreasurypartner(), clientMaster.getInternetbankingpartner(),clientMaster.getAssetfinancepartner(), clientMaster.getCardspartner(),clientMaster.getBancassurancepartner());
                         clientModelList.add(clientModel);
                         }
                 }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 31, 2018 3:59:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 19, 2018 4:06:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.inm.ap.mode.hibernate.Salesactionplan" table="SALESACTIONPLAN" schema="ACCPLAN" optimistic-lock="version">
         <id name="salesactionplanid" type="int">
@@ -11,8 +11,8 @@
         <many-to-one name="clientMaster" class="com.inm.ap.mode.hibernate.ClientMaster" fetch="select">
             <column name="CLIENTID" length="20" not-null="true" />
         </many-to-one>
-        <property name="specification" type="string">
-            <column name="SPECIFICATION" length="200" />
+        <property name="specificAction" type="string">
+            <column name="SPECIFIC_ACTION" length="200" />
         </property>
         <property name="clocontactpersion" type="string">
             <column name="CLOCONTACTPERSION" length="200" />
@@ -20,8 +20,8 @@
         <property name="clopersonresponsibleforaction" type="string">
             <column name="CLOPERSONRESPONSIBLEFORACTION" length="200" />
         </property>
-        <property name="clodatelinedate" type="string">
-            <column name="CLODATELINEDATE" length="200" />
+        <property name="clodeadlinedate" type="string">
+            <column name="CLODEADLINEDATE" length="200" />
         </property>
     </class>
 </hibernate-mapping>
